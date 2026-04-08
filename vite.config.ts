@@ -11,9 +11,9 @@ try {
     fs.mkdirSync(publicDir, { recursive: true });
   }
   
-  const logoSrc = path.resolve(__dirname, '../LOGO Kitchaa\'s Enterprise.pdf');
+  const logoSrc = path.resolve(__dirname, './LOGO Kitchaa\'s Enterprise_page-0001.jpg');
   if (fs.existsSync(logoSrc)) {
-    fs.copyFileSync(logoSrc, path.join(publicDir, 'logo.pdf'));
+    fs.copyFileSync(logoSrc, path.join(publicDir, 'logo.jpg'));
   }
 
   const feeSrc = path.resolve(__dirname, '../Service Fee Structure.pdf');

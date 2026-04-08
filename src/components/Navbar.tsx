@@ -87,12 +87,11 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="hidden md:flex w-10 h-10 md:w-12 md:h-12 overflow-hidden items-center justify-center rounded-lg bg-white/5 shrink-0 relative">
-                <embed 
-                  src="/logo.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
-                  type="application/pdf" 
-                  className="w-[150%] h-[150%] absolute pointer-events-none" 
-                  style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} 
+              <div className="w-10 h-10 md:w-12 md:h-12 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
+                <img 
+                  src="/logo.jpg" 
+                  alt="Kitchaa's Enterprise Logo"
+                  className="w-full h-full object-contain" 
                 />
               </div>
               <div className="flex flex-col">
@@ -137,7 +136,8 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden p-2 text-warm-white"
+              type="button"
+              className="md:hidden p-2 text-warm-white relative z-50 cursor-pointer"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
             >
@@ -150,7 +150,7 @@ export default function Navbar() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden absolute top-full left-0 right-0 glass-nav border-t border-gold/10"
+              className="md:hidden absolute top-full left-0 right-0 glass-nav shadow-xl border-t border-gold/10 overflow-hidden z-40"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}

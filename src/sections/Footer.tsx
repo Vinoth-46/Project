@@ -36,12 +36,11 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="hidden md:flex w-12 h-12 overflow-hidden items-center justify-center rounded-lg bg-white/5 shrink-0 relative">
-                <embed 
-                  src="/logo.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
-                  type="application/pdf" 
-                  className="w-[150%] h-[150%] absolute pointer-events-none" 
-                  style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} 
+              <div className="w-12 h-12 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
+                <img 
+                  src="/logo.jpg" 
+                  alt="Kitchaa's Enterprise Logo"
+                  className="w-full h-full object-contain" 
                 />
               </div>
               <div className="flex flex-col">

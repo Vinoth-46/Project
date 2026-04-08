@@ -30,12 +30,22 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative min-h-screen w-full overflow-hidden bg-dark"
     >
+      {/* Background Image Overlay */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img 
+          src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1800&q=80"
+          alt="Engineering Backdrop"
+          className="w-full h-full object-cover pointer-events-none"
+        />
+        <div className="absolute inset-0 bg-dark/80 lg:bg-dark/70 pointer-events-none" />
+      </div>
+
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-radial from-gold/5 via-transparent to-transparent opacity-50" />
 
-      {/* 3D Scene Container */}
+      {/* 3D Scene Container - Desktop Only */}
       <motion.div
-        className="absolute right-0 top-0 w-full lg:w-[60%] h-full opacity-25 lg:opacity-100"
+        className="hidden lg:block absolute right-0 top-0 w-full lg:w-[60%] h-full opacity-100"
         style={{ scale: sceneScale }}
       >
         <HeroScene />
@@ -43,11 +53,11 @@ export default function HeroSection() {
 
       {/* Content Overlay */}
       <motion.div
-        className="relative z-10 min-h-screen flex items-center"
+        className="relative z-10 flex min-h-screen items-center pb-20 lg:pb-0"
         style={{ y: textY, opacity: textOpacity }}
       >
         <div className="section-container w-full">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl text-center lg:text-left mx-auto lg:mx-0">
             {/* Eyebrow Label */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -91,7 +101,7 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.p
-              className="text-sm md:text-base text-warm-gray/70 mb-8 flex items-center gap-2"
+              className="text-sm md:text-base text-warm-gray/70 mb-8 flex items-center justify-center lg:justify-start gap-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
@@ -102,14 +112,14 @@ export default function HeroSection() {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               <button
                 onClick={() => scrollToSection('#portfolio')}
-                className="btn-gold-filled flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto btn-gold-filled flex items-center justify-center gap-2 group"
               >
                 View Our Work
                 <ArrowRight
@@ -119,7 +129,7 @@ export default function HeroSection() {
               </button>
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="btn-gold flex items-center justify-center"
+                className="w-full sm:w-auto btn-gold flex items-center justify-center"
               >
                 Get a Free Estimate
               </button>
