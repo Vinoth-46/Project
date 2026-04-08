@@ -137,45 +137,43 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <motion.button
               type="button"
-              className="md:hidden p-2 text-warm-white relative z-50 cursor-pointer"
+              className="md:hidden p-2 text-warm-white relative z-[120] cursor-pointer pointer-events-auto"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              <div className="relative w-6 h-6 flex items-center justify-center">
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </div>
             </motion.button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden absolute top-full left-0 right-0 glass-nav shadow-xl border-t border-gold/10 overflow-hidden z-40"
+              className="md:hidden absolute top-full left-0 right-0 bg-[#0a0a0a]/95 backdrop-blur-md shadow-xl border-t border-gold/10 overflow-hidden z-[150]"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <div className="section-container py-6 flex flex-col gap-4">
-                {navLinks.map((link, index) => (
-                  <motion.a
+                {navLinks.map((link) => (
+                  <button
                     key={link.name}
-                    href={link.href}
+                    type="button"
                     onClick={(e) => {
                       e.preventDefault();
                       scrollToSection(link.href);
                     }}
-                    className={`text-lg font-medium py-2 ${
+                    className={`block w-full text-left cursor-pointer pointer-events-auto text-lg font-medium py-3 px-4 active:bg-white/5 active:scale-95 transition-all ${
                       activeSection === link.href.replace('#', '')
-                        ? 'text-gold'
+                        ? 'text-gold bg-white/5'
                         : 'text-warm-gray'
                     }`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
                   >
                     {link.name}
-                  </motion.a>
+                  </button>
                 ))}
               </div>
             </motion.div>
