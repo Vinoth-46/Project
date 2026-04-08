@@ -163,24 +163,6 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        {/* Fee Structure CTA */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6 }}
-        >
-          <a
-            href="/service-fee-structure.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-dark font-semibold rounded-lg hover:bg-white hover:text-dark transition-colors duration-300 transform hover:-translate-y-1"
-          >
-            <FileCheck size={20} />
-            View Service Fee Structure
-          </a>
-        </motion.div>
       </div>
     </section>
   );

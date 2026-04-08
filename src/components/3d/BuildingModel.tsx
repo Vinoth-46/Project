@@ -2,262 +2,335 @@
 
 import { useRef, useState } from 'react';
 import { Canvas, useFrame, type ThreeEvent } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface ZoneProps {
-  position: [number, number, number];
-  size: [number, number, number];
-  name: string;
-  isActive: boolean;
-  isHovered: boolean;
-  onClick: () => void;
-  onHover: (hovered: boolean) => void;
-  color: string;
+// Zone definitions with colors
+const ZONE_COLORS = {
+  foundation: { base: '#8a8070', highlight: '#e8a020', glow: '#e8a020' },
+  structure: { base: '#d4c5a9', highlight: '#4a9eff', glow: '#4a9eff' },
+  design: { base: '#4a4540', highlight: '#e84040', glow: '#e84040' },
+};
+
+// Reusable box mesh with optional emissive
+function Box({
+  position, size, color, emissive = '#000000', emissiveIntensity = 0, opacity = 1, roughness = 0.7, metalness = 0.05,
+}: {
+  position: [number, number, number]; size: [number, number, number]; color: string;
+  emissive?: string; emissiveIntensity?: number; opacity?: number; roughness?: number; metalness?: number;
+}) {
+  return (
+    <mesh position={position} castShadow receiveShadow>
+      <boxGeometry args={size} />
+      <meshStandardMaterial color={color} emissive={emissive} emissiveIntensity={emissiveIntensity}
+        transparent={opacity < 1} opacity={opacity} roughness={roughness} metalness={metalness} />
+    </mesh>
+  );
 }
 
-function BuildingZone({
-  position,
-  size,
-  name: _name,
-  isActive,
-  isHovered,
-  onClick,
-  onHover,
-  color,
-}: ZoneProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
+// Window with glass
+function Window({ position, rotation = [0, 0, 0] as [number, number, number] }: { position: [number, number, number]; rotation?: [number, number, number] }) {
+  return (
+    <group position={position} rotation={rotation}>
+      <mesh castShadow>
+        <boxGeometry args={[0.55, 0.7, 0.06]} />
+        <meshStandardMaterial color="#2c3e50" roughness={0.4} />
+      </mesh>
+      <mesh position={[0, 0, 0.04]}>
+        <boxGeometry args={[0.42, 0.57, 0.03]} />
+        <meshStandardMaterial color="#7ab3d4" transparent opacity={0.6} roughness={0.05} metalness={0.5} />
+      </mesh>
+    </group>
+  );
+}
 
+// Door
+function Door({ position }: { position: [number, number, number] }) {
+  return (
+    <group position={position}>
+      <mesh castShadow>
+        <boxGeometry args={[0.8, 2.0, 0.1]} />
+        <meshStandardMaterial color="#2c3e50" roughness={0.4} />
+      </mesh>
+      <mesh position={[0, 0, 0.06]}>
+        <boxGeometry args={[0.65, 1.85, 0.04]} />
+        <meshStandardMaterial color="#6b3a2a" roughness={0.5} metalness={0.1} />
+      </mesh>
+      <mesh position={[0.25, 0, 0.12]}>
+        <sphereGeometry args={[0.04, 8, 8]} />
+        <meshStandardMaterial color="#c8a020" metalness={0.9} roughness={0.1} />
+      </mesh>
+    </group>
+  );
+}
+
+interface BuildingProps { activeZone: string | null; onZoneClick: (zone: string | null) => void; }
+
+function Building({ activeZone, onZoneClick }: BuildingProps) {
+  const groupRef = useRef<THREE.Group>(null);
   useFrame((state) => {
-    if (meshRef.current && isHovered) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 2) * 0.02;
+    if (groupRef.current) {
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.15) * 0.06;
     }
   });
 
+  const getEmissive = (zone: string) => activeZone === zone ? ZONE_COLORS[zone as keyof typeof ZONE_COLORS].glow : '#000000';
+  const getEmissiveIntensity = (zone: string) => activeZone === zone ? 0.25 : 0;
+  const getOpacity = (zone: string) => activeZone && activeZone !== zone ? 0.5 : 1;
+  const getWallColor = (zone: string) => ZONE_COLORS[zone as keyof typeof ZONE_COLORS].base;
+
+  const wallColor = getWallColor('structure');
+  const wallEmissive = getEmissive('structure');
+  const wallEmissiveIntensity = getEmissiveIntensity('structure');
+  const wallOpacity = getOpacity('structure');
+
+  const zoneProps = (zone: string) => ({
+    onClick: (e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); onZoneClick(activeZone === zone ? null : zone); },
+    onPointerOver: () => { document.body.style.cursor = 'pointer'; },
+    onPointerOut: () => { document.body.style.cursor = 'default'; },
+  });
+
   return (
-    <mesh
-      ref={meshRef}
-      position={position}
-      onClick={(e: ThreeEvent<MouseEvent>) => {
-        e.stopPropagation();
-        onClick();
-      }}
-      onPointerOver={(e: ThreeEvent<PointerEvent>) => {
-        e.stopPropagation();
-        onHover(true);
-      }}
-      onPointerOut={() => onHover(false)}
-    >
-      <boxGeometry args={size} />
-      <meshStandardMaterial
-        color={isHovered || isActive ? color : '#2a2a2a'}
-        metalness={0.6}
-        roughness={0.3}
-        emissive={isHovered || isActive ? color : '#000000'}
-        emissiveIntensity={isHovered || isActive ? 0.3 : 0}
-        transparent
-        opacity={0.9}
+    <group ref={groupRef} position={[0, -3.5, 0]}>
+
+      {/* ── GROUND — Replace solid plane with grid / wireframe mess-like structure */}
+      <Grid 
+        position={[0, -0.55, 0]} 
+        args={[30, 30]} 
+        cellSize={0.5} 
+        cellThickness={0.5} 
+        cellColor="#f5a623" 
+        sectionSize={2.5} 
+        sectionThickness={1} 
+        sectionColor="#e8590c" 
+        fadeDistance={25} 
+        fadeStrength={1} 
+        infiniteGrid 
       />
-      {/* Wireframe overlay */}
-      <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(...size)]} />
-        <lineBasicMaterial
-          color={isHovered || isActive ? '#f5a623' : '#444444'}
-          linewidth={2}
-        />
-      </lineSegments>
-    </mesh>
-  );
-}
 
-// Foundation Platform
-function FoundationPlatform() {
-  return (
-    <mesh position={[0, -1.6, 0]}>
-      <boxGeometry args={[4, 0.2, 4]} />
-      <meshStandardMaterial
-        color="#1a1a1a"
-        metalness={0.4}
-        roughness={0.8}
-      />
-      {/* Grid pattern on foundation */}
-      <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(4, 0.2, 4)]} />
-        <lineBasicMaterial color="#f5a623" transparent opacity={0.3} />
-      </lineSegments>
-    </mesh>
-  );
-}
+      {/* ── FOUNDATION ZONE */}
+      <group {...zoneProps('foundation')}>
+        <Box position={[0, -0.25, 0]} size={[6.2, 0.5, 4.2]}
+          color={activeZone === 'foundation' ? '#b09060' : '#8a8070'}
+          emissive={getEmissive('foundation')} emissiveIntensity={getEmissiveIntensity('foundation')}
+          opacity={getOpacity('foundation')} roughness={0.9} />
+        <Box position={[0, 0.1, 0]} size={[5.6, 0.2, 3.6]}
+          color={activeZone === 'foundation' ? '#a08060' : '#7a6e60'}
+          emissive={getEmissive('foundation')} emissiveIntensity={getEmissiveIntensity('foundation')}
+          opacity={getOpacity('foundation')} roughness={0.85} />
+      </group>
 
-// Scene Component
-function Scene({
-  activeZone,
-  setActiveZone,
-  hoveredZone,
-  setHoveredZone,
-}: {
-  activeZone: string | null;
-  setActiveZone: (zone: string | null) => void;
-  hoveredZone: string | null;
-  setHoveredZone: (zone: string | null) => void;
-}) {
-  const zones = [
-    {
-      name: 'foundation',
-      position: [0, -1, 0] as [number, number, number],
-      size: [2.5, 1, 2.5] as [number, number, number],
-      color: '#e8590c',
-    },
-    {
-      name: 'structure',
-      position: [0, 0.5, 0] as [number, number, number],
-      size: [2.2, 2, 2.2] as [number, number, number],
-      color: '#f5a623',
-    },
-    {
-      name: 'design',
-      position: [0, 2.2, 0] as [number, number, number],
-      size: [1.8, 1.2, 1.8] as [number, number, number],
-      color: '#f7b84e',
-    },
-  ];
+      {/* ── STRUCTURE ZONE (3 floors) */}
+      <group {...zoneProps('structure')}>
+        {[0, 2.6, 5.2].map((floorY, fi) => {
+          const baseY = floorY + 0.2;
+          const midY = baseY + 1.25;
+          const wallH = 2.5;
+          return (
+            <group key={fi}>
+              {/* Floor slab */}
+              <Box position={[0, floorY + 0.075, 0]} size={[5.4, 0.15, 3.4]} color="#c8baa0"
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              {/* Front wall panels (split for windows) */}
+              <Box position={[-2.1, midY, 1.65]} size={[0.9, wallH, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              <Box position={[-0.8, midY, 1.65]} size={[0.35, wallH, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              <Box position={[0.8, midY, 1.65]} size={[0.35, wallH, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              <Box position={[2.1, midY, 1.65]} size={[0.9, wallH, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              {/* Lintels */}
+              <Box position={[0, baseY + wallH - 0.3, 1.65]} size={[5.2, 0.35, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              <Box position={[0, baseY + 0.3, 1.65]} size={[5.2, 0.4, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              {/* Back + side walls */}
+              <Box position={[0, midY, -1.65]} size={[5.2, wallH, 0.18]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              <Box position={[-2.6, midY, 0]} size={[0.18, wallH, 3.12]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              <Box position={[2.6, midY, 0]} size={[0.18, wallH, 3.12]} color={wallColor}
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              {/* Columns */}
+              {[-2.47, 2.47].map(cx => [-1.47, 1.47].map(cz => (
+                <Box key={`${cx}-${cz}-${fi}`} position={[cx, midY, cz]} size={[0.28, wallH + 0.1, 0.28]}
+                  color="#e8e0d0" emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} roughness={0.6} />
+              )))}
+              {/* Windows front */}
+              {[-1.6, 0, 1.6].map((wx, wi) => (
+                <Window key={wi} position={[wx, midY, 1.74]} />
+              ))}
+              {/* Balcony */}
+              <Box position={[0, floorY + 0.15 + 0.3, 2.0]} size={[4.6, 0.12, 0.7]} color="#c8baa0"
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} />
+              {/* Railing */}
+              <Box position={[0, floorY + 0.15 + 0.62, 2.32]} size={[4.6, 0.04, 0.04]} color="#2a2a2a"
+                emissive={wallEmissive} emissiveIntensity={wallEmissiveIntensity} opacity={wallOpacity} metalness={0.4} />
+            </group>
+          );
+        })}
+      </group>
 
-  return (
-    <>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 8, 5]} intensity={1} color="#f5a623" />
-      <pointLight position={[-5, 3, -5]} intensity={0.5} color="#e8590c" />
-      <pointLight position={[5, -2, 5]} intensity={0.3} color="#f5a623" />
+      {/* ── DESIGN ZONE (roof, parapet) */}
+      <group {...zoneProps('design')}>
+        {/* Roof slab */}
+        <Box position={[0, 8.1, 0]} size={[5.5, 0.22, 3.5]}
+          color={activeZone === 'design' ? '#6a6560' : '#4a4540'}
+          emissive={getEmissive('design')} emissiveIntensity={getEmissiveIntensity('design')}
+          opacity={getOpacity('design')} roughness={0.6} />
+        {/* Parapet walls */}
+        {[
+          { pos: [0, 8.7, 1.65] as [number, number, number], size: [5.5, 1.0, 0.18] as [number, number, number] },
+          { pos: [0, 8.7, -1.65] as [number, number, number], size: [5.5, 1.0, 0.18] as [number, number, number] },
+          { pos: [-2.66, 8.7, 0] as [number, number, number], size: [0.18, 1.0, 3.12] as [number, number, number] },
+          { pos: [2.66, 8.7, 0] as [number, number, number], size: [0.18, 1.0, 3.12] as [number, number, number] },
+        ].map((p, i) => (
+          <Box key={i} position={p.pos} size={p.size}
+            color={activeZone === 'design' ? '#6a6060' : '#4a4540'}
+            emissive={getEmissive('design')} emissiveIntensity={getEmissiveIntensity('design')}
+            opacity={getOpacity('design')} roughness={0.65} />
+        ))}
+        {/* Water tank */}
+        <Box position={[1.5, 9.55, -0.5]} size={[0.9, 0.9, 0.9]} color="#ddd8d0"
+          emissive={getEmissive('design')} emissiveIntensity={getEmissiveIntensity('design')}
+          opacity={getOpacity('design')} roughness={0.4} />
+        {/* Mumty */}
+        <Box position={[-1.2, 9.35, 0]} size={[1.4, 0.7, 1.4]} color={getWallColor('structure')}
+          emissive={getEmissive('design')} emissiveIntensity={getEmissiveIntensity('design')}
+          opacity={getOpacity('design')} roughness={0.7} />
+      </group>
 
-      <FoundationPlatform />
+      {/* ── DOOR (always visible, not zoned) */}
+      <Door position={[0, 1.1, 1.75]} />
 
-      {zones.map((zone) => (
-        <BuildingZone
-          key={zone.name}
-          {...zone}
-          isActive={activeZone === zone.name}
-          isHovered={hoveredZone === zone.name}
-          onClick={() => setActiveZone(activeZone === zone.name ? null : zone.name)}
-          onHover={(hovered) => setHoveredZone(hovered ? zone.name : null)}
-        />
+      {/* ── ENTRANCE STEPS */}
+      {[0, 1, 2].map((step) => (
+        <Box key={step} position={[0, step * 0.18 - 0.35, 1.9 + step * 0.2]}
+          size={[1.4 - step * 0.1, 0.18, 0.4]} color="#9a9488" roughness={0.85} />
       ))}
 
-      {/* Floating particles */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <mesh
-          key={i}
-          position={[
-            (Math.random() - 0.5) * 8,
-            (Math.random() - 0.5) * 6,
-            (Math.random() - 0.5) * 8,
-          ]}
-        >
-          <sphereGeometry args={[0.03, 8, 8]} />
-          <meshBasicMaterial color="#f5a623" transparent opacity={0.5} />
-        </mesh>
-      ))}
+      {/* ── CANOPY */}
+      <Box position={[0, 2.45, 2.05]} size={[1.6, 0.1, 0.7]} color="#2c3e50" roughness={0.5} />
 
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.5}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2.5}
-      />
-    </>
+      {/* ── ENTRANCE POINT LIGHT */}
+      <pointLight position={[0, 1.5, 2.2]} intensity={0.8} color="#f5a623" distance={4} />
+    </group>
   );
 }
 
-const zoneInfo: Record<string, { title: string; description: string }> = {
+// Tooltip Panel
+const ZONE_INFO = {
   foundation: {
-    title: 'Foundation',
-    description:
-      'Engineered for seismic resistance and soil stability. Our foundations are designed using advanced geotechnical analysis to ensure maximum safety and longevity.',
+    title: 'Foundation & Base', accent: '#e8a020',
+    description: 'Engineered for soil stability and load distribution.',
+    details: ['Reinforced concrete footings', 'Soil bearing analysis', 'DTCP compliant depth', 'Anti-seismic design'],
   },
   structure: {
-    title: 'Structure',
-    description:
-      'Precision-built RCC frames and load-bearing walls. We use high-grade materials and follow strict quality control measures for structural integrity.',
+    title: 'RCC Structure', accent: '#4a9eff',
+    description: 'Precision-built frames using M25 grade concrete.',
+    details: ['M25/M30 grade concrete', 'Fe-500 TMT steel bars', 'Load-bearing columns', 'Earthquake resistant'],
   },
   design: {
-    title: 'Design',
-    description:
-      'Architectural drawings aligned with CMDA/DTCP norms. Our designs blend aesthetics with functionality while ensuring regulatory compliance.',
+    title: 'Architecture & Finish', accent: '#e84040',
+    description: 'Crafted aesthetics aligned with CMDA/DTCP norms.',
+    details: ['CMDA approved plans', 'Premium plastering', 'Waterproof roofing', 'Modern elevation'],
   },
 };
 
+function TooltipPanel({ zone, onClose }: { zone: string | null; onClose: () => void }) {
+  if (!zone) return null;
+  const info = ZONE_INFO[zone as keyof typeof ZONE_INFO];
+  return (
+    <div style={{
+      position: 'absolute', top: '50%', right: '1.5rem', transform: 'translateY(-50%)',
+      width: 220, background: 'rgba(10,10,10,0.92)', borderRadius: 12, padding: '1.1rem',
+      backdropFilter: 'blur(16px)', zIndex: 20,
+      border: `1px solid ${info.accent}55`,
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+        <span style={{ fontSize: 11, letterSpacing: '.1em', color: info.accent, textTransform: 'uppercase', fontWeight: 600 }}>
+          {zone}
+        </span>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0 }}>×</button>
+      </div>
+      <p style={{ fontSize: 14, fontWeight: 600, color: '#f0ede8', margin: '0 0 6px' }}>{info.title}</p>
+      <p style={{ fontSize: 12, color: '#998f82', lineHeight: 1.5, margin: '0 0 10px' }}>{info.description}</p>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 5 }}>
+        {info.details.map((d, i) => (
+          <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, color: '#c0b8aa' }}>
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: info.accent, flexShrink: 0 }} />
+            {d}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ZoneHints({ activeZone, onSelect }: { activeZone: string | null; onSelect: (z: string | null) => void }) {
+  const zones = ['foundation', 'structure', 'design'] as const;
+  return (
+    <div style={{ position: 'absolute', bottom: '1rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, zIndex: 20 }}>
+      {zones.map((z) => {
+        const accent = ZONE_COLORS[z].highlight;
+        return (
+          <button key={z} onClick={() => onSelect(activeZone === z ? null : z)} style={{
+            padding: '5px 14px', fontSize: 11, letterSpacing: '.06em', textTransform: 'capitalize',
+            background: activeZone === z ? `${accent}22` : 'rgba(10,10,10,0.7)',
+            border: `1px solid ${activeZone === z ? accent : 'rgba(255,255,255,0.12)'}`,
+            borderRadius: 6, color: activeZone === z ? accent : '#888', cursor: 'pointer',
+            backdropFilter: 'blur(8px)', transition: 'all .2s',
+          }}>
+            {z}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function BuildingModel() {
   const [activeZone, setActiveZone] = useState<string | null>(null);
-  const [hoveredZone, setHoveredZone] = useState<string | null>(null);
 
   return (
-    <div className="w-full h-full relative">
-      <Canvas camera={{ position: [5, 3, 6], fov: 50 }} dpr={[1, 2]}>
-        <Scene
-          activeZone={activeZone}
-          setActiveZone={setActiveZone}
-          hoveredZone={hoveredZone}
-          setHoveredZone={setHoveredZone}
-        />
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <Canvas shadows camera={{ position: [8, 3, 10], fov: 45 }}
+        gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
+        style={{ background: 'transparent' }}>
+        {/* Warm golden sunlight */}
+        <ambientLight intensity={0.55} color="#fff8e8" />
+        <directionalLight position={[10, 18, 8]} intensity={1.8} color="#fff5d0" castShadow
+          shadow-mapSize={[2048, 2048]} shadow-camera-near={0.5} shadow-camera-far={60}
+          shadow-camera-left={-12} shadow-camera-right={12} shadow-camera-top={12} shadow-camera-bottom={-12} />
+        {/* Cool fill from left */}
+        <directionalLight position={[-8, 6, -6]} intensity={0.4} color="#c0d8ff" />
+
+        <Building activeZone={activeZone} onZoneClick={setActiveZone} />
+
+        <OrbitControls enablePan={false} minDistance={7} maxDistance={18}
+          minPolarAngle={0.3} maxPolarAngle={Math.PI / 2.1}
+          autoRotate={!activeZone} autoRotateSpeed={0.5} target={[0, 0.5, 0]} />
       </Canvas>
 
-      {/* Zone Labels */}
-      <div className="absolute top-4 left-4 flex flex-col gap-2">
-        {['foundation', 'structure', 'design'].map((zone) => (
-          <button
-            key={zone}
-            onClick={() => setActiveZone(activeZone === zone ? null : zone)}
-            className={`px-3 py-1.5 text-xs font-medium rounded border transition-all ${
-              activeZone === zone
-                ? 'bg-gold text-dark border-gold'
-                : 'bg-dark/80 text-warm-gray border-gold/30 hover:border-gold/60'
-            }`}
-          >
-            {zone.charAt(0).toUpperCase() + zone.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      {/* Info Panel */}
       <AnimatePresence>
         {activeZone && (
-          <motion.div
-            className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 glass-card p-4 md:p-6"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex items-start justify-between mb-3">
-              <h4 className="text-lg font-outfit font-bold text-gold">
-                {zoneInfo[activeZone].title}
-              </h4>
-              <button
-                onClick={() => setActiveZone(null)}
-                className="text-warm-gray hover:text-warm-white transition-colors"
-              >
-                ×
-              </button>
-            </div>
-            <p className="text-sm text-warm-gray leading-relaxed">
-              {zoneInfo[activeZone].description}
-            </p>
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
+            <TooltipPanel zone={activeZone} onClose={() => setActiveZone(null)} />
           </motion.div>
         )}
       </AnimatePresence>
+      <ZoneHints activeZone={activeZone} onSelect={setActiveZone} />
 
-      {/* Instructions */}
       {!activeZone && (
-        <motion.div
-          className="absolute bottom-4 left-4 text-xs text-warm-gray/60"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          Click on building zones to explore
-        </motion.div>
+        <div style={{
+          position: 'absolute', top: '1rem', left: '50%', transform: 'translateX(-50%)',
+          fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '.08em',
+          pointerEvents: 'none', whiteSpace: 'nowrap',
+        }}>
+          Click a zone or use buttons below — drag to rotate
+        </div>
       )}
     </div>
   );

@@ -55,6 +55,7 @@ export default function InteractiveBuilding() {
             'Quality Materials',
             'Expert Craftsmanship',
             'Timely Delivery',
+            'DTCP Approved',
           ].map((feature, index) => (
             <span
               key={index}

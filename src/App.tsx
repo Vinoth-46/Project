@@ -3,8 +3,11 @@ import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
 import ServicesSection from './sections/ServicesSection';
 import InteractiveBuilding from './sections/InteractiveBuilding';
+import ConsultationPackage from './sections/ConsultationPackage';
+import ServiceZoneMap from './sections/ServiceZoneMap';
+import LegalTerms from './sections/LegalTerms';
+import ReviewsSection from './sections/ReviewsSection';
 import ContactSection from './sections/ContactSection';
-import TestimonialsSection from './sections/TestimonialsSection';
 import Footer from './sections/Footer';
 import ChatBot from './components/ChatBot';
 
@@ -28,8 +31,14 @@ function App() {
         {/* Interactive Building */}
         <InteractiveBuilding />
 
-        {/* Testimonials Section */}
-        <TestimonialsSection />
+        {/* Consultation Packages */}
+        <ConsultationPackage />
+
+        {/* Service Zone Map */}
+        <ServiceZoneMap />
+
+        {/* Reviews / Testimonials */}
+        <ReviewsSection />
 
         {/* Contact Section */}
         <ContactSection />

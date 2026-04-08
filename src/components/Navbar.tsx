@@ -6,8 +6,9 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
+  { name: 'Pricing', href: '#consultation' },
+  { name: 'Service Area', href: '#service-area' },
   { name: 'Reviews', href: '#reviews' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -66,8 +67,8 @@ export default function Navbar() {
 
       {/* Navbar */}
       <motion.nav
-        className={`glass-nav relative transition-all duration-300 ${
-          isScrolled ? 'py-3' : 'py-5'
+        className={`glass-nav fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          isScrolled ? 'py-3 bg-dark/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-gold/10' : 'py-5 bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -86,19 +87,20 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="w-14 h-14 md:w-16 md:h-16 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
+              <div className="w-14 h-14 md:w-18 md:h-18 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0 border border-gold/20">
                 <img 
                   src="/logo.jpg" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="w-full h-full object-contain scale-[1.05]" 
+                  className="w-full h-full object-contain scale-[1.4]" 
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-2xl md:text-3xl font-outfit font-bold gradient-text">
+              <div className="flex flex-col border-l-2 border-gold pl-3">
+                <span className="text-xl md:text-2xl font-outfit font-bold"
+                  style={{ background: 'linear-gradient(135deg, #f5a623, #e8590c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   KITCHAA&apos;S
                 </span>
-                <span className="text-sm md:text-base font-outfit font-medium text-warm-white tracking-[0.2em]">
-                  ENTERPRISE
+                <span className="text-xs md:text-sm font-outfit font-light text-warm-white tracking-[0.2em] uppercase">
+                  Enterprise
                 </span>
               </div>
             </motion.a>

@@ -33,11 +33,11 @@ export default function HeroSection() {
       {/* Background Image Overlay */}
       <div className="absolute inset-0 overflow-hidden">
         <img 
-          src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1800&q=80"
-          alt="Engineering Backdrop"
+          src="/hero-new-tropical.jpg"
+          alt="Tropical Modern Architecture"
           className="w-full h-full object-cover pointer-events-none"
         />
-        <div className="absolute inset-0 bg-dark/80 lg:bg-dark/70 pointer-events-none" />
+        <div className="absolute inset-0 bg-dark/85 lg:bg-dark/75 pointer-events-none" />
       </div>
 
       {/* Background Gradient */}

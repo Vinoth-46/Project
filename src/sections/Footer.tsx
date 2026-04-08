@@ -5,8 +5,9 @@ import { ArrowUp } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
+  { name: 'Pricing', href: '#consultation' },
+  { name: 'Service Area', href: '#service-area' },
   { name: 'Reviews', href: '#reviews' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -39,35 +40,34 @@ export default function Footer() {
                 <img 
                   src="/logo.jpg" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="w-full h-full object-contain scale-[1.05]" 
+                  className="w-full h-full object-contain scale-[1.4]" 
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-2xl md:text-3xl font-outfit font-bold gradient-text">
+              <div className="flex flex-col border-l-2 border-gold pl-3">
+                <span className="text-xl md:text-2xl font-outfit font-bold"
+                  style={{ background: 'linear-gradient(135deg, #f5a623, #e8590c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   KITCHAA&apos;S
                 </span>
-                <span className="text-sm font-outfit font-medium text-warm-white tracking-[0.2em]">
-                  ENTERPRISE
+                <span className="text-xs font-outfit font-light text-warm-white tracking-[0.2em] uppercase">
+                  Enterprise
                 </span>
               </div>
             </div>
             <p className="text-warm-gray text-sm leading-relaxed max-w-xs">
               Sacred Values. Solid Foundations.
-              <br />
-              Building excellence since 2014.
             </p>
           </motion.div>
 
           {/* Quick Links */}
           <motion.div
-            className="md:text-center"
+            className="md:text-center overflow-x-auto custom-scrollbar pb-2"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h4 className="text-warm-white font-semibold mb-4">Quick Links</h4>
-            <nav className="flex flex-wrap md:justify-center gap-x-6 gap-y-2">
+            <nav className="flex flex-nowrap md:justify-center items-center gap-x-4 md:gap-x-5 min-w-max">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -76,7 +76,7 @@ export default function Footer() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="text-warm-gray hover:text-gold text-sm transition-colors"
+                  className="text-warm-gray hover:text-gold text-sm whitespace-nowrap transition-colors"
                 >
                   {link.name}
                 </a>
