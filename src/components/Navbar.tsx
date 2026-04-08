@@ -67,7 +67,7 @@ export default function Navbar() {
 
       {/* Navbar */}
       <motion.nav
-        className={`glass-nav transition-all duration-300 ${
+        className={`glass-nav relative transition-all duration-300 ${
           isScrolled ? 'py-3' : 'py-5'
         }`}
         initial={{ y: -100 }}
@@ -135,45 +135,58 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
+            <button
               type="button"
-              className="md:hidden p-2 text-warm-white relative z-[120] cursor-pointer pointer-events-auto"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              whileTap={{ scale: 0.95 }}
+              className="md:hidden p-2 text-warm-white relative z-[200] cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMobileMenuOpen((prev) => !prev);
+              }}
             >
               <div className="relative w-6 h-6 flex items-center justify-center">
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </div>
-            </motion.button>
+            </button>
           </div>
         </div>
 
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden absolute top-full left-0 right-0 bg-[#0a0a0a]/95 backdrop-blur-md shadow-xl border-t border-gold/10 overflow-hidden z-[150]"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden absolute top-full left-0 right-0 z-[150]"
+              style={{
+                background: 'rgba(10,10,10,0.98)',
+                backdropFilter: 'blur(16px)',
+                borderTop: '1px solid rgba(245,166,35,0.15)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
+              }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
             >
-              <div className="section-container py-6 flex flex-col gap-4">
-                {navLinks.map((link) => (
-                  <button
+              <div className="flex flex-col py-4">
+                {navLinks.map((link, i) => (
+                  <motion.button
                     key={link.name}
                     type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.href);
-                    }}
-                    className={`block w-full text-left cursor-pointer pointer-events-auto text-lg font-medium py-3 px-4 active:bg-white/5 active:scale-95 transition-all ${
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    onClick={() => scrollToSection(link.href)}
+                    className={`w-full text-left px-6 py-4 text-base font-medium tracking-wide border-b border-white/5 last:border-0 transition-colors ${
                       activeSection === link.href.replace('#', '')
-                        ? 'text-gold bg-white/5'
-                        : 'text-warm-gray'
+                        ? 'text-gold bg-gold/5'
+                        : 'text-warm-gray hover:text-warm-white hover:bg-white/5'
                     }`}
                   >
-                    {link.name}
-                  </button>
+                    <span className="flex items-center gap-3">
+                      {activeSection === link.href.replace('#', '') && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0" />
+                      )}
+                      {link.name}
+                    </span>
+                  </motion.button>
                 ))}
               </div>
             </motion.div>

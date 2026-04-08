@@ -7,16 +7,16 @@ import PortfolioSection from './sections/PortfolioSection';
 import ContactSection from './sections/ContactSection';
 import TestimonialsSection from './sections/TestimonialsSection';
 import Footer from './sections/Footer';
-import FloatingContact from './components/FloatingContact';
+import ChatBot from './components/ChatBot';
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark text-warm-white overflow-x-hidden">
+    <div className="min-h-screen bg-dark text-warm-white">
       {/* Navigation */}
       <Navbar />
 
       {/* Main Content */}
-      <main>
+      <main className="overflow-x-hidden">
         {/* Hero Section */}
         <HeroSection />
 
@@ -42,8 +42,8 @@ function App() {
       {/* Footer */}
       <Footer />
 
-      {/* Floating Contact Buttons */}
-      <FloatingContact />
+      {/* Unified Speed Dial — Chat, WhatsApp & Call */}
+      <ChatBot />
     </div>
   );
 }

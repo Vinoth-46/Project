@@ -73,11 +73,12 @@
   }
   
   .glass-nav {
-    @apply fixed top-0 left-0 right-0 z-[100];
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(245, 166, 35, 0.1);
+    @apply fixed top-0 left-0 right-0;
+    z-index: 500;
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(245, 166, 35, 0.12);
   }
   
   /* Gradient Text */
