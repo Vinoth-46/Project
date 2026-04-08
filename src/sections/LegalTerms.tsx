@@ -66,7 +66,10 @@ export default function LegalTerms() {
            className="text-center"
         >
           <button 
+            id="legal-terms-accordion-btn"
             onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-controls="legal-terms-accordion-content"
             className="inline-flex items-center gap-2 px-6 py-3 bg-dark-light border border-gold/30 hover:border-gold/60 hover:bg-gold/5 transition-all rounded-lg text-gold font-medium text-sm"
           >
             <ShieldCheck size={18} />
@@ -79,6 +82,9 @@ export default function LegalTerms() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              id="legal-terms-accordion-content"
+              role="region"
+              aria-labelledby="legal-terms-accordion-btn"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

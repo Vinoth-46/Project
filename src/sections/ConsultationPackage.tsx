@@ -158,11 +158,7 @@ export default function ConsultationPackage() {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   const handleBook = (pkg: typeof packages[0]) => {
-    if (pkg.price === 'Custom') {
-      document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.open(`https://wa.me/918344051846?text=Hi, I'm interested in the ${encodeURIComponent(pkg.name)} package (${pkg.price}).`, '_blank');
-    }
+    window.open(`https://wa.me/918344051846?text=Hi, I'm interested in the ${encodeURIComponent(pkg.name)} package (${pkg.price}).`, '_blank');
   };
 
   return (
@@ -285,6 +281,9 @@ export default function ConsultationPackage() {
           >
             <button 
               onClick={() => setIsTermsOpen(!isTermsOpen)}
+              id="consultation-terms-btn"
+              aria-expanded={isTermsOpen}
+              aria-controls="consultation-terms-content"
               className="inline-flex items-center gap-2 px-6 py-3 bg-dark-light border border-gold/30 hover:border-gold/60 hover:bg-gold/5 transition-all rounded-lg text-gold font-medium text-sm"
             >
               <ShieldCheck size={18} />
@@ -297,6 +296,9 @@ export default function ConsultationPackage() {
           <AnimatePresence>
             {isTermsOpen && (
               <motion.div
+                id="consultation-terms-content"
+                role="region"
+                aria-labelledby="consultation-terms-btn"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}

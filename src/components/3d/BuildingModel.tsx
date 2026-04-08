@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, type ThreeEvent } from '@react-three/fiber';
 import { OrbitControls, Grid } from '@react-three/drei';
 import * as THREE from 'three';
@@ -69,6 +69,9 @@ interface BuildingProps { activeZone: string | null; onZoneClick: (zone: string 
 
 function Building({ activeZone, onZoneClick }: BuildingProps) {
   const groupRef = useRef<THREE.Group>(null);
+  useEffect(() => {
+    return () => { document.body.style.cursor = 'auto'; };
+  }, []);
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.15) * 0.06;
@@ -253,7 +256,7 @@ function TooltipPanel({ zone, onClose }: { zone: string | null; onClose: () => v
         <span style={{ fontSize: 11, letterSpacing: '.1em', color: info.accent, textTransform: 'uppercase', fontWeight: 600 }}>
           {zone}
         </span>
-        <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0 }}>×</button>
+        <button onClick={onClose} aria-label="Close tooltip" style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 16, lineHeight: 1, padding: 0 }}>×</button>
       </div>
       <p style={{ fontSize: 14, fontWeight: 600, color: '#f0ede8', margin: '0 0 6px' }}>{info.title}</p>
       <p style={{ fontSize: 12, color: '#998f82', lineHeight: 1.5, margin: '0 0 10px' }}>{info.description}</p>

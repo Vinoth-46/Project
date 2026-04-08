@@ -40,19 +40,37 @@ const seedReviews: Review[] = [
 function StarRating({ rating, onRate, interactive = false }: { rating: number; onRate?: (r: number) => void; interactive?: boolean }) {
   const [hovered, setHovered] = useState(0);
   return (
-    <div className="flex gap-1">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Star
-          key={star}
-          size={interactive ? 22 : 16}
-          fill={(interactive ? (hovered || rating) : rating) >= star ? '#f5a623' : 'none'}
-          color={(interactive ? (hovered || rating) : rating) >= star ? '#f5a623' : '#333'}
-          style={{ cursor: interactive ? 'pointer' : 'default', transition: 'all 0.15s' }}
-          onMouseEnter={() => interactive && setHovered(star)}
-          onMouseLeave={() => interactive && setHovered(0)}
-          onClick={() => interactive && onRate?.(star)}
-        />
-      ))}
+    <div className="flex gap-1" role={interactive ? "radiogroup" : undefined} aria-label="Rating">
+      {[1, 2, 3, 4, 5].map((star) => {
+        const isFilled = (interactive ? (hovered || rating) : rating) >= star;
+        const starIcon = (
+          <Star
+            size={interactive ? 22 : 16}
+            fill={isFilled ? '#f5a623' : 'none'}
+            color={isFilled ? '#f5a623' : '#333'}
+            style={{ cursor: interactive ? 'pointer' : 'default', transition: 'all 0.15s' }}
+          />
+        );
+
+        if (interactive) {
+          return (
+            <button
+              key={star}
+              type="button"
+              role="radio"
+              aria-checked={rating >= star}
+              aria-label={`${star} Star`}
+              onClick={() => onRate?.(star)}
+              onMouseEnter={() => setHovered(star)}
+              onMouseLeave={() => setHovered(0)}
+              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm appearance-none"
+            >
+              {starIcon}
+            </button>
+          );
+        }
+        return <div key={star}>{starIcon}</div>;
+      })}
     </div>
   );
 }
@@ -94,6 +112,14 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (submitted) {
+      timer = setTimeout(() => setSubmitted(false), 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [submitted]);
+
   const validate = () => {
     const e: Record<string, string> = {};
     if (!name.trim() || name.trim().length < 2) e.name = 'Name must be at least 2 characters.';
@@ -117,7 +143,6 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
     onSubmit(review);
     setSubmitted(true);
     setName(''); setLocation(''); setRating(0); setText(''); setErrors({});
-    setTimeout(() => setSubmitted(false), 5000);
   };
 
   const inputStyle = {

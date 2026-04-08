@@ -22,6 +22,7 @@ function LeafletMap() {
   const mapInstanceRef = useRef<unknown>(null);
 
   useEffect(() => {
+    let isMounted = true;
     if (typeof window === 'undefined' || !mapRef.current || mapInstanceRef.current) return;
 
     // Inject Leaflet CSS once
@@ -35,7 +36,7 @@ function LeafletMap() {
 
     // Dynamically import leaflet
     import('leaflet').then((L) => {
-      if (!mapRef.current || mapInstanceRef.current) return;
+      if (!isMounted || !mapRef.current || mapInstanceRef.current) return;
 
       const map = L.map(mapRef.current, {
         center: [11.2189, 78.1674],
@@ -113,6 +114,7 @@ function LeafletMap() {
     }).catch(console.error);
 
     return () => {
+      isMounted = false;
       if (mapInstanceRef.current) {
         (mapInstanceRef.current as { remove: () => void }).remove();
         mapInstanceRef.current = null;

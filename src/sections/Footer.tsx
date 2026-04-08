@@ -38,7 +38,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="w-16 h-16 md:w-20 md:h-20 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
                 <img 
-                  src="/logo.jpg" 
+                  src="/logo1.jpg" 
                   alt="Kitchaa's Enterprise Logo"
                   className="w-full h-full object-contain scale-[1.4]" 
                 />
