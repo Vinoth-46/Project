@@ -35,7 +35,7 @@ export default function HeroSection() {
 
       {/* 3D Scene Container */}
       <motion.div
-        className="absolute right-0 top-0 w-full lg:w-[60%] h-full"
+        className="absolute right-0 top-0 w-full lg:w-[60%] h-full opacity-25 lg:opacity-100"
         style={{ scale: sceneScale }}
       >
         <HeroScene />

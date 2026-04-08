@@ -87,7 +87,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 overflow-hidden flex items-center justify-center rounded-lg bg-white/5 shrink-0 relative">
+              <div className="hidden md:flex w-10 h-10 md:w-12 md:h-12 overflow-hidden items-center justify-center rounded-lg bg-white/5 shrink-0 relative">
                 <embed 
                   src="/logo.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
                   type="application/pdf" 

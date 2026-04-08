@@ -36,7 +36,7 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 overflow-hidden flex items-center justify-center rounded-lg bg-white/5 shrink-0 relative">
+              <div className="hidden md:flex w-12 h-12 overflow-hidden items-center justify-center rounded-lg bg-white/5 shrink-0 relative">
                 <embed 
                   src="/logo.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
                   type="application/pdf" 
