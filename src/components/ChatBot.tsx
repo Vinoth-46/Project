@@ -8,30 +8,6 @@ interface Message {
   content: string
 }
 
-const SYSTEM_PROMPT = `You are the official AI assistant for KITCHAA'S ENTERPRISE, a premium civil engineering and construction company based in Namakkal, Tamil Nadu, India.
-
-Owner: Er. V. Nirmal, B.E (Civil)
-Tagline: "Sacred Values. Solid Foundations."
-Location: Namakkal, Tamil Nadu, India
-
-Services offered:
-1. Building Approvals - Help with CMDA/DTCP approvals, government permits and documentation
-2. Complete Construction & Consulting - End-to-end construction management and expert consulting
-3. Building Plans & Bank Estimates - Detailed architectural plans and valuation reports for bank loans
-4. Bank Loan Assistance & Finance - Guidance and support through the home loan process
-
-Your behavior:
-- Be professional, warm, and helpful
-- Answer questions about construction, civil engineering, building approvals in Tamil Nadu
-- Guide users to the right service based on their need
-- For specific quotes or site visits, ask for their name and phone number and say the team will contact them
-- Keep responses concise (2-4 sentences max)
-- Never use emojis
-- If asked something outside civil engineering or this company, politely redirect
-- Always end with a helpful follow-up question or next step`
-
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY || ''
-
 export default function ChatBot() {
   const [dialOpen, setDialOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
@@ -52,44 +28,31 @@ export default function ChatBot() {
   const sendMessage = async () => {
     if (!input.trim() || loading) return
     const userMsg: Message = { role: 'user', content: input.trim() }
-    setMessages(prev => [...prev, userMsg])
+    const updatedMessages = [...messages, userMsg]
+    setMessages(updatedMessages)
     setInput('')
     setLoading(true)
 
     try {
-      if (!OPENROUTER_API_KEY) throw new Error('Missing API Key')
-
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch('/.netlify/functions/chat', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': "Kitchaa's Enterprise Assistant",
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'anthropic/claude-opus-4-5',
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            ...messages.map(m => ({ role: m.role, content: m.content })),
-            { role: 'user', content: userMsg.content }
-          ],
-          max_tokens: 300,
+          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
         })
       })
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
       const data = await response.json()
       const reply = data.choices?.[0]?.message?.content || "I couldn't get a response. Please try again."
       setMessages(prev => [...prev, { role: 'assistant', content: reply }])
     } catch (err: any) {
-      console.error(err)
-      let errorMsg = "I'm having trouble connecting right now. Please call us directly or send a WhatsApp message."
-      if (!OPENROUTER_API_KEY) {
-        errorMsg = "AI is currently offline. Please contact us via phone or WhatsApp."
-      } else if (err?.message?.includes('429')) {
-        errorMsg = "I'm receiving too many requests. Please wait a moment and try again."
-      }
-      setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }])
+      console.error('Chat error:', err)
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: "I'm having trouble connecting to the AI service right now. Please call us directly at +91 83440 51846 or message us on WhatsApp." 
+      }])
     } finally {
       setLoading(false)
     }
@@ -249,7 +212,7 @@ export default function ChatBot() {
                 </div>
                 <div>
                   <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: '#f0ede8' }}>Kitchaa's Assistant</p>
-                  <p style={{ margin: 0, fontSize: 11, color: '#f5a623' }}>Powered by Claude AI</p>
+                  <p style={{ margin: 0, fontSize: 11, color: '#f5a623' }}>AI Assistant</p>
                 </div>
               </div>
               <button onClick={() => setChatOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', padding: 4, display: 'flex' }}>

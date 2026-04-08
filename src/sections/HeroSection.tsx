@@ -118,20 +118,14 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               <button
-                onClick={() => scrollToSection('#portfolio')}
+                onClick={() => scrollToSection('#contact')}
                 className="w-full sm:w-auto btn-gold-filled flex items-center justify-center gap-2 group"
               >
-                View Our Work
+                Get a Free Estimate
                 <ArrowRight
                   size={18}
                   className="transition-transform group-hover:translate-x-1"
                 />
-              </button>
-              <button
-                onClick={() => scrollToSection('#contact')}
-                className="w-full sm:w-auto btn-gold flex items-center justify-center"
-              >
-                Get a Free Estimate
               </button>
             </motion.div>
           </div>

@@ -13,7 +13,7 @@ function BuildingWireframe() {
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.08;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.08;
     }
   });
 

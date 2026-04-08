@@ -3,7 +3,6 @@ import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
 import ServicesSection from './sections/ServicesSection';
 import InteractiveBuilding from './sections/InteractiveBuilding';
-import PortfolioSection from './sections/PortfolioSection';
 import ContactSection from './sections/ContactSection';
 import TestimonialsSection from './sections/TestimonialsSection';
 import Footer from './sections/Footer';
@@ -11,7 +10,7 @@ import ChatBot from './components/ChatBot';
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark text-warm-white">
+    <div className="relative min-h-screen bg-dark text-warm-white">
       {/* Navigation */}
       <Navbar />
 
@@ -28,9 +27,6 @@ function App() {
 
         {/* Interactive Building */}
         <InteractiveBuilding />
-
-        {/* Portfolio Section */}
-        <PortfolioSection />
 
         {/* Testimonials Section */}
         <TestimonialsSection />

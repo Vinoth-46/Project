@@ -8,7 +8,6 @@ const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
-  { name: 'Portfolio', href: '#portfolio' },
   { name: 'Reviews', href: '#reviews' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -87,18 +86,18 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
+              <div className="w-14 h-14 md:w-16 md:h-16 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
                 <img 
                   src="/logo.jpg" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="w-full h-full object-contain" 
+                  className="w-full h-full object-contain scale-[1.05]" 
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl md:text-2xl font-outfit font-bold gradient-text">
+                <span className="text-2xl md:text-3xl font-outfit font-bold gradient-text">
                   KITCHAA&apos;S
                 </span>
-                <span className="text-xs md:text-sm font-outfit font-medium text-warm-white tracking-[0.2em]">
+                <span className="text-sm md:text-base font-outfit font-medium text-warm-white tracking-[0.2em]">
                   ENTERPRISE
                 </span>
               </div>

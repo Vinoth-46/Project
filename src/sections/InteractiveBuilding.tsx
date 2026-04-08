@@ -52,7 +52,6 @@ export default function InteractiveBuilding() {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           {[
-            'Seismic Resistant',
             'Quality Materials',
             'Expert Craftsmanship',
             'Timely Delivery',

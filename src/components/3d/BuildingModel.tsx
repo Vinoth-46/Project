@@ -31,7 +31,7 @@ function BuildingZone({
 
   useFrame((state) => {
     if (meshRef.current && isHovered) {
-      meshRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 2) * 0.02;
+      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 2) * 0.02;
     }
   });
 

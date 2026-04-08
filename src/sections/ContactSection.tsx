@@ -66,21 +66,39 @@ export default function ContactSection() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Encode form data for Netlify
+      const body = new URLSearchParams();
+      body.append('form-name', 'contact');
+      Object.entries(formData).forEach(([key, value]) => {
+        body.append(key, value);
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      service: '',
-      message: '',
-    });
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
 
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+      if (!response.ok) throw new Error('Form submission failed');
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        service: '',
+        message: '',
+      });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Sorry, there was an error sending your message. Please try calling us directly.');
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -164,7 +182,14 @@ export default function ContactSection() {
                 </p>
               </motion.div>
             ) : (
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+              <form 
+                ref={formRef} 
+                onSubmit={handleSubmit} 
+                className="space-y-5"
+                data-netlify="true"
+                name="contact"
+              >
+                <input type="hidden" name="form-name" value="contact" />
                 <div className="grid md:grid-cols-2 gap-5">
                   {/* Name */}
                   <div>
