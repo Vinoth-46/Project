@@ -60,14 +60,14 @@ export default function Footer() {
 
           {/* Quick Links */}
           <motion.div
-            className="md:text-center overflow-x-auto custom-scrollbar pb-2"
+            className="md:text-center pb-2"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h4 className="text-warm-white font-semibold mb-4">Quick Links</h4>
-            <nav className="flex flex-nowrap md:justify-center items-center gap-x-4 md:gap-x-5 min-w-max">
+            <nav className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center items-center md:gap-x-5 md:gap-y-2">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
