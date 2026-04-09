@@ -5,7 +5,6 @@ import ServicesSection from './sections/ServicesSection';
 import InteractiveBuilding from './sections/InteractiveBuilding';
 import ConsultationPackage from './sections/ConsultationPackage';
 import ServiceZoneMap from './sections/ServiceZoneMap';
-import LegalTerms from './sections/LegalTerms';
 import ReviewsSection from './sections/ReviewsSection';
 import ContactSection from './sections/ContactSection';
 import Footer from './sections/Footer';

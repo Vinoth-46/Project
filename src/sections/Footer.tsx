@@ -107,7 +107,7 @@ export default function Footer() {
         <div className="h-px bg-gold/10 my-8" />
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:pr-24 pb-12 md:pb-0">
           <motion.p
             className="text-warm-gray/60 text-sm text-center md:text-left"
             initial={{ opacity: 0 }}
@@ -121,7 +121,7 @@ export default function Footer() {
           {/* Back to Top */}
           <motion.button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-warm-gray hover:text-gold text-sm transition-colors group"
+            className="flex items-center gap-2 text-warm-gray hover:text-gold text-sm transition-colors group mt-4 md:mt-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
