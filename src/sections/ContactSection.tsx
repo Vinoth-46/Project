@@ -135,25 +135,64 @@ export default function ContactSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Map */}
+          {/* Contact Details Panel */}
           <motion.div
-            className="glass-card overflow-hidden"
+            className="flex flex-col h-full glass-card p-8 md:p-12 relative overflow-hidden"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8 }}
           >
-            <div className="h-[300px] md:h-[400px] lg:h-full min-h-[400px]">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62615.5!2d78.1625!3d11.2333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babce3e0c3e6f1f%3A0x7c9e7c7e7c7e7c7e!2sNamakkal%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1234567890"
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: 'grayscale(80%) contrast(1.2)' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Kitchaa's Enterprise Location"
-              />
+            {/* Background Accent */}
+            <div className="absolute top-0 left-0 w-64 h-64 bg-gold/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
+            <h3 className="text-2xl md:text-3xl font-outfit font-bold text-warm-white mb-8 relative z-10">
+              Reach Out <span className="text-gold">Directly</span>
+            </h3>
+
+            <div className="flex flex-col gap-8 relative z-10">
+              {/* Location */}
+              <div className="flex items-start gap-5 group cursor-default">
+                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300 flex-shrink-0">
+                  <MapPin size={24} />
+                </div>
+                <div className="pt-1">
+                  <p className="text-lg font-medium text-warm-white mb-1">Office Location</p>
+                  <p className="text-warm-gray leading-relaxed max-w-[200px]">
+                    Kitchaa's Enterprise,<br />
+                    Namakkal, Tamil Nadu
+                  </p>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <a href="tel:+918344051846" className="flex items-start gap-5 group text-left">
+                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300 flex-shrink-0">
+                  <Phone size={24} />
+                </div>
+                <div className="pt-1">
+                  <p className="text-lg font-medium text-warm-white mb-1">Direct Line</p>
+                  <p className="text-warm-gray group-hover:text-gold transition-colors">+91 83440 51846</p>
+                </div>
+              </a>
+
+              {/* Email */}
+              <a href="mailto:kitchaasenterprise@gmail.com" className="flex items-start gap-5 group text-left">
+                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300 flex-shrink-0">
+                  <Mail size={24} />
+                </div>
+                <div className="pt-1">
+                  <p className="text-lg font-medium text-warm-white mb-1">Email Address</p>
+                  <p className="text-warm-gray group-hover:text-gold transition-colors break-all">kitchaasenterprise<br/>@gmail.com</p>
+                </div>
+              </a>
+            </div>
+
+            {/* Bottom info */}
+            <div className="mt-auto pt-10 relative z-10">
+              <p className="text-sm text-warm-gray/60 italic border-l-2 border-gold/40 pl-4 py-2">
+                "Sacred Values. Solid Foundations."
+              </p>
             </div>
           </motion.div>
 
@@ -315,40 +354,6 @@ export default function ContactSection() {
               </form>
             )}
 
-            {/* Contact Info */}
-            <div className="mt-8 pt-6 border-t border-gold/10">
-              <div className="flex flex-col sm:flex-row flex-wrap gap-6 xl:gap-4 justify-between">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0">
-                    <MapPin size={18} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-warm-white mb-1">Location</p>
-                    <p className="text-xs text-warm-gray">Namakkal, Tamil Nadu</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0">
-                    <Phone size={18} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-warm-white mb-1">Phone</p>
-                    <p className="text-xs text-warm-gray">+91 83440 51846</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold flex-shrink-0">
-                    <Mail size={18} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-warm-white mb-1">Email</p>
-                    <p className="text-xs text-warm-gray whitespace-nowrap">kitchaasenterprise@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

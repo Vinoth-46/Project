@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
@@ -11,10 +13,24 @@ import Footer from './sections/Footer';
 import ChatBot from './components/ChatBot';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // The preloader animation is simulated here. 
+    // In a real scenario it could wait for full 3d model loading.
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="relative min-h-screen bg-dark text-warm-white">
-      {/* Navigation */}
-      <Navbar />
+    <>
+      <Preloader isLoading={isLoading} />
+      <div className={`relative min-h-screen bg-dark text-warm-white transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
+        {/* Navigation */}
+        <Navbar />
 
       {/* Main Content */}
       <main className="overflow-x-hidden">
@@ -49,6 +65,7 @@ function App() {
       {/* Unified Speed Dial — Chat, WhatsApp & Call */}
       <ChatBot />
     </div>
+    </>
   );
 }
 

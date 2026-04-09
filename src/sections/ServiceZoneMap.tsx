@@ -46,66 +46,83 @@ function LeafletMap() {
       });
       mapInstanceRef.current = map;
 
-      // Dark tile layer
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
+      // Map style matching the Contact section (Grayscale/High Contrast)
+      L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        className: 'grayscale-tiles'
       }).addTo(map);
 
       // Primary zone — Namakkal
       const primaryZone = SERVICE_ZONES.primary[0];
+      
+      // Central Glow Ring
       L.circle([primaryZone.lat, primaryZone.lng], {
-        radius: 15000,
+        radius: 18000,
         color: '#f5a623',
         fillColor: '#f5a623',
-        fillOpacity: 0.15,
+        fillOpacity: 0.25,
         weight: 2,
+        className: 'pulse-circle'
       }).addTo(map);
 
       const primaryIcon = L.divIcon({
         className: '',
         html: `<div style="
-          width:20px;height:20px;border-radius:50%;
-          background:#f5a623;
+          width:24px;height:24px;border-radius:50%;
+          background:linear-gradient(135deg, #f5a623, #e8590c);
           border:3px solid #fff;
-          box-shadow:0 0 0 4px rgba(245,166,35,0.35),0 0 20px rgba(245,166,35,0.6);
-          animation:pulse-marker 1.8s ease-in-out infinite;
+          box-shadow:0 0 0 4px rgba(245,166,35,0.4),0 0 24px rgba(245,166,35,0.8);
+          animation:pulse-marker 1.5s ease-in-out infinite;
         "></div>`,
-        iconSize: [20, 20],
-        iconAnchor: [10, 10],
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
       });
 
       L.marker([primaryZone.lat, primaryZone.lng], { icon: primaryIcon })
         .addTo(map)
-        .bindPopup(`<b style="color:#f5a623">${primaryZone.city}</b><br/>${primaryZone.label}`);
+        .bindPopup(`<div style="text-align:center"><b style="color:#f5a623;font-size:16px;">${primaryZone.city}</b><br/><span style="color:#c0b8aa">${primaryZone.label}</span></div>`);
 
-      // Secondary zones
+      // Secondary zones & Connections
       SERVICE_ZONES.secondary.forEach(zone => {
+        // Connection Line (Hub and Spoke)
+        L.polyline([
+          [primaryZone.lat, primaryZone.lng],
+          [zone.lat, zone.lng]
+        ], {
+          color: '#e8590c',
+          weight: 2,
+          opacity: 0.65,
+          dashArray: '8, 8',
+          className: 'connection-line'
+        }).addTo(map);
+
+        // Zone Area
         L.circle([zone.lat, zone.lng], {
-          radius: 10000,
+          radius: 12000,
           color: '#f5a623',
           fillColor: '#f5a623',
-          fillOpacity: 0.07,
+          fillOpacity: 0.1,
           weight: 1.5,
-          dashArray: '5,5',
+          dashArray: '4,4',
         }).addTo(map);
 
         const secondaryIcon = L.divIcon({
           className: '',
           html: `<div style="
-            width:14px;height:14px;border-radius:50%;
-            background:transparent;
+            width:16px;height:16px;border-radius:50%;
+            background:rgba(10,10,10,0.8);
             border:2px solid #f5a623;
-            box-shadow:0 0 8px rgba(245,166,35,0.4);
+            box-shadow:0 0 10px rgba(245,166,35,0.5);
+            transition: all 0.3s;
           "></div>`,
-          iconSize: [14, 14],
-          iconAnchor: [7, 7],
+          iconSize: [16, 16],
+          iconAnchor: [8, 8],
         });
 
         L.marker([zone.lat, zone.lng], { icon: secondaryIcon })
           .addTo(map)
-          .bindPopup(`<b style="color:#f5a623">${zone.city}</b><br/>${zone.label}`);
+          .bindPopup(`<b style="color:#f5a623">${zone.city}</b><br/><span style="color:#aa9f8f">${zone.label}</span>`);
       });
 
       // Enable scroll zoom only after click
@@ -130,11 +147,28 @@ export default function ServiceZoneMap() {
     <section id="service-area" className="relative py-20 md:py-32 bg-dark overflow-hidden">
       <style>{`
         @keyframes pulse-marker {
-          0%, 100% { box-shadow: 0 0 0 4px rgba(245,166,35,0.35), 0 0 20px rgba(245,166,35,0.6); transform: scale(1); }
-          50% { box-shadow: 0 0 0 8px rgba(245,166,35,0.15), 0 0 30px rgba(245,166,35,0.8); transform: scale(1.3); }
+          0%, 100% { box-shadow: 0 0 0 4px rgba(245,166,35,0.3), 0 0 20px rgba(245,166,35,0.6); transform: scale(1); }
+          50% { box-shadow: 0 0 0 8px rgba(245,166,35,0.1), 0 0 35px rgba(245,166,35,0.9); transform: scale(1.15); }
         }
-        .leaflet-popup-content-wrapper { background: rgba(10,10,10,0.95); color: #f0ede8; border: 1px solid rgba(245,166,35,0.3); border-radius: 8px; }
-        .leaflet-popup-tip { background: rgba(10,10,10,0.95) !important; }
+        @keyframes dash-flow {
+          to { stroke-dashoffset: -16; }
+        }
+        @keyframes pulse-circle {
+          0%, 100% { fill-opacity: 0.25; }
+          50% { fill-opacity: 0.4; }
+        }
+        .connection-line {
+          animation: dash-flow 1s linear infinite;
+        }
+        .pulse-circle {
+          animation: pulse-circle 3s ease-in-out infinite;
+        }
+        .grayscale-tiles {
+          filter: grayscale(80%) contrast(1.2);
+        }
+        .leaflet-container { background: #0a0a0a; }
+        .leaflet-popup-content-wrapper { background: rgba(15,15,15,0.98); color: #f0ede8; border: 1px solid rgba(245,166,35,0.4); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .leaflet-popup-tip { background: rgba(15,15,15,0.98) !important; border-top: 1px solid rgba(245,166,35,0.4); border-left: 1px solid rgba(245,166,35,0.4); }
       `}</style>
 
       <div className="absolute inset-0">

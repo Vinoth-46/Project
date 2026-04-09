@@ -228,7 +228,7 @@ const ZONE_INFO = {
   foundation: {
     title: 'Foundation & Base', accent: '#e8a020',
     description: 'Engineered for soil stability and load distribution.',
-    details: ['Reinforced concrete footings', 'Soil bearing analysis', 'DTCP compliant depth', 'Anti-seismic design'],
+    details: ['Reinforced concrete footings', 'Soil bearing analysis', 'DTCP compliant depth'],
   },
   structure: {
     title: 'RCC Structure', accent: '#4a9eff',

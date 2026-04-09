@@ -158,7 +158,8 @@ export default function ConsultationPackage() {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   const handleBook = (pkg: typeof packages[0]) => {
-    window.open(`https://wa.me/918344051846?text=Hi, I'm interested in the ${encodeURIComponent(pkg.name)} package (${pkg.price}).`, '_blank');
+    const text = `Hi, I'm interested in the ${pkg.name} package (${pkg.price}).`;
+    window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (

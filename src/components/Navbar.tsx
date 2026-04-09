@@ -87,11 +87,11 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="w-14 h-14 md:w-20 md:h-20 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0 border border-gold/20">
+              <div className="flex items-center justify-center shrink-0">
                 <img 
-                  src="/logo.jpg" 
+                  src="/logo1.jpg" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="w-full h-full object-contain scale-[1.4]" 
+                  className="h-12 md:h-16 w-auto rounded-lg border border-gold/20 object-contain" 
                 />
               </div>
               <div className="flex flex-col border-l-2 border-gold pl-3">

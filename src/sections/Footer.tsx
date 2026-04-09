@@ -36,11 +36,11 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-16 h-16 md:w-20 md:h-20 overflow-hidden flex items-center justify-center rounded-lg bg-white/10 shrink-0">
+              <div className="flex items-center justify-center shrink-0">
                 <img 
                   src="/logo1.jpg" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="w-full h-full object-contain scale-[1.4]" 
+                  className="h-16 md:h-20 w-auto rounded-lg border border-gold/20 object-contain" 
                 />
               </div>
               <div className="flex flex-col border-l-2 border-gold pl-3">
