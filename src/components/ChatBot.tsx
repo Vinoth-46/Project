@@ -160,21 +160,6 @@ export default function ChatBot() {
                 </motion.a>
               ))}
               
-              {/* Mobile Only: Bot trigger in speed dial */}
-              {dialOpen && isMobile && (
-                 <motion.button
-                   initial={{ opacity: 0, y: 12, scale: 0.85 }}
-                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                   exit={{ opacity: 0, y: 12, scale: 0.85 }}
-                   transition={{ duration: 0.18, delay: dialActions.length * 0.05 }}
-                   onClick={() => { setChatOpen(true); setDialOpen(false) }}
-                   style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                 >
-                   <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#FACC15', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0F172A', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-                     <Bot size={20} />
-                   </div>
-                 </motion.button>
-              )}
             </AnimatePresence>
           </div>
         )}

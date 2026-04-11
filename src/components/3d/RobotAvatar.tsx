@@ -13,7 +13,7 @@ export default function RobotAvatar() {
     <div 
       className={`fixed z-[9000] cursor-pointer transition-all duration-700 ease-in-out flex items-center justify-center
         ${isMobile 
-          ? 'bottom-[20px] right-[80px] w-14 h-14' 
+          ? 'bottom-[85px] right-[20px] w-14 h-14' 
           : 'bottom-24 right-5 w-16 h-16'}
         ${chatOpen ? 'opacity-0 pointer-events-none scale-50' : 'opacity-100 scale-100'}
       `}
