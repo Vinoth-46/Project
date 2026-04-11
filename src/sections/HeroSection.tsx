@@ -29,11 +29,13 @@ export default function HeroSection() {
           loop 
           muted 
           playsInline
-          className="w-full h-full object-cover pointer-events-none opacity-80"
+          poster="/logo-2026.png"
+          className="w-full h-full object-cover pointer-events-none opacity-90"
         >
           <source src="/bg-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-brand-primary/80 lg:bg-brand-primary/60 pointer-events-none" />
+        {/* Adjusted mobile overlay to be lighter (40%) and desktop to be (60%) */}
+        <div className="absolute inset-0 bg-brand-primary/40 lg:bg-brand-primary/60 pointer-events-none" />
       </div>
 
       {/* Background Gradient */}
