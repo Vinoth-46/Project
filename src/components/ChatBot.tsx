@@ -38,6 +38,27 @@ export default function ChatBot() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
+  // Click outside listener for the speed dial
+  const dialRef = useRef<HTMLDivElement>(null)
+  
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent | TouchEvent) {
+      if (dialRef.current && !dialRef.current.contains(event.target as Node)) {
+        setDialOpen(false)
+      }
+    }
+
+    if (dialOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [dialOpen])
+
   const sendMessage = async (text?: string) => {
     const msgText = text || input.trim()
     if (!msgText || loading) return
@@ -99,16 +120,19 @@ export default function ChatBot() {
       <RobotAvatar />
 
       {/* Unified Speed Dial — bottom right */}
-      <div style={{ 
-        position: 'fixed', 
-        bottom: 'min(1.75rem, 20px)', 
-        right: isMobile ? '1.2rem' : '1.75rem', 
-        zIndex: 9000, 
-        display: 'flex', 
-        flexDirection: isMobile ? 'row-reverse' : 'column', 
-        alignItems: 'flex-end', 
-        gap: 12 
-      }}>
+      <div 
+        ref={dialRef}
+        style={{ 
+          position: 'fixed', 
+          bottom: 'min(1.75rem, 20px)', 
+          right: isMobile ? '1.2rem' : '1.75rem', 
+          zIndex: 9000, 
+          display: 'flex', 
+          flexDirection: isMobile ? 'row-reverse' : 'column', 
+          alignItems: 'flex-end', 
+          gap: 12 
+        }}
+      >
 
         {/* FAB Toggle (Mobile Only or Desktop as WhatsApp/Call trigger) */}
         {!chatOpen && (
