@@ -5,10 +5,11 @@ import { ArrowUp } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
+  { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
-  { name: 'Pricing', href: '#consultation' },
-  { name: 'Service Area', href: '#service-area' },
+  { name: 'Pricing', href: '#pricing' },
   { name: 'Reviews', href: '#reviews' },
+  { name: 'FAQ', href: '#faq' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -25,7 +26,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-dark border-t border-gold/20">
+    <footer className="relative bg-brand-footer border-t border-brand-card">
       <div className="section-container py-12 md:py-16">
         <div className="grid md:grid-cols-3 gap-10 md:gap-8 items-start">
           {/* Logo & Tagline */}
@@ -40,20 +41,19 @@ export default function Footer() {
                 <img 
                   src="/logo1.jpg" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="h-16 md:h-20 w-auto rounded-lg border border-gold/20 object-contain" 
+                  className="h-16 md:h-20 w-auto rounded-lg border border-brand-card object-contain shadow-sm" 
                 />
               </div>
-              <div className="flex flex-col border-l-2 border-gold pl-3">
-                <span className="text-xl md:text-2xl font-outfit font-bold"
-                  style={{ background: 'linear-gradient(135deg, #f5a623, #e8590c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <div className="flex flex-col border-l-2 border-brand-accent pl-3">
+                <span className="text-xl md:text-2xl font-sgrotesk font-bold text-brand-text">
                   KITCHAA&apos;S
                 </span>
-                <span className="text-xs font-outfit font-light text-warm-white tracking-[0.2em] uppercase">
+                <span className="text-xs font-inter font-bold text-brand-text/70 tracking-[0.2em] uppercase">
                   Enterprise
                 </span>
               </div>
             </div>
-            <p className="text-warm-gray text-sm leading-relaxed max-w-xs">
+            <p className="text-brand-text/70 text-sm leading-relaxed max-w-xs font-medium font-inter">
               Sacred Values. Solid Foundations.
             </p>
           </motion.div>
@@ -66,7 +66,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h4 className="text-warm-white font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-brand-text font-bold mb-4 font-sgrotesk text-lg">Quick Links</h4>
             <nav className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center items-center md:gap-x-5 md:gap-y-2">
               {navLinks.map((link) => (
                 <a
@@ -76,7 +76,7 @@ export default function Footer() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="text-warm-gray hover:text-gold text-sm whitespace-nowrap transition-colors"
+                  className="text-brand-text/70 hover:text-brand-accent font-medium text-sm whitespace-nowrap transition-colors"
                 >
                   {link.name}
                 </a>
@@ -92,24 +92,24 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="text-warm-white font-semibold mb-4">Contact</h4>
-            <div className="text-warm-gray text-sm space-y-2">
-              <p className="font-medium text-warm-white">Er. V. NIRMAL, B.E. (Civil)</p>
-              <p className="text-xs text-gold">Proprietor</p>
+            <h4 className="text-brand-text font-bold mb-4 font-sgrotesk text-lg">Contact</h4>
+            <div className="text-brand-text/70 text-sm space-y-2 font-medium">
+              <p className="font-bold text-brand-text">Er. V. NIRMAL, B.E. (Civil)</p>
+              <p className="text-xs text-brand-accent font-extrabold uppercase tracking-widest">Proprietor</p>
               <p>Namakkal, Tamil Nadu</p>
-              <p>+91 83440 51846</p>
+              <p className="font-rajdhani text-base tracking-wide">+91 83440 51846</p>
               <p>kitchaasenterprise@gmail.com</p>
             </div>
           </motion.div>
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gold/10 my-8" />
+        <div className="h-px bg-brand-card my-8" />
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:pr-24 pb-12 md:pb-0">
           <motion.p
-            className="text-warm-gray/60 text-sm text-center md:text-left"
+            className="text-brand-text/50 text-sm text-center md:text-left font-medium"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -121,7 +121,7 @@ export default function Footer() {
           {/* Back to Top */}
           <motion.button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-warm-gray hover:text-gold text-sm transition-colors group mt-4 md:mt-0"
+            className="flex items-center gap-2 text-brand-text/70 hover:text-brand-accent font-semibold text-sm transition-colors group mt-4 md:mt-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -129,7 +129,7 @@ export default function Footer() {
             whileHover={{ y: -2 }}
           >
             Back to top
-            <span className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center group-hover:bg-gold group-hover:text-dark transition-colors">
+            <span className="w-8 h-8 rounded-full border border-brand-card text-brand-text flex items-center justify-center group-hover:bg-brand-accent group-hover:text-brand-primary group-hover:border-transparent transition-all shadow-sm">
               <ArrowUp size={14} />
             </span>
           </motion.button>
@@ -137,7 +137,7 @@ export default function Footer() {
       </div>
 
       {/* Decorative Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gold-gradient opacity-50" />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-brand-accent opacity-100" />
     </footer>
   );
 }

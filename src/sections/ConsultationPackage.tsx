@@ -58,7 +58,6 @@ const packages = [
     highlight: 'Labour & Materials Provided',
     highlightSub: 'without Supervisor',
     cta: 'Book Premium',
-    popular: true,
   },
   {
     name: 'Luxury',
@@ -73,6 +72,7 @@ const packages = [
     highlight: 'Complete End-to-End',
     highlightSub: 'Engineering Support',
     cta: 'Book Luxury',
+    popular: true,
   },
 ];
 
@@ -96,22 +96,22 @@ function FeeSchedule() {
 
   return (
     <div style={{
-      background: 'rgba(10,10,10,0.85)',
-      border: '1px solid rgba(245,166,35,0.3)',
+      background: '#FFFFFF',
+      border: '1px solid #e2e8f0',
       borderRadius: 16,
       overflow: 'hidden',
-      backdropFilter: 'blur(20px)',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
     }}>
       {/* Header */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(245,166,35,0.15), rgba(232,89,12,0.1))',
-        borderBottom: '1px solid rgba(245,166,35,0.25)',
+        background: '#f8fafc',
+        borderBottom: '1px solid #e2e8f0',
         padding: '1.2rem 1.5rem',
       }}>
-        <p style={{ margin: 0, fontSize: 11, letterSpacing: '.15em', color: '#f5a623', textTransform: 'uppercase', fontWeight: 600 }}>
+        <p style={{ margin: 0, fontSize: 11, letterSpacing: '.15em', color: '#FACC15', textTransform: 'uppercase', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
           Fee Structure
         </p>
-        <h3 style={{ margin: '4px 0 0', fontSize: 18, fontWeight: 700, color: '#f0ede8' }}>
+        <h3 style={{ margin: '4px 0 0', fontSize: 18, fontWeight: 700, color: '#0F172A', fontFamily: 'Space Grotesk, sans-serif' }}>
           Kitchaa&apos;s Enterprise
         </h3>
       </div>
@@ -122,29 +122,33 @@ function FeeSchedule() {
           <div key={i} style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             padding: '0.75rem 1.5rem', gap: 12,
-            background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent',
-            borderBottom: i < feeRows.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+            background: i % 2 === 0 ? '#f8fafc' : 'transparent',
+            borderBottom: i < feeRows.length - 1 ? '1px solid #e2e8f0' : 'none',
           }}>
-            <span style={{ fontSize: 13, color: '#c8c4be', flex: 1 }}>{row.service}</span>
-            <span style={{ fontSize: 13, color: '#f5a623', fontWeight: 600, whiteSpace: 'nowrap' }}>{row.fee}</span>
+            <span style={{ fontSize: 13, color: '#1e293b', flex: 1, fontFamily: 'Inter, sans-serif' }}>{row.service}</span>
+            <span style={{ fontSize: 14, color: '#FACC15', fontWeight: 600, whiteSpace: 'nowrap', fontFamily: 'Rajdhani, sans-serif' }}>{row.fee}</span>
           </div>
         ))}
       </div>
 
       {/* Footer */}
       <div style={{
-        borderTop: '1px solid rgba(245,166,35,0.15)',
+        borderTop: '1px solid #e2e8f0',
         padding: '0.9rem 1.5rem',
-        background: 'rgba(0,0,0,0.2)',
+        background: '#f8fafc',
       }}>
-        <p style={{ margin: '0 0 12px', fontSize: 11, color: '#776e64', fontStyle: 'italic' }}>
-          All fees subject to site complexity. GST applicable.
+        <p style={{ margin: '0 0 6px', fontSize: 11, color: '#64748b', fontStyle: 'italic', opacity: 0.7, fontFamily: 'Inter, sans-serif' }}>
+          All fees subject to site complexity.
+        </p>
+        <p style={{ margin: '0 0 12px', fontSize: 11, color: '#1e293b', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+          GST @ 18% applicable on all professional fees.
         </p>
         <button onClick={handleDownload} style={{
           display: 'flex', alignItems: 'center', gap: 8,
-          background: 'rgba(245,166,35,0.12)', border: '1px solid rgba(245,166,35,0.35)',
-          borderRadius: 8, padding: '8px 16px', color: '#f5a623', fontSize: 13,
-          fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s',
+          background: '#FACC15', border: 'none',
+          borderRadius: 8, padding: '8px 16px', color: '#0F172A', fontSize: 13,
+          fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
         }}>
           <Download size={15} />
           Download PDF
@@ -163,9 +167,9 @@ export default function ConsultationPackage() {
   };
 
   return (
-    <section id="consultation" className="relative py-20 md:py-32 bg-dark-light overflow-hidden">
+    <section id="pricing" className="relative py-20 md:py-32 bg-brand-softWhite overflow-hidden border-t border-slate-200">
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold/3 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="section-container relative z-10">
@@ -173,13 +177,13 @@ export default function ConsultationPackage() {
         <motion.div className="text-center max-w-3xl mx-auto mb-14"
           initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8 }}>
-          <span className="text-gold text-sm font-semibold tracking-[0.2em] uppercase mb-4 block">
+          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
             Packages & Pricing
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-warm-white mb-4">
-            Consultation <span className="gradient-text">Packages</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-primary mb-4">
+            Consultation <span className="text-brand-accent font-extrabold">Packages</span>
           </h2>
-          <p className="text-warm-gray text-base md:text-lg">
+          <p className="text-slate-600 text-base md:text-lg font-inter">
             Transparent pricing. Expert guidance.
           </p>
         </motion.div>
@@ -187,41 +191,41 @@ export default function ConsultationPackage() {
         {/* Package Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-16 pt-4">
           {packages.map((pkg, i) => (
-            <motion.div key={i}
-              className="relative glass-card p-6 flex flex-col !overflow-visible"
+              <motion.div key={i}
+              className="relative bg-white border border-slate-200 p-6 flex flex-col !overflow-visible rounded-xl shadow-sm hover:shadow-md transition-shadow"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ y: -4 }}
-              style={{ border: pkg.popular ? '1px solid rgba(245,166,35,0.5)' : undefined }}
+              style={{ border: pkg.popular ? '2px solid #FACC15' : '1px solid #e2e8f0' }}
             >
               {pkg.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-bold text-dark bg-gold rounded-full tracking-wide uppercase shadow-lg z-10 whitespace-nowrap">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-bold text-brand-primary bg-brand-accent rounded-full tracking-wide uppercase shadow z-10 whitespace-nowrap font-inter">
                   Most Popular
                 </span>
               )}
               <div className="mb-4">
-                <p className="text-gold text-sm font-semibold tracking-[0.12em] uppercase mb-1">{pkg.name}</p>
-                <p className="text-4xl font-outfit font-bold text-warm-white mb-1">{pkg.price}</p>
-                <p className="text-warm-gray text-sm">{pkg.sub}</p>
+                <p className="text-brand-accent text-sm font-semibold tracking-[0.12em] uppercase mb-1 font-inter">{pkg.name}</p>
+                <p className="text-4xl font-rajdhani font-bold text-brand-primary mb-1">{pkg.price}</p>
+                <p className="text-slate-500 text-sm font-inter">{pkg.sub}</p>
               </div>
               <ul className="flex flex-col gap-3 mb-6 flex-1">
                 {pkg.features.map((f, fi) => (
-                  <li key={fi} className="flex items-start gap-2 text-sm text-warm-gray">
-                    <Check size={16} className="text-gold mt-0.5 flex-shrink-0" />
+                  <li key={fi} className="flex items-start gap-2 text-sm text-slate-600 font-inter">
+                    <Check size={16} className="text-brand-accent mt-0.5 flex-shrink-0" />
                     {f}
                   </li>
                 ))}
               </ul>
-              <div className="mb-6 p-3 rounded bg-gold/10 border border-gold/20 text-center">
-                <p className="text-sm font-semibold text-gold mb-1">{pkg.highlight}</p>
-                <p className="text-xs text-warm-gray">{pkg.highlightSub}</p>
+              <div className="mb-6 p-3 rounded bg-slate-50 border border-slate-200 text-center">
+                <p className="text-sm font-semibold text-brand-primary mb-1">{pkg.highlight}</p>
+                <p className="text-xs text-slate-500">{pkg.highlightSub}</p>
               </div>
               <button onClick={() => handleBook(pkg)}
-                className={`w-full flex items-center justify-center gap-2 py-3 px-5 rounded-lg font-semibold text-sm transition-all ${pkg.popular
-                  ? 'bg-gold text-dark hover:bg-gold/90'
-                  : 'border border-gold/40 text-gold hover:bg-gold/10'}`}>
+                className={`w-full flex items-center justify-center gap-2 py-3 px-5 rounded-lg font-bold text-sm transition-all font-inter ${pkg.popular
+                  ? 'bg-brand-accent text-brand-primary hover:bg-[#F59E0B]'
+                  : 'border border-slate-200 text-brand-primary hover:bg-slate-50'}`}>
                 <MessageCircle size={16} />
                 {pkg.cta}
               </button>
@@ -232,48 +236,59 @@ export default function ConsultationPackage() {
         {/* Fee Schedule + Visual */}
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Left: Fee Table */}
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.7 }}>
             <FeeSchedule />
           </motion.div>
 
-          {/* Right: Visual */}
-          <motion.div className="glass-card p-8 flex flex-col justify-center relative overflow-hidden"
-            initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
+            {/* Right: Visual */}
+          <motion.div className="bg-white border border-slate-200 shadow-sm rounded-xl p-8 flex flex-col justify-center relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.7, delay: 0.1 }}>
 
             {/* Blueprint grid background */}
             <div className="absolute inset-0 opacity-10"
-              style={{ backgroundImage: 'linear-gradient(rgba(245,166,35,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.4) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+              style={{ backgroundImage: 'linear-gradient(rgba(148,163,184,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.4) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
 
             {/* TODO: replace with actual consultation image */}
             <div className="relative z-10 text-center">
-              <div className="w-20 h-20 rounded-full bg-gold/15 border-2 border-gold/40 flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 rounded-full bg-brand-card border border-brand-accent/30 flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🏗</span>
               </div>
-              <div className="inline-block px-4 py-2 bg-gold/20 border border-gold/40 rounded-full mb-4">
-                <span className="text-gold text-sm font-bold tracking-wide">5+ Years of Expert Guidance</span>
+              <div className="inline-block px-4 py-2 bg-slate-50 border border-slate-200 shadow-sm rounded-full mb-4">
+                <span className="text-slate-700 text-sm font-bold tracking-wide font-inter">5+ Years of Expert Guidance</span>
               </div>
-              <h3 className="text-2xl font-outfit font-bold text-warm-white mb-3">
+              <h3 className="text-2xl font-sgrotesk font-bold text-brand-primary mb-3">
                 Er. V. Nirmal, B.E (Civil)
               </h3>
-              <p className="text-warm-gray text-sm leading-relaxed max-w-xs mx-auto">
+              <p className="text-slate-600 font-inter text-sm leading-relaxed max-w-xs mx-auto">
                 From initial planning to final handover — your trusted civil engineering partner in Tamil Nadu.
               </p>
               <div className="grid grid-cols-3 gap-4 mt-8">
                 {[['50+', 'Projects'], ['5+', 'Years'], ['100%', 'Approved']].map(([num, label]) => (
                   <div key={label} className="text-center">
-                    <p className="text-2xl font-outfit font-bold gradient-text">{num}</p>
-                    <p className="text-xs text-warm-gray mt-1">{label}</p>
+                    <p className="text-2xl font-rajdhani font-bold text-brand-accent">{num}</p>
+                    <p className="text-xs text-brand-text/70 mt-1 font-inter">{label}</p>
                   </div>
                 ))}
+              </div>
+
+              {/* Payment Clarity */}
+              <div className="mt-8 p-4 rounded-lg border border-slate-200 bg-slate-50 text-center">
+                <p className="text-xs font-bold text-brand-primary uppercase tracking-wider mb-2 font-inter">Payment Information</p>
+                <p className="text-xs text-slate-600 leading-relaxed font-inter">
+                  Professional fees payable via UPI, Bank Transfer, or Cheque.<br />
+                  GST @ 18% applicable. Invoice provided for all transactions.
+                </p>
+                <p className="text-xs text-slate-400 mt-2 italic font-inter">
+                  Contact us for bank account details and payment schedule.
+                </p>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Legal Terms & Conditions Accordion */}
-        <div className="mt-20 border-t border-gold/10 pt-12">
+        <div className="mt-20 border-t border-brand-card pt-12">
           <motion.div
              initial={{ opacity: 0 }}
              whileInView={{ opacity: 1 }}
@@ -285,7 +300,7 @@ export default function ConsultationPackage() {
               id="consultation-terms-btn"
               aria-expanded={isTermsOpen}
               aria-controls="consultation-terms-content"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-dark-light border border-gold/30 hover:border-gold/60 hover:bg-gold/5 transition-all rounded-lg text-gold font-medium text-sm"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-brand-card border border-brand-accent hover:bg-brand-accent hover:border-transparent transition-all rounded-lg text-brand-text hover:text-brand-primary font-bold text-sm shadow-sm font-inter"
             >
               <ShieldCheck size={18} />
               {isTermsOpen ? "Hide Legal Terms & Conditions" : "View Legal Terms & Conditions"}
@@ -306,15 +321,15 @@ export default function ConsultationPackage() {
                 transition={{ duration: 0.4 }}
                 className="overflow-hidden mt-8"
               >
-                <div className="glass-card p-6 md:p-8 text-left">
-                  <h3 className="text-xl font-outfit font-bold text-warm-white mb-6 border-b border-white/10 pb-4">
+                <div className="bg-brand-primary border border-brand-card rounded-xl shadow-sm p-6 md:p-8 text-left">
+                  <h3 className="text-xl font-sgrotesk font-bold text-brand-text mb-6 border-b border-brand-card pb-4">
                     Civil Engineering Consultancy Services — Terms
                   </h3>
                   
-                  <div className="grid md:grid-cols-2 gap-6 text-sm text-warm-gray leading-relaxed h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                  <div className="grid md:grid-cols-2 gap-6 text-sm text-brand-text/70 font-inter leading-relaxed h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                     {legalTerms.map((term, i) => (
                       <div key={i} className="mb-2">
-                        <h4 className="text-gold font-semibold mb-1">{term.title}</h4>
+                        <h4 className="text-brand-text font-bold mb-1">{term.title}</h4>
                         <p>{term.content}</p>
                       </div>
                     ))}

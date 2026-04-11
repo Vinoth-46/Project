@@ -1,20 +1,33 @@
 'use client'
+
 import { useState, useRef, useEffect } from 'react'
-import { MessageCircle, X, Send, Bot, User, Loader, Phone } from 'lucide-react'
+import { X, Send, Bot, User, Loader, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAvatarStore } from '../store/avatarStore'
+import RobotAvatar from './3d/RobotAvatar'
+import { useDeviceTier } from '../hooks/useDeviceTier'
 
 interface Message {
   role: 'user' | 'assistant'
   content: string
 }
 
+const QUICK_REPLIES = [
+  'Building Approval help',
+  'DTCP Approval process',
+  'Construction consultation',
+  'Bank loan estimate',
+  'Package pricing',
+]
+
 export default function ChatBot() {
+  const { isMobile } = useDeviceTier()
+  const { chatOpen, setChatOpen, setAvatarMood } = useAvatarStore()
   const [dialOpen, setDialOpen] = useState(false)
-  const [chatOpen, setChatOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm the virtual assistant for Kitchaa's Enterprise. How can I help you today? Whether it's building approvals, construction plans, or loan assistance — I'm here to guide you."
+      content: "Vanakkam! 🙏 I'm the Civil Engineering Assistant for Kitchaa's Enterprise.\n\nPlanning construction or need building approval? Let me guide you correctly — mistakes here can cost lakhs.\n\nHow can I help you today?"
     }
   ])
   const [input, setInput] = useState('')
@@ -25,13 +38,15 @@ export default function ChatBot() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const sendMessage = async () => {
-    if (!input.trim() || loading) return
-    const userMsg: Message = { role: 'user', content: input.trim() }
+  const sendMessage = async (text?: string) => {
+    const msgText = text || input.trim()
+    if (!msgText || loading) return
+    const userMsg: Message = { role: 'user', content: msgText }
     const updatedMessages = [...messages, userMsg]
     setMessages(updatedMessages)
     setInput('')
     setLoading(true)
+    setAvatarMood('thinking')
 
     try {
       const response = await fetch('/.netlify/functions/chat', {
@@ -46,13 +61,15 @@ export default function ChatBot() {
 
       const data = await response.json()
       const reply = data.choices?.[0]?.message?.content || "I couldn't get a response. Please try again."
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }])
+      setMessages((prev: Message[]) => [...prev, { role: 'assistant', content: reply }])
+      setAvatarMood('idle')
     } catch (err: any) {
       console.error('Chat error:', err)
-      setMessages(prev => [...prev, { 
+      setMessages((prev: Message[]) => [...prev, { 
         role: 'assistant', 
-        content: "I'm having trouble connecting to the AI service right now. Please call us directly at +91 83440 51846 or message us on WhatsApp." 
+        content: "I'm having trouble connecting right now. Please call us directly at +91 83440 51846 or message us on WhatsApp for immediate assistance." 
       }])
+      setAvatarMood('idle')
     } finally {
       setLoading(false)
     }
@@ -79,99 +96,88 @@ export default function ChatBot() {
 
   return (
     <>
+      <RobotAvatar />
+
       {/* Unified Speed Dial — bottom right */}
-      <div style={{ position: 'fixed', bottom: '1.75rem', right: '1.75rem', zIndex: 9000, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+      <div style={{ 
+        position: 'fixed', 
+        bottom: 'min(1.75rem, 20px)', 
+        right: isMobile ? '1.2rem' : '1.75rem', 
+        zIndex: 9000, 
+        display: 'flex', 
+        flexDirection: isMobile ? 'row-reverse' : 'column', 
+        alignItems: 'flex-end', 
+        gap: 12 
+      }}>
 
-        {/* Expanded Actions */}
-        <AnimatePresence>
-          {dialOpen && !chatOpen && dialActions.map((action, i) => (
-            <motion.a
-              key={action.label}
-              href={action.href}
-              target={action.href.startsWith('http') ? '_blank' : undefined}
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 12, scale: 0.85 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.85 }}
-              transition={{ duration: 0.18, delay: i * 0.06 }}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}
-            >
-              <span style={{
-                background: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(245,166,35,0.2)', borderRadius: 8,
-                padding: '5px 12px', fontSize: 12, fontWeight: 600,
-                color: '#f0ede8', whiteSpace: 'nowrap', letterSpacing: '0.04em'
-              }}>{action.label}</span>
-              <div style={{
-                width: 46, height: 46, borderRadius: '50%', background: action.bg,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#fff', boxShadow: '0 4px 16px rgba(0,0,0,0.35)', flexShrink: 0
-              }}>
-                {action.icon}
-              </div>
-            </motion.a>
-          ))}
-        </AnimatePresence>
-
-        {/* Chat toggle (visible when dial open and chat closed) */}
-        <AnimatePresence>
-          {dialOpen && !chatOpen && (
+        {/* FAB Toggle (Mobile Only or Desktop as WhatsApp/Call trigger) */}
+        {!chatOpen && (
+          <div className="flex flex-col-reverse items-end gap-3">
             <motion.button
-              initial={{ opacity: 0, y: 12, scale: 0.85 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.85 }}
-              transition={{ duration: 0.18 }}
-              onClick={() => { setChatOpen(true); setDialOpen(false) }}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              onClick={() => setDialOpen(prev => !prev)}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.93 }}
+              className="flex"
+              style={{
+                width: 50, height: 50, borderRadius: '50%',
+                background: dialOpen ? '#334155' : '#FACC15',
+                border: dialOpen ? '1px solid #0F172A' : 'none', cursor: 'pointer',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(250,204,21,0.25)',
+              }}
             >
-              <span style={{
-                background: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(245,166,35,0.2)', borderRadius: 8,
-                padding: '5px 12px', fontSize: 12, fontWeight: 600,
-                color: '#f0ede8', whiteSpace: 'nowrap', letterSpacing: '0.04em'
-              }}>AI Assistant</span>
-              <div style={{
-                width: 46, height: 46, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #f5a623, #e8590c)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#fff', boxShadow: '0 4px 16px rgba(245,166,35,0.35)', flexShrink: 0
-              }}>
-                <Bot size={21} />
-              </div>
+              <motion.div animate={{ rotate: dialOpen ? 45 : 0 }} transition={{ duration: 0.2 }}>
+                {dialOpen ? <X size={20} color="#E5E7EB" /> : <Phone size={20} color="#0F172A" />}
+              </motion.div>
             </motion.button>
-          )}
-        </AnimatePresence>
 
-        {/* Main FAB */}
-        <motion.button
-          onClick={() => {
-            if (chatOpen) { setChatOpen(false) }
-            else { setDialOpen(prev => !prev) }
-          }}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.93 }}
-          animate={!dialOpen && !chatOpen ? { scale: [1, 1.06, 1] } : {}}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{
-            width: 56, height: 56, borderRadius: '50%',
-            background: dialOpen || chatOpen ? 'rgba(60,60,60,0.95)' : 'linear-gradient(135deg, #f5a623, #e8590c)',
-            border: 'none', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 0 24px rgba(245,166,35,0.4), 0 4px 20px rgba(0,0,0,0.5)',
-          }}
-        >
-          <motion.div
-            animate={{ rotate: dialOpen || chatOpen ? 45 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {chatOpen
-              ? <X size={22} color="#fff" />
-              : dialOpen
-                ? <X size={22} color="#fff" />
-                : <MessageCircle size={22} color="#fff" />
-            }
-          </motion.div>
-        </motion.button>
+            {/* Expanded Actions */}
+            <AnimatePresence>
+              {dialOpen && dialActions.map((action, i) => (
+                <motion.a
+                  key={action.label}
+                  href={action.href}
+                  target={action.href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 12, scale: 0.85 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 12, scale: 0.85 }}
+                  transition={{ duration: 0.18, delay: i * 0.05 }}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}
+                >
+                  {!isMobile && <span style={{
+                    background: '#334155', border: '1px solid #0F172A', borderRadius: 8,
+                    padding: '4px 10px', fontSize: 11, fontWeight: 700,
+                    color: '#E5E7EB', whiteSpace: 'nowrap'
+                  }}>{action.label}</span>}
+                  <div style={{
+                    width: 44, height: 44, borderRadius: '50%', background: action.bg,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                  }}>
+                    {action.icon}
+                  </div>
+                </motion.a>
+              ))}
+              
+              {/* Mobile Only: Bot trigger in speed dial */}
+              {dialOpen && isMobile && (
+                 <motion.button
+                   initial={{ opacity: 0, y: 12, scale: 0.85 }}
+                   animate={{ opacity: 1, y: 0, scale: 1 }}
+                   exit={{ opacity: 0, y: 12, scale: 0.85 }}
+                   transition={{ duration: 0.18, delay: dialActions.length * 0.05 }}
+                   onClick={() => { setChatOpen(true); setDialOpen(false) }}
+                   style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                 >
+                   <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#FACC15', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0F172A', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                     <Bot size={20} />
+                   </div>
+                 </motion.button>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       {/* Chat Panel */}
@@ -183,118 +189,147 @@ export default function ChatBot() {
             exit={{ opacity: 0, y: 24, scale: 0.95 }}
             transition={{ duration: 0.22, ease: 'easeOut' }}
             style={{
-              position: 'fixed', bottom: '5.5rem', right: '1.75rem', zIndex: 8999,
-              width: 'min(360px, calc(100vw - 2rem))',
-              height: 'min(520px, calc(100dvh - 8rem))',
+              position: 'fixed', bottom: isMobile ? '1rem' : 'min(5.5rem, 80px)', right: isMobile ? '1rem' : '1.75rem', zIndex: 8999,
+              width: isMobile ? 'calc(100vw - 2rem)' : '380px',
+              height: isMobile ? 'calc(100dvh - 2rem)' : 'min(560px, calc(100dvh - 8rem))',
               borderRadius: 16,
-              background: 'rgba(10,10,10,0.95)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(245,166,35,0.25)',
+              background: '#111827',
+              border: '1px solid #334155',
               display: 'flex', flexDirection: 'column',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(245,166,35,0.08)',
+              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)',
               overflow: 'hidden',
             }}
           >
-            {/* Header */}
+            {/* Header with Integrated Avatar (Option C) */}
             <div style={{
               padding: '0.9rem 1.2rem',
-              borderBottom: '1px solid rgba(245,166,35,0.15)',
-              background: 'rgba(245,166,35,0.06)',
+              borderBottom: '1px solid #334155',
+              background: '#0F172A',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexShrink: 0
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                {/* Option C: Scaled Avatar in Header */}
                 <div style={{
-                  width: 34, height: 34, borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #f5a623, #e8590c)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                  width: 38, height: 38, borderRadius: '50%',
+                  background: '#FACC15',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  overflow: 'hidden', border: '2px solid #FACC15'
                 }}>
-                  <Bot size={17} color="#fff" />
+                   {/* Fallback to icon for header but could be a tiny Canvas too */}
+                   <Bot size={22} color="#0F172A" />
                 </div>
                 <div>
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: '#f0ede8' }}>Kitchaa's Assistant</p>
-                  <p style={{ margin: 0, fontSize: 11, color: '#f5a623' }}>AI Assistant</p>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#E5E7EB' }}>Civil Engineering Assistant</p>
+                  <p style={{ margin: 0, fontSize: 11, color: '#FACC15', fontWeight: 500 }}>Online & Ready to Help</p>
                 </div>
               </div>
-              <button onClick={() => setChatOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888', padding: 4, display: 'flex' }}>
-                <X size={18} />
+              <button 
+                onClick={() => setChatOpen(false)} 
+                style={{ background: '#334155', border: 'none', cursor: 'pointer', color: '#E5E7EB', padding: 6, borderRadius: '50%', display: 'flex' }}
+              >
+                <X size={16} />
               </button>
             </div>
 
             {/* Messages */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {messages.map((msg, i) => (
+            <div style={{ flex: 1, overflowY: 'auto', padding: '1.2rem 1rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {messages.map((msg: Message, i: number) => (
                 <div key={i} style={{
-                  display: 'flex', gap: 8,
+                  display: 'flex', gap: 10,
                   flexDirection: msg.role === 'user' ? 'row-reverse' : 'row',
-                  alignItems: 'flex-end'
+                  alignItems: 'flex-start'
                 }}>
                   <div style={{
-                    width: 26, height: 26, borderRadius: '50%', flexShrink: 0,
-                    background: msg.role === 'user' ? 'rgba(245,166,35,0.2)' : 'rgba(255,255,255,0.08)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+                    background: msg.role === 'user' ? '#FACC15' : '#334155', 
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    marginTop: 2
                   }}>
-                    {msg.role === 'user' ? <User size={13} color="#f5a623" /> : <Bot size={13} color="#888" />}
+                    {msg.role === 'user' ? <User size={14} color="#0F172A" /> : <Bot size={14} color="#E5E7EB" />}
                   </div>
                   <div style={{
-                    maxWidth: '78%', padding: '0.55rem 0.85rem',
-                    borderRadius: msg.role === 'user' ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
-                    background: msg.role === 'user'
-                      ? 'linear-gradient(135deg, rgba(245,166,35,0.25), rgba(232,89,12,0.2))'
-                      : 'rgba(255,255,255,0.06)',
-                    border: msg.role === 'user' ? '1px solid rgba(245,166,35,0.3)' : '1px solid rgba(255,255,255,0.08)',
-                    fontSize: 13, lineHeight: 1.55,
-                    color: msg.role === 'user' ? '#f0ede8' : '#c8c4be'
+                    maxWidth: '82%', padding: '0.7rem 0.9rem',
+                    borderRadius: msg.role === 'user' ? '14px 14px 2px 14px' : '14px 14px 14px 2px',
+                    background: msg.role === 'user' ? '#FACC15' : '#1F2937',
+                    border: msg.role === 'user' ? 'none' : '1px solid #374151',
+                    fontSize: 13, lineHeight: 1.6,
+                    color: msg.role === 'user' ? '#0F172A' : '#E5E7EB',
+                    whiteSpace: 'pre-line',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                   }}>
                     {msg.content}
                   </div>
                 </div>
               ))}
               {loading && (
-                <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
-                  <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Bot size={13} color="#888" />
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2 }}>
+                    <Bot size={14} color="#E5E7EB" />
                   </div>
                   <div style={{
-                    padding: '0.55rem 0.85rem', borderRadius: '12px 12px 12px 4px',
-                    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-                    display: 'flex', alignItems: 'center', gap: 6
+                    padding: '0.7rem 0.9rem', borderRadius: '14px 14px 14px 2px',
+                    background: '#1F2937', border: '1px solid #374151',
+                    display: 'flex', alignItems: 'center', gap: 8
                   }}>
-                    <Loader size={12} color="#f5a623" style={{ animation: 'spin 1s linear infinite' }} />
-                    <span style={{ fontSize: 12, color: '#888' }}>Typing...</span>
+                    <Loader size={12} color="#FACC15" className="animate-spin" />
+                    <span style={{ fontSize: 13, color: '#9CA3AF' }}>Analyzing project details...</span>
                   </div>
                 </div>
               )}
               <div ref={bottomRef} />
             </div>
 
+            {/* Quick Reply Buttons */}
+            {messages.length <= 1 && !loading && (
+              <div style={{ padding: '0 1rem 1rem', display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {QUICK_REPLIES.map((reply) => (
+                  <button
+                    key={reply}
+                    onClick={() => sendMessage(reply)}
+                    style={{
+                      padding: '7px 14px', fontSize: 11, fontWeight: 700,
+                      background: 'rgba(250, 204, 21, 0.05)',
+                      border: '1px solid rgba(250, 204, 21, 0.3)',
+                      borderRadius: 20, color: '#FACC15', cursor: 'pointer',
+                      transition: 'all 0.2s', whiteSpace: 'nowrap',
+                    }}
+                    onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(250, 204, 21, 0.15)'; e.currentTarget.style.borderColor = '#FACC15'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(250, 204, 21, 0.05)'; e.currentTarget.style.borderColor = 'rgba(250, 204, 21, 0.3)'; }}
+                  >
+                    {reply}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {/* Input */}
             <div style={{
-              padding: '0.7rem 1rem', borderTop: '1px solid rgba(245,166,35,0.1)',
-              display: 'flex', gap: 8, flexShrink: 0
+              padding: '1rem', borderTop: '1px solid #334155',
+              display: 'flex', gap: 10, flexShrink: 0, background: '#0F172A'
             }}>
               <input
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                placeholder="Ask about our services..."
+                placeholder="How can Kitchaa's Enterprise help you today?"
                 style={{
-                  flex: 1, background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: 8, padding: '0.5rem 0.8rem',
-                  fontSize: 13, color: '#f0ede8', outline: 'none', fontFamily: 'inherit'
+                  flex: 1, background: '#111827',
+                  border: '1px solid #334155',
+                  borderRadius: 12, padding: '0.7rem 1rem',
+                  fontSize: 14, color: '#E5E7EB', outline: 'none'
                 }}
               />
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
                 style={{
-                  width: 38, height: 38, borderRadius: 8, border: 'none', cursor: 'pointer',
-                  background: input.trim() ? 'linear-gradient(135deg, #f5a623, #e8590c)' : 'rgba(255,255,255,0.08)',
+                  width: 44, height: 44, borderRadius: 12, border: 'none', cursor: 'pointer',
+                  background: input.trim() ? '#FACC15' : '#334155',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   transition: 'all 0.2s', flexShrink: 0
                 }}
               >
-                <Send size={15} color={input.trim() ? '#fff' : '#555'} />
+                <Send size={18} color={input.trim() ? '#0F172A' : '#9CA3AF'} />
               </button>
             </div>
           </motion.div>

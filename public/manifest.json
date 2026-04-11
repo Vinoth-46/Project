@@ -1,0 +1,21 @@
+{
+  "name": "Kitchaa's Enterprise",
+  "short_name": "KE Civil",
+  "description": "Premium Civil Engineering Consultancy in Namakkal, Tamil Nadu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040404",
+  "theme_color": "#FACC15",
+  "icons": [
+    {
+      "src": "/logo1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

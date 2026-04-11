@@ -46,8 +46,8 @@ function StarRating({ rating, onRate, interactive = false }: { rating: number; o
         const starIcon = (
           <Star
             size={interactive ? 22 : 16}
-            fill={isFilled ? '#f5a623' : 'none'}
-            color={isFilled ? '#f5a623' : '#333'}
+            fill={isFilled ? '#FACC15' : 'none'}
+            color={isFilled ? '#FACC15' : '#334155'}
             style={{ cursor: interactive ? 'pointer' : 'default', transition: 'all 0.15s' }}
           />
         );
@@ -63,7 +63,7 @@ function StarRating({ rating, onRate, interactive = false }: { rating: number; o
               onClick={() => onRate?.(star)}
               onMouseEnter={() => setHovered(star)}
               onMouseLeave={() => setHovered(0)}
-              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm appearance-none"
+              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-sm appearance-none"
             >
               {starIcon}
             </button>
@@ -78,7 +78,7 @@ function StarRating({ rating, onRate, interactive = false }: { rating: number; o
 function ReviewCard({ review, index }: { review: Review; index: number }) {
   return (
     <motion.div
-      className="glass-card p-6 flex flex-col gap-4"
+      className="bg-white p-6 border border-slate-200 rounded-xl shadow-sm flex flex-col gap-4"
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -86,18 +86,18 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-warm-white font-semibold text-base">{review.name}</p>
-          <div className="flex items-center gap-1.5 mt-0.5 text-warm-gray text-xs">
+          <p className="text-brand-primary font-bold text-base">{review.name}</p>
+          <div className="flex items-center gap-1.5 mt-0.5 text-slate-500 text-xs font-inter">
             <MapPin size={11} /> {review.location}
           </div>
         </div>
         {review.isUserSubmitted && (
-          <span className="text-xs px-2 py-0.5 rounded-full border border-gold/30 text-gold bg-gold/10">Your Review</span>
+          <span className="text-xs px-2 py-0.5 rounded-full border border-brand-card text-brand-primary bg-brand-accent shadow-sm font-inter">Your Review</span>
         )}
       </div>
       <StarRating rating={review.rating} />
-      <p className="text-warm-gray text-sm leading-relaxed flex-1">"{review.text}"</p>
-      <div className="flex items-center gap-1.5 text-xs text-warm-gray/50 border-t border-white/5 pt-3">
+      <p className="text-slate-700 text-sm leading-relaxed flex-1 font-inter">"{review.text}"</p>
+      <div className="flex items-center gap-1.5 text-xs text-slate-400 border-t border-slate-100 pt-3 font-inter">
         <Calendar size={11} /> {review.date}
       </div>
     </motion.div>
@@ -146,53 +146,53 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
   };
 
   const inputStyle = {
-    width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 8, padding: '0.6rem 0.9rem', fontSize: 14, color: '#f0ede8',
-    outline: 'none', fontFamily: 'inherit',
+    width: '100%', background: '#F8FAFC', border: '1px solid #E2E8F0',
+    borderRadius: 8, padding: '0.6rem 0.9rem', fontSize: 14, color: '#0F172A',
+    outline: 'none', fontFamily: 'inherit', boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm text-warm-gray mb-1.5">Your Name <span className="text-gold">*</span></label>
+          <label className="block text-sm text-slate-600 mb-1.5 font-medium font-inter">Your Name <span className="text-brand-accent">*</span></label>
           <input value={name} onChange={e => setName(e.target.value)} placeholder="E.g. Suresh M."
             style={{ ...inputStyle, borderColor: errors.name ? '#ef4444' : undefined }} />
-          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+          {errors.name && <p className="text-red-600 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label className="block text-sm text-warm-gray mb-1.5">Location / City</label>
+          <label className="block text-sm text-slate-600 mb-1.5 font-medium font-inter">Location / City</label>
           <input value={location} onChange={e => setLocation(e.target.value)} placeholder="E.g. Namakkal" style={inputStyle} />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm text-warm-gray mb-2">Rating <span className="text-gold">*</span></label>
+        <label className="block text-sm text-slate-600 mb-2 font-medium font-inter">Rating <span className="text-brand-accent">*</span></label>
         <StarRating rating={rating} onRate={setRating} interactive />
-        {errors.rating && <p className="text-red-500 text-xs mt-1">{errors.rating}</p>}
+        {errors.rating && <p className="text-red-600 text-xs mt-1">{errors.rating}</p>}
       </div>
 
       <div>
-        <label className="block text-sm text-warm-gray mb-1.5">
-          Your Review <span className="text-gold">*</span>
-          <span className="ml-2 text-warm-gray/50 text-xs">({text.length}/300)</span>
+        <label className="block text-sm text-slate-600 mb-1.5 font-medium font-inter">
+          Your Review <span className="text-brand-accent">*</span>
+          <span className="ml-2 text-slate-400 text-xs">({text.length}/300)</span>
         </label>
         <textarea value={text} onChange={e => setText(e.target.value.slice(0, 300))}
           rows={4} placeholder="Share your experience with Kitchaa's Enterprise..."
           style={{ ...inputStyle, resize: 'none', borderColor: errors.text ? '#ef4444' : undefined }} />
-        {errors.text && <p className="text-red-500 text-xs mt-1">{errors.text}</p>}
+        {errors.text && <p className="text-red-600 text-xs mt-1">{errors.text}</p>}
       </div>
 
       <div className="flex items-center justify-between gap-4 pt-1">
-        <p className="text-xs text-warm-gray/40 italic">Reviews are visible to all visitors on this device.</p>
-        <button type="submit" className="btn-gold-filled text-sm px-6 py-2.5 flex-shrink-0">
+        <p className="text-xs text-slate-500 italic font-inter">Reviews are visible to all visitors on this device.</p>
+        <button type="submit" className="bg-brand-accent text-brand-primary hover:bg-[#F59E0B] rounded-lg text-sm px-6 py-2.5 flex-shrink-0 transition-colors shadow-sm font-bold font-inter">
           Submit Review
         </button>
       </div>
 
       <AnimatePresence>
         {submitted && (
-          <motion.p className="text-sm text-green-400 font-medium"
+          <motion.p className="text-sm text-green-600 font-medium"
             initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             ✓ Thank you. Your review has been submitted.
           </motion.p>
@@ -224,22 +224,22 @@ export default function ReviewsSection() {
   const allReviews = [...seedReviews, ...userReviews];
 
   return (
-    <section id="reviews" className="relative py-20 md:py-32 bg-dark-light overflow-hidden">
+    <section id="reviews" className="relative py-20 md:py-32 bg-brand-secondary border-t border-brand-card overflow-hidden">
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-gold/3 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="section-container relative z-10">
         <motion.div className="text-center max-w-3xl mx-auto mb-14"
           initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8 }}>
-          <span className="text-gold text-sm font-semibold tracking-[0.2em] uppercase mb-4 block">
+          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
             Client Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-warm-white mb-4">
-            What Our Clients <span className="gradient-text">Say</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-4">
+            What Our Clients <span className="text-brand-accent font-extrabold">Say</span>
           </h2>
-          <p className="text-warm-gray text-base md:text-lg">
+          <p className="text-brand-text/80 text-base md:text-lg font-inter">
             Real experiences from our valued clients across Tamil Nadu.
           </p>
         </motion.div>
@@ -256,17 +256,17 @@ export default function ReviewsSection() {
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
           <button onClick={() => setShowForm(v => !v)}
-            className="w-full glass-card p-4 flex items-center justify-between text-warm-white font-medium text-sm hover:border-gold/30 transition-colors">
+            className="w-full bg-white border border-slate-200 shadow-sm rounded-xl p-4 flex items-center justify-between text-brand-primary font-bold text-sm hover:bg-slate-50 hover:border-brand-accent/50 transition-colors font-inter">
             <span>{showForm ? 'Close Form' : 'Share Your Experience'}</span>
-            {showForm ? <ChevronUp size={18} className="text-gold" /> : <ChevronDown size={18} className="text-gold" />}
+            {showForm ? <ChevronUp size={18} className="text-brand-accent" /> : <ChevronDown size={18} className="text-brand-accent" />}
           </button>
 
           <AnimatePresence>
             {showForm && (
-              <motion.div className="glass-card p-6 mt-2"
+              <motion.div className="bg-brand-secondary border border-brand-card shadow-sm rounded-xl p-6 mt-2"
                 initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }}>
-                <h3 className="text-warm-white font-semibold mb-4">Write a Review</h3>
+                <h3 className="text-brand-text font-bold mb-4 font-inter">Write a Review</h3>
                 <ReviewForm onSubmit={handleNewReview} />
               </motion.div>
             )}

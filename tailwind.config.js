@@ -48,25 +48,35 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Custom Kitchaa's Enterprise colors
+        // Custom Premium Dark Mode colors
+        brand: {
+          primary: "#0F172A",
+          secondary: "#111827",
+          footer: "#020617",
+          card: "#334155",
+          text: "#E5E7EB",
+          accent: "#FACC15",
+          accentHover: "#F59E0B",
+          softWhite: "#F8FAFC",
+        },
         gold: {
-          DEFAULT: "#f5a623",
-          light: "#f7b84e",
-          dark: "#d48a1a",
+          DEFAULT: "#FACC15", 
+          light: "#F59E0B",
+          dark: "#D97706",
         },
         orange: {
-          DEFAULT: "#e8590c",
-          light: "#f57a3a",
-          dark: "#c44a0a",
+          DEFAULT: "#F59E0B",
+          light: "#FACC15",
+          dark: "#B45309",
         },
         dark: {
-          DEFAULT: "#0a0a0a",
-          light: "#111111",
-          lighter: "#1a1a1a",
+          DEFAULT: "#0F172A", 
+          light: "#111827",
+          lighter: "#334155",
         },
         warm: {
-          white: "#f0ede8",
-          gray: "#a8a5a0",
+          white: "#E5E7EB",
+          gray: "#9CA3AF",
         },
       },
       borderRadius: {
@@ -78,8 +88,8 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        glow: "0 0 20px rgba(245, 166, 35, 0.3)",
-        "glow-lg": "0 0 40px rgba(245, 166, 35, 0.4)",
+        glow: "none",
+        "glow-lg": "none",
       },
       keyframes: {
         "accordion-down": {
@@ -116,12 +126,14 @@ module.exports = {
         shimmer: "shimmer 2s linear infinite",
       },
       backgroundImage: {
-        "gold-gradient": "linear-gradient(135deg, #f5a623 0%, #e8590c 100%)",
-        "gold-gradient-r": "linear-gradient(135deg, #e8590c 0%, #f5a623 100%)",
+        "gold-gradient": "none",
+        "gold-gradient-r": "none",
       },
       fontFamily: {
-        outfit: ["Outfit", "sans-serif"],
+        outfit: ["Space Grotesk", "sans-serif"], // mapped to Space Grotesk based on prior code
+        sgrotesk: ["Space Grotesk", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        rajdhani: ["Rajdhani", "sans-serif"],
       },
     },
   },

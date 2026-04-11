@@ -108,15 +108,15 @@ function ProjectCard({ project, onClick, index }: ProjectCardProps) {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute inset-0 bg-brand-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-          <span className="inline-block px-2 py-1 text-xs font-medium text-gold bg-gold/10 rounded mb-2">
+          <span className="inline-block px-2 py-1 text-xs font-bold text-brand-primary bg-brand-accent rounded mb-2 font-inter">
             {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
           </span>
-          <h3 className="text-lg md:text-xl font-outfit font-bold text-warm-white mb-2">
+          <h3 className="text-lg md:text-xl font-sgrotesk font-bold text-white mb-2">
             {project.title}
           </h3>
-          <div className="flex items-center gap-4 text-sm text-warm-gray">
+          <div className="flex items-center gap-4 text-sm text-brand-text/80 font-inter">
             <span className="flex items-center gap-1">
               <MapPin size={14} />
               {project.location}
@@ -129,8 +129,8 @@ function ProjectCard({ project, onClick, index }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Gold Border on Hover */}
-      <div className="absolute inset-0 border-2 border-gold/0 group-hover:border-gold/50 rounded-lg transition-colors duration-300 pointer-events-none" />
+      {/* Neutral Border on Hover */}
+      <div className="absolute inset-0 border-2 border-transparent group-hover:border-brand-accent/30 rounded-lg transition-colors duration-300 pointer-events-none" />
     </motion.div>
   );
 }
@@ -145,14 +145,14 @@ function Lightbox({ project, onClose }: LightboxProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark/95 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-primary/95 backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
     >
       <motion.div
-        className="relative max-w-4xl w-full bg-dark-light rounded-lg overflow-hidden"
+        className="relative max-w-4xl w-full bg-brand-primary border border-brand-card shadow-2xl rounded-lg overflow-hidden"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -161,7 +161,7 @@ function Lightbox({ project, onClose }: LightboxProps) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark/80 text-warm-white hover:bg-gold hover:text-dark transition-colors"
+          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-brand-card text-brand-text border border-brand-card shadow-sm hover:bg-brand-accent hover:text-brand-primary transition-colors"
         >
           <X size={20} />
         </button>
@@ -175,22 +175,21 @@ function Lightbox({ project, onClose }: LightboxProps) {
           />
         </div>
 
-        {/* Content */}
-        <div className="p-6 md:p-8">
-          <span className="inline-block px-3 py-1 text-sm font-medium text-gold bg-gold/10 rounded mb-3">
+        <div className="p-6 md:p-8 bg-brand-secondary border-t border-brand-card">
+          <span className="inline-block px-3 py-1 text-sm font-bold text-brand-primary bg-brand-accent border border-brand-accent shadow-sm rounded mb-3 font-inter">
             {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
           </span>
-          <h2 className="text-2xl md:text-3xl font-outfit font-bold text-warm-white mb-4">
+          <h2 className="text-2xl md:text-3xl font-sgrotesk font-bold text-brand-text mb-4">
             {project.title}
           </h2>
-          <p className="text-warm-gray mb-6">{project.description}</p>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-warm-gray">
+          <p className="text-brand-text/70 mb-6 font-inter">{project.description}</p>
+          <div className="flex flex-wrap items-center gap-4 text-sm text-brand-text/50 font-inter">
             <span className="flex items-center gap-2">
-              <MapPin size={16} className="text-gold" />
+              <MapPin size={16} className="text-brand-accent" />
               {project.location}
             </span>
             <span className="flex items-center gap-2">
-              <Calendar size={16} className="text-gold" />
+              <Calendar size={16} className="text-brand-accent" />
               {project.year}
             </span>
           </div>
@@ -210,7 +209,7 @@ export default function PortfolioSection() {
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="portfolio" className="relative py-20 md:py-32 bg-dark">
+    <section id="portfolio" className="relative py-20 md:py-32 bg-brand-primary">
       <div className="section-container">
         {/* Section Header */}
         <motion.div
@@ -220,13 +219,13 @@ export default function PortfolioSection() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
         >
-          <span className="text-gold text-sm font-semibold tracking-[0.2em] uppercase mb-4 block">
+          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
             Our Portfolio
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-warm-white mb-6">
-            Projects That Define <span className="gradient-text">Excellence</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-6">
+            Projects That Define <span className="text-brand-accent font-extrabold">Excellence</span>
           </h2>
-          <p className="text-warm-gray text-base md:text-lg">
+          <p className="text-brand-text/80 text-base md:text-lg font-inter">
             Explore our diverse portfolio of completed projects across residential,
             commercial, and industrial sectors.
           </p>
@@ -244,10 +243,10 @@ export default function PortfolioSection() {
             <button
               key={category.id}
               onClick={() => setActiveFilter(category.id)}
-              className={`px-4 md:px-6 py-2 text-sm font-medium rounded-full border transition-all ${
+              className={`px-4 md:px-6 py-2 text-sm font-bold rounded-full border transition-all font-inter ${
                 activeFilter === category.id
-                  ? 'bg-gold text-dark border-gold'
-                  : 'bg-transparent text-warm-gray border-gold/30 hover:border-gold/60 hover:text-warm-white'
+                  ? 'bg-brand-accent text-brand-primary border-brand-accent shadow-lg shadow-brand-accent/20'
+                  : 'bg-brand-primary text-brand-text border-brand-card hover:border-brand-accent/50 hover:text-brand-accent shadow-sm'
               }`}
             >
               {category.label}

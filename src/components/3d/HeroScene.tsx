@@ -4,187 +4,231 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Grid } from '@react-three/drei';
 import * as THREE from 'three';
+import { useInView } from '../../hooks/useInView';
 
-// Realistic 2-Story Modern Villa
-function RealisticModernVilla() {
-  const groupRef = useRef<THREE.Group>(null);
+// Building Wireframe Component
+function BuildingWireframe() {
+  const meshRef = useRef<THREE.Group>(null);
+  const wireframeRef = useRef<THREE.Mesh>(null);
+  const solidRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
-    if (groupRef.current) {
-      // Gentle orbit rotation
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.12;
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.08 - 1;
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.08;
     }
   });
 
+  // Create building geometry with multiple boxes
+  const buildingGeometry = useMemo(() => {
+    return new THREE.BoxGeometry(1.5, 2.5, 1.5);
+  }, []);
+
   return (
-    <group ref={groupRef} scale={0.7}>
-      {/* ── GROUND PLINTH */}
-      <mesh position={[0, 0.1, 0]} receiveShadow castShadow>
-        <boxGeometry args={[7, 0.2, 5.5]} />
-        <meshStandardMaterial color="#8a8070" roughness={0.9} />
+    <group ref={meshRef} position={[0, 0.5, 0]}>
+      {/* Wireframe Building */}
+      <mesh ref={wireframeRef} geometry={buildingGeometry}>
+        <meshBasicMaterial
+          color="#f5a623"
+          wireframe
+          transparent
+          opacity={0.6}
+        />
       </mesh>
 
-      {/* ── GROUND FLOOR WOOODEN ACCENT / CLADDING */}
-      <mesh position={[-1.5, 1.2, 1.8]} receiveShadow castShadow>
-        <boxGeometry args={[3, 2, 0.4]} />
-        <meshStandardMaterial color="#6b4423" roughness={0.7} />
+      {/* Solid Building (fades in on scroll) */}
+      <mesh ref={solidRef} geometry={buildingGeometry} scale={[0.95, 0.95, 0.95]}>
+        <meshStandardMaterial
+          color="#1a1a1a"
+          metalness={0.8}
+          roughness={0.2}
+          transparent
+          opacity={0.3}
+        />
       </mesh>
 
-      {/* ── GROUND FLOOR MAIN BODY */}
-      <mesh position={[1.5, 1.2, -0.5]} receiveShadow castShadow>
-        <boxGeometry args={[3.5, 2, 4]} />
-        <meshStandardMaterial color="#e8e4dc" roughness={0.8} />
-      </mesh>
-      
-      {/* ── GROUND FLOOR BACK / LEFT EXTENSION */}
-      <mesh position={[-1.5, 1.2, -1.5]} receiveShadow castShadow>
-        <boxGeometry args={[2.5, 2, 2]} />
-        <meshStandardMaterial color="#e8e4dc" roughness={0.8} />
-      </mesh>
-
-      {/* ── ENTRANCE DOOR (Wood) */}
-      <mesh position={[-0.5, 1.1, 2.01]}>
-        <boxGeometry args={[1.2, 1.8, 0.05]} />
-        <meshStandardMaterial color="#3d2314" roughness={0.4} />
-      </mesh>
-
-      {/* ── GROUND FLOOR WINDOW */}
-      <mesh position={[1.5, 1.2, 1.51]}>
-        <boxGeometry args={[2, 1.2, 0.05]} />
-        <meshStandardMaterial color="#1a252c" roughness={0.1} metalness={0.8} />
-      </mesh>
-
-      {/* ── FIRST FLOOR MAIN BODY (White Stucco) */}
-      <mesh position={[0.5, 3.2, 0]} receiveShadow castShadow>
-        <boxGeometry args={[5, 2, 4.5]} />
-        <meshStandardMaterial color="#f0f0f0" roughness={0.9} />
-      </mesh>
-
-      {/* ── FIRST FLOOR BALCONY SLAB & OVERHANG */}
-      <mesh position={[-1.5, 2.2, 1.5]} receiveShadow castShadow>
-        <boxGeometry args={[3, 0.2, 2]} />
-        <meshStandardMaterial color="#555" roughness={0.8} />
-      </mesh>
-
-      {/* ── FIRST FLOOR FRONT LARGE WINDOW */}
-      <mesh position={[0.5, 3.2, 2.26]}>
-        <boxGeometry args={[3, 1.6, 0.1]} />
-        <meshStandardMaterial color="#2c3e50" roughness={0.1} metalness={0.6} />
-      </mesh>
-      {/* Window Glass Overlay */}
-      <mesh position={[0.5, 3.2, 2.32]}>
-        <boxGeometry args={[2.8, 1.4, 0.05]} />
-        <meshStandardMaterial color="#7ab3d4" transparent opacity={0.6} roughness={0.05} metalness={0.9} />
-      </mesh>
-
-      {/* ── ROOF OVERHANG (Flat Concrete) */}
-      <mesh position={[0.5, 4.3, 0.2]} receiveShadow castShadow>
-        <boxGeometry args={[5.5, 0.2, 5]} />
-        <meshStandardMaterial color="#333" roughness={0.8} />
-      </mesh>
-
-      {/* ── BALCONY GLASS RAILING */}
-      <mesh position={[-2.95, 2.7, 1.5]}>
-        <boxGeometry args={[0.1, 1, 2]} />
-        <meshStandardMaterial color="#7ab3d4" transparent opacity={0.4} roughness={0.1} metalness={0.8} />
-      </mesh>
-      <mesh position={[-1.5, 2.7, 2.45]}>
-        <boxGeometry args={[3, 1, 0.1]} />
-        <meshStandardMaterial color="#7ab3d4" transparent opacity={0.4} roughness={0.1} metalness={0.8} />
-      </mesh>
-
-      {/* ── GARDEN/PLANTER BOX */}
-      <mesh position={[2, 0.4, 2]} receiveShadow castShadow>
-        <boxGeometry args={[2, 0.6, 1]} />
-        <meshStandardMaterial color="#4a4036" roughness={1} />
-      </mesh>
-      {/* Shrubs inside planter */}
-      {[-0.5, 0.5].map((offset, i) => (
-        <mesh key={i} position={[2 + offset, 0.8, 2]} castShadow>
-          <sphereGeometry args={[0.4, 8, 8]} />
-          <meshStandardMaterial color="#2d4a22" roughness={0.9} />
+      {/* Floor lines */}
+      {Array.from({ length: 6 }).map((_, i) => (
+        <mesh key={i} position={[0, -1 + i * 0.4, 0]}>
+          <boxGeometry args={[1.52, 0.02, 1.52]} />
+          <meshBasicMaterial color="#f5a623" transparent opacity={0.3} />
         </mesh>
       ))}
 
-      {/* ── ENTRANCE LIGHTING */}
-      <pointLight position={[-0.5, 2.0, 2.5]} intensity={1.5} color="#f5a623" distance={5} />
-      {/* ── BALCONY LIGHTING */}
-      <pointLight position={[0.5, 3.5, 3]} intensity={0.8} color="#f5a623" distance={4} />
+      {/* Corner pillars */}
+      {[
+        [-0.7, -0.7],
+        [0.7, -0.7],
+        [-0.7, 0.7],
+        [0.7, 0.7],
+      ].map(([x, z], i) => (
+        <mesh key={i} position={[x, 0, z]}>
+          <boxGeometry args={[0.1, 2.5, 0.1]} />
+          <meshBasicMaterial color="#e8590c" wireframe />
+        </mesh>
+      ))}
     </group>
   );
 }
 
-// Floating Particles (subtle)
+// Floating Particles
 function FloatingParticles() {
   const particlesRef = useRef<THREE.Points>(null);
-  const count = 60;
-  const positions = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 14;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 8;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
-    }
-    return pos;
-  }, [count]);
+  const geometryRef = useRef<THREE.BufferGeometry>(null);
+
+  const particleCount = 40;
 
   useFrame((state) => {
     if (particlesRef.current) {
-      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.015;
+      particlesRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
+    }
+    
+    if (geometryRef.current) {
+      const positions = geometryRef.current.attributes.position.array as Float32Array;
+      
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3 + 1] += Math.sin(state.clock.getElapsedTime() + i * 0.1) * 0.002;
+      }
+      
+      geometryRef.current.attributes.position.needsUpdate = true;
     }
   });
 
+  // Create positions array
+  const positions = useMemo(() => {
+    const arr = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount; i++) {
+      arr[i * 3] = (Math.random() - 0.5) * 15;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 10;
+    }
+    
+    return arr;
+  }, []);
+
   return (
     <points ref={particlesRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      <bufferGeometry ref={geometryRef}>
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
+        />
       </bufferGeometry>
-      <pointsMaterial size={0.04} color="#f5a623" transparent opacity={0.45} sizeAttenuation />
+      <pointsMaterial
+        size={0.05}
+        color="#f5a623"
+        transparent
+        opacity={0.6}
+        sizeAttenuation
+      />
     </points>
   );
 }
 
-// Gently bobbing camera rig
-function CameraRig() {
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    state.camera.position.y = 3 + Math.sin(t * (2 * Math.PI) / 4) * 0.05;
-  });
-  return null;
+// Blueprint Grid
+function BlueprintGrid() {
+  return (
+    <Grid
+      position={[0, -2, 0]}
+      args={[20, 20]}
+      cellSize={0.5}
+      cellThickness={0.5}
+      cellColor="#f5a623"
+      sectionSize={2}
+      sectionThickness={1}
+      sectionColor="#e8590c"
+      fadeDistance={15}
+      fadeStrength={1}
+      infiniteGrid
+    />
+  );
 }
 
-export default function HeroScene() {
+// Floating Geometry Shapes
+function FloatingShapes() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
+    }
+  });
+
   return (
-    <div className="w-full h-full">
-      <Canvas
-        camera={{ position: [5, 3, 8], fov: 48 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.0 }}
-        shadows
-      >
-        {/* Soft golden-hour lighting */}
-        <ambientLight intensity={0.35} color="#fff0d0" />
-        <directionalLight position={[6, 10, 6]} intensity={1.4} color="#fff5d8" castShadow
-          shadow-mapSize={[1024, 1024]} />
-        <directionalLight position={[-6, 4, -4]} intensity={0.3} color="#b8d0ff" />
+    <group ref={groupRef}>
+      {/* Floating triangle */}
+      <mesh position={[-4, 1, -2]} rotation={[0, 0, Math.PI / 4]}>
+        <coneGeometry args={[0.3, 0.6, 3]} />
+        <meshBasicMaterial color="#f5a623" wireframe transparent opacity={0.4} />
+      </mesh>
 
-        <CameraRig />
-        <FloatingParticles />
-        <RealisticModernVilla />
+      {/* Floating cube */}
+      <mesh position={[4, -0.5, -3]} rotation={[Math.PI / 6, Math.PI / 4, 0]}>
+        <boxGeometry args={[0.4, 0.4, 0.4]} />
+        <meshBasicMaterial color="#e8590c" wireframe transparent opacity={0.4} />
+      </mesh>
 
-        <Grid position={[0, -1.22, 0]} args={[20, 20]} cellSize={0.6} cellThickness={0.4}
-          cellColor="#f5a623" sectionSize={2.4} sectionThickness={0.8} sectionColor="#e8590c"
-          fadeDistance={14} fadeStrength={1.2} infiniteGrid />
+      {/* Floating ring */}
+      <mesh position={[-3, -1, 2]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.5, 0.05, 8, 32]} />
+        <meshBasicMaterial color="#f5a623" wireframe transparent opacity={0.3} />
+      </mesh>
 
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate={false}
-          minPolarAngle={Math.PI / 5}
-          maxPolarAngle={Math.PI / 2.2}
-        />
-      </Canvas>
+      {/* Floating pyramid */}
+      <mesh position={[3.5, 1.5, 1]} rotation={[0, Math.PI / 6, 0]}>
+        <coneGeometry args={[0.3, 0.6, 4]} />
+        <meshBasicMaterial color="#e8590c" wireframe transparent opacity={0.4} />
+      </mesh>
+    </group>
+  );
+}
+
+// Main Hero Scene
+export default function HeroScene() {
+  const [containerRef, isInView] = useInView({ threshold: 0.1 });
+
+  return (
+    <div ref={containerRef} className="w-full h-full relative overflow-hidden bg-[#0F172A]">
+      {/* Fallback pattern while canvas is unmounted */}
+      {!isInView && (
+        <div className="absolute inset-0 opacity-20" style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, #f5a623 1px, transparent 0)',
+          backgroundSize: '40px 40px'
+        }} />
+      )}
+
+      {isInView && (
+        <Canvas
+          camera={{ position: [5, 3, 7], fov: 50 }}
+          dpr={1}
+          gl={{ 
+            antialias: false, 
+            alpha: true, 
+            powerPreference: 'low-power',
+            stencil: false,
+            depth: true 
+          }}
+          frameloop="demand"
+        >
+          <ambientLight intensity={0.3} />
+          <directionalLight position={[5, 8, 5]} intensity={1} color="#f5a623" />
+          <pointLight position={[-5, 3, -5]} intensity={0.5} color="#e8590c" />
+
+          <BuildingWireframe />
+          <FloatingParticles />
+          <BlueprintGrid />
+          <FloatingShapes />
+
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            autoRotate
+            autoRotateSpeed={0.3}
+            minPolarAngle={Math.PI / 4}
+            maxPolarAngle={Math.PI / 2}
+          />
+        </Canvas>
+      )}
     </div>
   );
 }

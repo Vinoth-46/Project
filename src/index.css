@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -43,79 +43,93 @@
   }
   
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
   
   body {
-    @apply bg-dark text-warm-white font-inter antialiased;
-    background-color: #0a0a0a;
+    @apply bg-brand-primary text-brand-text font-inter antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-outfit font-bold tracking-tight;
+    @apply font-sgrotesk font-bold tracking-tight;
   }
 }
 
 @layer components {
-  /* Glassmorphism Card */
+  /* Minimalist Card */
   .glass-card {
     @apply relative overflow-hidden;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(245, 166, 35, 0.15);
-    border-radius: 8px;
+    background: #111827; /* brand-secondary */
+    border: 1px solid #334155; /* brand-card */
+    border-radius: 4px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
   }
   
   .glass-card:hover {
-    border-color: rgba(245, 166, 35, 0.3);
-    box-shadow: 0 0 20px rgba(245, 166, 35, 0.15);
+    border-color: #FACC15; /* brand-accent */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
   
   .glass-nav {
     @apply fixed top-0 left-0 right-0;
     z-index: 500;
-    background: rgba(10, 10, 10, 0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(245, 166, 35, 0.12);
+    background: rgba(15, 23, 42, 0.85); /* brand-primary */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #334155; /* brand-card */
   }
   
   /* Gradient Text */
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #f5a623 0%, #e8590c 100%);
+    background-image: linear-gradient(to right, #FACC15, #F59E0B);
+    color: transparent;
   }
   
-  /* Gold Button */
+  /* Outline Button */
   .btn-gold {
-    @apply relative px-6 py-3 font-semibold text-sm tracking-wide uppercase overflow-hidden;
+    @apply relative px-6 py-3 font-medium text-sm tracking-wide uppercase overflow-hidden;
     background: transparent;
-    border: 1px solid rgba(245, 166, 35, 0.5);
+    border: 1px solid #FACC15;
     border-radius: 4px;
-    color: #f5a623;
+    color: #FACC15;
     transition: all 0.3s ease;
   }
   
   .btn-gold:hover {
-    background: linear-gradient(135deg, #f5a623 0%, #e8590c 100%);
-    color: #0a0a0a;
+    background: #FACC15;
+    color: #0F172A;
     border-color: transparent;
-    box-shadow: 0 0 20px rgba(245, 166, 35, 0.3);
+  }
+
+  /* Secondary Button as per Rule #3 */
+  .btn-secondary {
+    @apply relative px-6 py-3 font-bold text-sm tracking-wide uppercase overflow-hidden;
+    background: transparent;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    color: #E5E7EB;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: #FACC15;
+    color: #FACC15;
   }
   
-  /* Gold Button Filled */
+  /* Solid Button */
   .btn-gold-filled {
-    @apply relative px-6 py-3 font-semibold text-sm tracking-wide uppercase overflow-hidden;
-    background: linear-gradient(135deg, #f5a623 0%, #e8590c 100%);
+    @apply relative px-6 py-3 font-medium text-sm tracking-wide uppercase overflow-hidden;
+    background: #FACC15;
     border-radius: 4px;
-    color: #0a0a0a;
+    color: #0F172A;
     transition: all 0.3s ease;
   }
   
   .btn-gold-filled:hover {
-    box-shadow: 0 0 30px rgba(245, 166, 35, 0.4);
-    transform: translateY(-2px);
+    background: #F59E0B;
   }
   
   /* Section Container */
@@ -126,7 +140,7 @@
   /* Scroll Progress Bar */
   .scroll-progress {
     @apply fixed top-0 left-0 h-[2px] z-[110];
-    background: linear-gradient(90deg, #f5a623 0%, #e8590c 100%);
+    background: #FACC15;
   }
   
   /* 3D Tilt Card Base */
@@ -161,16 +175,16 @@
   }
   
   ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: #0F172A;
   }
   
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #f5a623 0%, #e8590c 100%);
+    background: #334155;
     border-radius: 4px;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: #f5a623;
+    background: #FACC15;
   }
 }
 

@@ -13,7 +13,8 @@ interface FormData {
 }
 
 const services = [
-  'Building Approvals',
+  'Building Approval (Residential & Commercial)',
+  'DTCP Approval',
   'Complete Construction & Consulting',
   'Building Plans & Bank Estimates',
   'Bank Loan Assistance & Finance',
@@ -113,7 +114,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-20 md:py-32 bg-dark-light">
+    <section id="contact" className="relative py-20 md:py-32 bg-brand-primary border-t border-brand-card">
       <div className="section-container">
         {/* Section Header */}
         <motion.div
@@ -123,13 +124,13 @@ export default function ContactSection() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
         >
-          <span className="text-gold text-sm font-semibold tracking-[0.2em] uppercase mb-4 block">
+          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
             Get In Touch
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-warm-white mb-6">
-            Let&apos;s Build <span className="gradient-text">Together</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-6">
+            Let&apos;s Build <span className="text-brand-accent font-extrabold">Together</span>
           </h2>
-          <p className="text-warm-gray text-base md:text-lg">
+          <p className="text-brand-text/80 text-base md:text-lg font-inter">
             Ready to start your project? Contact us for a free consultation and estimate.
           </p>
         </motion.div>
@@ -137,28 +138,28 @@ export default function ContactSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Details Panel */}
           <motion.div
-            className="flex flex-col h-full glass-card p-8 md:p-12 relative overflow-hidden"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="flex flex-col h-full bg-brand-primary border border-brand-card shadow-sm rounded-xl p-8 md:p-12 relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8 }}
           >
             {/* Background Accent */}
-            <div className="absolute top-0 left-0 w-64 h-64 bg-gold/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="absolute top-0 left-0 w-64 h-64 bg-brand-accent/5 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-            <h3 className="text-2xl md:text-3xl font-outfit font-bold text-warm-white mb-8 relative z-10">
-              Reach Out <span className="text-gold">Directly</span>
+            <h3 className="text-2xl md:text-3xl font-sgrotesk font-bold text-brand-text mb-8 relative z-10">
+              Reach Out <span className="text-brand-accent font-bold">Directly</span>
             </h3>
 
             <div className="flex flex-col gap-8 relative z-10">
               {/* Location */}
               <div className="flex items-start gap-5 group cursor-default">
-                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300 flex-shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-brand-card border border-brand-card flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-primary transition-all duration-300 flex-shrink-0 shadow-sm">
                   <MapPin size={24} />
                 </div>
                 <div className="pt-1">
-                  <p className="text-lg font-medium text-warm-white mb-1">Office Location</p>
-                  <p className="text-warm-gray leading-relaxed max-w-[200px]">
+                  <p className="text-lg font-bold text-brand-text mb-1 font-inter">Office Location</p>
+                  <p className="text-brand-text/70 leading-relaxed max-w-[200px] font-inter">
                     Kitchaa's Enterprise,<br />
                     Namakkal, Tamil Nadu
                   </p>
@@ -167,30 +168,30 @@ export default function ContactSection() {
 
               {/* Phone */}
               <a href="tel:+918344051846" className="flex items-start gap-5 group text-left">
-                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300 flex-shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-brand-card border border-brand-card flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-primary transition-all duration-300 flex-shrink-0 shadow-sm">
                   <Phone size={24} />
                 </div>
                 <div className="pt-1">
-                  <p className="text-lg font-medium text-warm-white mb-1">Direct Line</p>
-                  <p className="text-warm-gray group-hover:text-gold transition-colors">+91 83440 51846</p>
+                  <p className="text-lg font-bold text-brand-text mb-1 font-inter">Direct Line</p>
+                  <p className="text-brand-text/70 group-hover:text-brand-accent font-semibold transition-colors font-inter">+91 83440 51846</p>
                 </div>
               </a>
 
               {/* Email */}
               <a href="mailto:kitchaasenterprise@gmail.com" className="flex items-start gap-5 group text-left">
-                <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-dark group-hover:shadow-[0_0_20px_rgba(245,166,35,0.4)] transition-all duration-300 flex-shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-brand-card border border-brand-card flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-primary transition-all duration-300 flex-shrink-0 shadow-sm">
                   <Mail size={24} />
                 </div>
                 <div className="pt-1">
-                  <p className="text-lg font-medium text-warm-white mb-1">Email Address</p>
-                  <p className="text-warm-gray group-hover:text-gold transition-colors break-all">kitchaasenterprise<br/>@gmail.com</p>
+                  <p className="text-lg font-bold text-brand-text mb-1 font-inter">Email Address</p>
+                  <p className="text-brand-text/70 group-hover:text-brand-accent font-semibold transition-colors font-inter whitespace-nowrap">kitchaasenterprise@gmail.com</p>
                 </div>
               </a>
             </div>
 
             {/* Bottom info */}
             <div className="mt-auto pt-10 relative z-10">
-              <p className="text-sm text-warm-gray/60 italic border-l-2 border-gold/40 pl-4 py-2">
+              <p className="text-sm text-brand-text/60 italic border-l-2 border-brand-card pl-4 py-2 font-medium font-inter">
                 "Sacred Values. Solid Foundations."
               </p>
             </div>
@@ -198,9 +199,9 @@ export default function ContactSection() {
 
           {/* Contact Form */}
           <motion.div
-            className="glass-card p-6 md:p-8"
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="bg-brand-primary border border-brand-card shadow-sm rounded-xl p-6 md:p-8"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
@@ -210,13 +211,13 @@ export default function ContactSection() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mb-4">
-                  <CheckCircle size={32} className="text-gold" />
+                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                  <CheckCircle size={32} className="text-green-600" />
                 </div>
-                <h3 className="text-2xl font-outfit font-bold text-warm-white mb-2">
+                <h3 className="text-2xl font-sgrotesk font-bold text-brand-text mb-2">
                   Thank You!
                 </h3>
-                <p className="text-warm-gray">
+                <p className="text-brand-text/70 font-inter">
                   We&apos;ve received your message and will get back to you soon.
                 </p>
               </motion.div>
@@ -232,48 +233,48 @@ export default function ContactSection() {
                 <div className="grid md:grid-cols-2 gap-5">
                   {/* Name */}
                   <div>
-                    <label className="block text-sm font-medium text-warm-gray mb-2">
-                      Name <span className="text-gold">*</span>
+                    <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                      Name <span className="text-brand-accent">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark/50 border rounded-lg text-warm-white placeholder-warm-gray/50 focus:outline-none focus:border-gold transition-colors ${
-                        errors.name ? 'border-red-500' : 'border-gold/20'
+                      className={`w-full px-4 py-3 bg-brand-secondary border rounded-lg text-brand-text placeholder-brand-text/50 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors shadow-sm font-inter ${
+                        errors.name ? 'border-red-500' : 'border-brand-card'
                       }`}
                       placeholder="Your name"
                     />
                     {errors.name && (
-                      <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                      <p className="mt-1 text-sm text-red-600">{errors.name}</p>
                     )}
                   </div>
 
                   {/* Phone */}
                   <div>
-                    <label className="block text-sm font-medium text-warm-gray mb-2">
-                      Phone <span className="text-gold">*</span>
+                    <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                      Phone <span className="text-brand-accent">*</span>
                     </label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark/50 border rounded-lg text-warm-white placeholder-warm-gray/50 focus:outline-none focus:border-gold transition-colors ${
-                        errors.phone ? 'border-red-500' : 'border-gold/20'
+                      className={`w-full px-4 py-3 bg-brand-secondary border rounded-lg text-brand-text placeholder-brand-text/50 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors shadow-sm font-inter ${
+                        errors.phone ? 'border-red-500' : 'border-brand-card'
                       }`}
                       placeholder="Your phone number"
                     />
                     {errors.phone && (
-                      <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+                      <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
                     )}
                   </div>
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm font-medium text-warm-gray mb-2">
+                  <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                     Email
                   </label>
                   <input
@@ -281,46 +282,46 @@ export default function ContactSection() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-dark/50 border rounded-lg text-warm-white placeholder-warm-gray/50 focus:outline-none focus:border-gold transition-colors ${
-                      errors.email ? 'border-red-500' : 'border-gold/20'
+                    className={`w-full px-4 py-3 bg-brand-secondary border rounded-lg text-brand-text placeholder-brand-text/50 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors shadow-sm font-inter ${
+                      errors.email ? 'border-red-500' : 'border-brand-card'
                     }`}
                     placeholder="Your email address"
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors.email}</p>
                   )}
                 </div>
 
                 {/* Service */}
                 <div>
-                  <label className="block text-sm font-medium text-warm-gray mb-2">
-                    Service <span className="text-gold">*</span>
+                  <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                    Service <span className="text-brand-accent">*</span>
                   </label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-dark/50 border rounded-lg text-warm-white focus:outline-none focus:border-gold transition-colors appearance-none cursor-pointer ${
-                      errors.service ? 'border-red-500' : 'border-gold/20'
+                    className={`w-full px-4 py-3 bg-brand-secondary border rounded-lg text-brand-text focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors appearance-none cursor-pointer shadow-sm font-inter ${
+                      errors.service ? 'border-red-500' : 'border-brand-card'
                     }`}
                   >
-                    <option value="" className="bg-dark">
+                    <option value="" className="bg-brand-secondary">
                       Select a service
                     </option>
                     {services.map((service) => (
-                      <option key={service} value={service} className="bg-dark">
+                      <option key={service} value={service} className="bg-brand-secondary">
                         {service}
                       </option>
                     ))}
                   </select>
                   {errors.service && (
-                    <p className="mt-1 text-sm text-red-500">{errors.service}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors.service}</p>
                   )}
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-warm-gray mb-2">
+                  <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                     Message
                   </label>
                   <textarea
@@ -328,7 +329,7 @@ export default function ContactSection() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-3 bg-dark/50 border border-gold/20 rounded-lg text-warm-white placeholder-warm-gray/50 focus:outline-none focus:border-gold transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-brand-secondary border border-brand-card rounded-lg text-brand-text placeholder-brand-text/50 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-colors resize-none shadow-sm font-inter"
                     placeholder="Tell us about your project..."
                   />
                 </div>
@@ -337,11 +338,11 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full btn-gold-filled flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full bg-brand-accent text-brand-primary hover:bg-[#F59E0B] py-3 rounded-lg flex items-center justify-center gap-2 font-bold shadow-sm disabled:opacity-70 disabled:cursor-not-allowed transition-colors font-inter"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-dark/30 border-t-dark rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                       Sending...
                     </>
                   ) : (

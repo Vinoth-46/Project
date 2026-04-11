@@ -23,7 +23,7 @@ export default function FloatingContact() {
               exit={{ opacity: 0, x: -20, scale: 0.8 }}
               transition={{ duration: 0.2 }}
             >
-              <span className="px-3 py-1.5 text-sm font-medium text-warm-white bg-dark/80 rounded-lg border border-gold/20 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="px-3 py-1.5 text-sm font-bold text-brand-text bg-brand-primary rounded-md border border-brand-card shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
                 WhatsApp
               </span>
               <motion.div
@@ -46,11 +46,11 @@ export default function FloatingContact() {
               exit={{ opacity: 0, x: -20, scale: 0.8 }}
               transition={{ duration: 0.2, delay: 0.05 }}
             >
-              <span className="px-3 py-1.5 text-sm font-medium text-warm-white bg-dark/80 rounded-lg border border-gold/20 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="px-3 py-1.5 text-sm font-bold text-brand-text bg-brand-primary rounded-md border border-brand-card shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
                 Call Us
               </span>
               <motion.div
-                className="w-12 h-12 rounded-full bg-gold flex items-center justify-center text-dark shadow-lg"
+                className="w-12 h-12 rounded-full bg-brand-accent flex items-center justify-center text-brand-primary shadow-lg"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 animate={{ scale: [1, 1.05, 1] }}
@@ -67,7 +67,7 @@ export default function FloatingContact() {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-colors ${
-          isOpen ? 'bg-warm-gray text-dark' : 'bg-gold text-dark'
+          isOpen ? 'bg-brand-card border border-brand-accent text-brand-text' : 'bg-brand-accent text-brand-primary'
         }`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}

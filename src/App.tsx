@@ -5,9 +5,11 @@ import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
 import ServicesSection from './sections/ServicesSection';
 import InteractiveBuilding from './sections/InteractiveBuilding';
+import TransparencySection from './sections/TransparencySection';
 import ConsultationPackage from './sections/ConsultationPackage';
 import ServiceZoneMap from './sections/ServiceZoneMap';
 import ReviewsSection from './sections/ReviewsSection';
+import FAQSection from './sections/FAQSection';
 import ContactSection from './sections/ContactSection';
 import Footer from './sections/Footer';
 import ChatBot from './components/ChatBot';
@@ -16,8 +18,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // The preloader animation is simulated here. 
-    // In a real scenario it could wait for full 3d model loading.
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2500);
@@ -28,34 +28,40 @@ function App() {
   return (
     <>
       <Preloader isLoading={isLoading} />
-      <div className={`relative min-h-screen bg-dark text-warm-white transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
+      <div className={`relative min-h-screen bg-brand-primary text-brand-text transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
         {/* Navigation */}
         <Navbar />
 
-      {/* Main Content */}
+      {/* Main Content — Conversion Funnel Order */}
       <main className="overflow-x-hidden">
-        {/* Hero Section */}
+        {/* 1. Hero (Hook + Urgency + Loss Aversion) */}
         <HeroSection />
 
-        {/* About Section */}
+        {/* 2. Trust (Credentials + Authority) */}
         <AboutSection />
 
-        {/* Services Section */}
+        {/* 3. Services (Problem → Solution → Outcome) */}
         <ServicesSection />
 
-        {/* Interactive Building */}
+        {/* 4. Engineering Expertise (Interactive Proof) */}
         <InteractiveBuilding />
 
-        {/* Consultation Packages */}
+        {/* 5. Transparency (Trust Dominance) */}
+        <TransparencySection />
+
+        {/* 7. Packages & Pricing */}
         <ConsultationPackage />
 
-        {/* Service Zone Map */}
-        <ServiceZoneMap />
-
-        {/* Reviews / Testimonials */}
+        {/* 8. Social Proof (Reviews) */}
         <ReviewsSection />
 
-        {/* Contact Section */}
+        {/* 9. Service Area Map */}
+        <ServiceZoneMap />
+
+        {/* 10. FAQ (Objection Handling) */}
+        <FAQSection />
+
+        {/* 11. Contact (Final CTA) */}
         <ContactSection />
       </main>
 

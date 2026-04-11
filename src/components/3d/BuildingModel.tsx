@@ -5,6 +5,7 @@ import { Canvas, useFrame, type ThreeEvent } from '@react-three/fiber';
 import { OrbitControls, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useInView } from '../../hooks/useInView';
 
 // Zone definitions with colors
 const ZONE_COLORS = {
@@ -296,26 +297,40 @@ function ZoneHints({ activeZone, onSelect }: { activeZone: string | null; onSele
 
 export default function BuildingModel() {
   const [activeZone, setActiveZone] = useState<string | null>(null);
+  const [containerRef, isInView] = useInView({ threshold: 0.1 });
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <Canvas shadows camera={{ position: [8, 3, 10], fov: 45 }}
-        gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
-        style={{ background: 'transparent' }}>
-        {/* Warm golden sunlight */}
-        <ambientLight intensity={0.55} color="#fff8e8" />
-        <directionalLight position={[10, 18, 8]} intensity={1.8} color="#fff5d0" castShadow
-          shadow-mapSize={[2048, 2048]} shadow-camera-near={0.5} shadow-camera-far={60}
-          shadow-camera-left={-12} shadow-camera-right={12} shadow-camera-top={12} shadow-camera-bottom={-12} />
-        {/* Cool fill from left */}
-        <directionalLight position={[-8, 6, -6]} intensity={0.4} color="#c0d8ff" />
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px' }}>
+      {isInView ? (
+        <Canvas shadows camera={{ position: [8, 3, 10], fov: 45 }}
+          dpr={1}
+          gl={{ 
+            antialias: false, 
+            toneMapping: THREE.ACESFilmicToneMapping, 
+            toneMappingExposure: 1.1,
+            powerPreference: 'low-power'
+          }}
+          style={{ background: 'transparent' }}
+          frameloop="demand">
+          {/* Warm golden sunlight */}
+          <ambientLight intensity={0.55} color="#fff8e8" />
+          <directionalLight position={[10, 18, 8]} intensity={1.8} color="#fff5d0" castShadow
+            shadow-mapSize={[1024, 1024]} shadow-camera-near={0.5} shadow-camera-far={60}
+            shadow-camera-left={-12} shadow-camera-right={12} shadow-camera-top={12} shadow-camera-bottom={-12} />
+          {/* Cool fill from left */}
+          <directionalLight position={[-8, 6, -6]} intensity={0.4} color="#c0d8ff" />
 
-        <Building activeZone={activeZone} onZoneClick={setActiveZone} />
+          <Building activeZone={activeZone} onZoneClick={setActiveZone} />
 
-        <OrbitControls enablePan={false} minDistance={7} maxDistance={18}
-          minPolarAngle={0.3} maxPolarAngle={Math.PI / 2.1}
-          autoRotate={!activeZone} autoRotateSpeed={0.5} target={[0, 0.5, 0]} />
-      </Canvas>
+          <OrbitControls enablePan={false} enableZoom={false}
+            minPolarAngle={0.3} maxPolarAngle={Math.PI / 2.1}
+            autoRotate={!activeZone} autoRotateSpeed={0.5} target={[0, 0.5, 0]} />
+        </Canvas>
+      ) : (
+        <div className="flex items-center justify-center w-full h-full"> 
+          <p className="text-brand-primary/40 font-bold uppercase tracking-tighter text-xs">Interactive Engineering Module</p>
+        </div>
+      )}
 
       <AnimatePresence>
         {activeZone && (
