@@ -124,8 +124,8 @@ export default function ChatBot() {
         ref={dialRef}
         style={{ 
           position: 'fixed', 
-          bottom: 'min(1.75rem, 20px)', 
-          right: isMobile ? '1.2rem' : '1.75rem', 
+          bottom: isMobile ? '2rem' : 'min(1.75rem, 20px)', 
+          right: isMobile ? '1.5rem' : '1.75rem', 
           zIndex: 9000, 
           display: 'flex', 
           flexDirection: isMobile ? 'row-reverse' : 'column', 

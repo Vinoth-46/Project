@@ -92,7 +92,7 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
 
 export default function FAQSection() {
   return (
-    <section id="faq" className="relative py-20 md:py-32 bg-brand-primary overflow-hidden border-t border-brand-card">
+    <section id="faq" className="relative py-12 md:py-32 bg-brand-primary overflow-hidden border-t border-brand-card">
       <div className="absolute inset-0">
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px]" />
       </div>

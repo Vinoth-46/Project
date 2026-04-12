@@ -28,7 +28,7 @@ const trustPoints = [
 
 export default function TransparencySection() {
   return (
-    <section id="transparency" className="relative py-20 md:py-32 bg-brand-primary overflow-hidden border-t border-brand-card">
+    <section id="transparency" className="relative py-12 md:py-32 bg-brand-primary overflow-hidden border-t border-brand-card">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-accent/5 rounded-full blur-[150px]" />

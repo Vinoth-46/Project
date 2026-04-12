@@ -176,7 +176,7 @@ export default function ConsultationPackage() {
   };
 
   return (
-    <section id="pricing" className="relative py-20 md:py-32 bg-brand-softWhite overflow-hidden border-t border-slate-200">
+    <section id="pricing" className="relative py-12 md:py-32 bg-brand-softWhite overflow-hidden border-t border-slate-200">
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px]" />
       </div>

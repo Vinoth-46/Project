@@ -164,7 +164,7 @@ export default function ServicesSection() {
 
   return (
     <>
-      <section id="services" className="relative py-20 md:py-32 bg-brand-secondary border-t border-brand-card">
+      <section id="services" className="relative py-12 md:py-32 bg-brand-secondary border-t border-brand-card">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div

@@ -114,7 +114,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-20 md:py-32 bg-brand-primary border-t border-brand-card">
+    <section id="contact" className="relative py-12 md:py-32 bg-brand-primary border-t border-brand-card">
       <div className="section-container">
         {/* Section Header */}
         <motion.div

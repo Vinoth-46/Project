@@ -5,7 +5,7 @@ import BuildingModel from '../components/3d/BuildingModel';
 
 export default function InteractiveBuilding() {
   return (
-    <section className="relative py-20 md:py-32 bg-brand-softWhite overflow-hidden border-t border-slate-200">
+    <section className="relative py-12 md:py-32 bg-brand-softWhite overflow-hidden border-t border-slate-200">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-accent/5 rounded-full blur-[150px]" />

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, animate } from 'framer-motion';
 import { Award, Users, CheckCircle, Briefcase, GraduationCap, ShieldCheck } from 'lucide-react';
 
 interface StatProps {
@@ -19,26 +19,13 @@ function AnimatedStat({ value, suffix, label, icon, delay }: StatProps) {
 
   useEffect(() => {
     if (isInView) {
-      const timer = setTimeout(() => {
-        const duration = 2000;
-        const steps = 60;
-        const increment = value / steps;
-        let current = 0;
-
-        const counter = setInterval(() => {
-          current += increment;
-          if (current >= value) {
-            setCount(value);
-            clearInterval(counter);
-          } else {
-            setCount(Math.floor(current));
-          }
-        }, duration / steps);
-
-        return () => clearInterval(counter);
-      }, delay * 1000);
-
-      return () => clearTimeout(timer);
+      const controls = animate(0, value, {
+        duration: 2,
+        delay: delay,
+        ease: "easeOut",
+        onUpdate: (value) => setCount(Math.floor(value)),
+      });
+      return () => controls.stop();
     }
   }, [isInView, value, delay]);
 
@@ -99,7 +86,7 @@ const stats = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-20 md:py-32 bg-brand-softWhite">
+    <section id="about" className="relative py-12 md:py-32 bg-brand-softWhite">
       <div className="section-container">
         {/* Section Header */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 mb-16">

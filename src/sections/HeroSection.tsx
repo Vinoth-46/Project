@@ -29,7 +29,7 @@ export default function HeroSection() {
           loop 
           muted 
           playsInline
-          poster="/logo-2026.png"
+          poster="/loading logo.png"
           className="w-full h-full object-cover pointer-events-none opacity-90"
         >
           <source src="/bg-video.mp4" type="video/mp4" />
