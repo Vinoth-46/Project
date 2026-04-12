@@ -136,7 +136,7 @@ export default function FAQSection() {
             Still have questions? We&apos;re here to help.
           </p>
           <a
-            href="https://wa.me/918344051846?text=Hi%2C%20I%20have%20a%20question%20about%20your%20services."
+            href="https://wa.me/918344051846?text=I%20want%20to%20get%20the%20quote%20for%20my%20plan"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 bg-brand-accent text-brand-primary px-6 py-3 rounded-lg text-sm font-bold shadow-sm hover:bg-[#F59E0B] transition-colors font-inter"

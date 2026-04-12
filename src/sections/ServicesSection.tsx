@@ -312,7 +312,7 @@ export default function ServicesSection() {
                 
                 <div className="mt-8 pt-6 border-t border-brand-card flex flex-col md:flex-row gap-4">
                   <a 
-                    href="https://wa.me/918344051846?text=Hi%2C%20I'm%20interested%20in%20your%20services." 
+                    href="https://wa.me/918344051846?text=I%20want%20to%20get%20the%20quote%20for%20my%20plan" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="btn-gold-filled text-center flex-1 py-4 text-sm font-bold"

@@ -158,7 +158,10 @@ export default function Navbar() {
 
           {/* CTA */}
           <motion.button
-            onClick={() => scrollToSection('#contact')}
+            onClick={() => {
+              const text = "I want to get the quote for my plan";
+              window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
+            }}
             className="ml-2 flex items-center gap-1.5 bg-brand-accent text-[#0F172A] text-xs font-black uppercase tracking-wider rounded-full px-4 py-2"
             whileHover={{ scale: 1.06, backgroundColor: '#F59E0B' }}
             whileTap={{ scale: 0.94 }}
@@ -260,7 +263,10 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: navLinks.length * 0.04 }}
-                  onClick={() => scrollToSection('#contact')}
+                  onClick={() => {
+                    const text = "I want to get the quote for my plan";
+                    window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
+                  }}
                   className="mt-2 flex items-center justify-center gap-2 bg-brand-accent text-[#0F172A] font-black text-sm uppercase tracking-wider px-6 py-3 rounded-xl"
                 >
                   <Phone size={14} />

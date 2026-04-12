@@ -105,7 +105,7 @@ export default function ChatBot() {
         </svg>
       ),
       bg: '#25D366',
-      href: 'https://wa.me/918344051846',
+      href: `https://wa.me/918344051846?text=${encodeURIComponent("I want to get the quote for my plan")}`,
     },
     {
       label: 'Call Us',

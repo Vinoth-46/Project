@@ -14,7 +14,7 @@ export default function FloatingContact() {
           <>
             {/* WhatsApp Button */}
             <motion.a
-              href="https://wa.me/918344051846"
+              href="https://wa.me/918344051846?text=I%20want%20to%20get%20the%20quote%20for%20my%20plan"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 group flex-row-reverse"

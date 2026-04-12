@@ -124,8 +124,8 @@ export default function HeroSection() {
             >
               <button
                 onClick={() => {
-                  const el = document.getElementById('contact');
-                  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'instant' });
+                  const text = "I want to get the quote for my plan";
+                  window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
                 }}
                 className="w-full sm:w-auto btn-gold-filled flex items-center justify-center gap-2 group font-bold"
               >

@@ -162,8 +162,17 @@ export default function ConsultationPackage() {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   const handleBook = (pkg: typeof packages[0]) => {
-    const text = `Hi, I'm interested in the ${pkg.name} package (${pkg.price}).`;
+    const text = `I want to get the quote for my plan. (Interested in: ${pkg.name} Package - ${pkg.price})`;
     window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
+  const handleDownloadPackage = () => {
+    const a = document.createElement('a');
+    a.href = '/Consultation Package.pdf';
+    a.download = 'Consultation Package.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -183,9 +192,18 @@ export default function ConsultationPackage() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-primary mb-4">
             Consultation <span className="text-brand-accent font-extrabold">Packages</span>
           </h2>
-          <p className="text-slate-600 text-base md:text-lg font-inter">
+          <p className="text-slate-600 text-base md:text-lg font-inter mb-6">
             Transparent pricing. Expert guidance.
           </p>
+          <div className="flex justify-center flex-wrap gap-4">
+            <button 
+              onClick={handleDownloadPackage}
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-primary text-brand-accent border border-brand-accent hover:bg-brand-accent hover:text-brand-primary transition-all rounded-lg font-bold text-sm shadow-sm font-inter"
+            >
+              <Download size={18} />
+              Download Full Package PDF
+            </button>
+          </div>
         </motion.div>
 
         {/* Package Cards */}
