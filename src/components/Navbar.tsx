@@ -115,12 +115,17 @@ export default function Navbar() {
             className="flex items-center gap-3 pr-5 pl-1.5 mr-2 border-r border-white/10"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            style={{ isolation: 'isolate' }}
           >
             <img
-              src="/logo1.jpg"
+              src="/loading logo.png"
               alt="Kitchaa's Enterprise"
-              className="h-10 w-auto rounded-lg object-contain flex-shrink-0"
-              style={{ maxWidth: 56 }}
+              className="h-10 w-auto object-contain flex-shrink-0"
+              style={{ 
+                maxWidth: 48, 
+                mixBlendMode: 'screen', 
+                filter: 'brightness(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(250,204,21,0.2))' 
+              }}
             />
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-sgrotesk font-black text-brand-text tracking-widest">
@@ -185,10 +190,14 @@ export default function Navbar() {
             className="flex items-center gap-2"
           >
             <img
-              src="/logo1.jpg"
+              src="/loading logo.png"
               alt="Kitchaa's Enterprise"
-              className="h-9 w-auto rounded-lg object-contain"
-              style={{ maxWidth: 48 }}
+              className="h-9 w-auto object-contain"
+              style={{ 
+                maxWidth: 40, 
+                mixBlendMode: 'screen', 
+                filter: 'brightness(1.2) contrast(1.1)' 
+              }}
             />
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-sgrotesk font-bold text-brand-text">KITCHAA'S</span>

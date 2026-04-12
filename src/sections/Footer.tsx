@@ -39,9 +39,13 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="flex items-center justify-center shrink-0">
                 <img 
-                  src="/logo1.jpg" 
+                  src="/loading logo.png" 
                   alt="Kitchaa's Enterprise Logo"
-                  className="h-16 md:h-20 w-auto rounded-lg border border-brand-card object-contain shadow-sm" 
+                  className="h-16 md:h-20 w-auto object-contain"
+                  style={{ 
+                    mixBlendMode: 'screen', 
+                    filter: 'brightness(1.2) contrast(1.1)' 
+                  }} 
                 />
               </div>
               <div className="flex flex-col border-l-2 border-brand-accent pl-3">
