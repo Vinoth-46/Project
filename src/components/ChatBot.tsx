@@ -13,11 +13,11 @@ interface Message {
 }
 
 const QUICK_REPLIES = [
+  'Construction Estimation',
+  'Normal vs Luxury House',
   'Building Approval help',
   'DTCP Approval process',
-  'Construction consultation',
-  'Bank loan estimate',
-  'Package pricing',
+  'Consultation Package',
 ]
 
 export default function ChatBot() {
@@ -27,7 +27,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Vanakkam! 🙏 I'm the Civil Engineering Assistant for Kitchaa's Enterprise.\n\nPlanning construction or need building approval? Let me guide you correctly — mistakes here can cost lakhs.\n\nHow can I help you today?"
+      content: "Vanakkam! 🙏 I'm the Civil Engineering Assistant for Kitchaa's Enterprise.\n\nI can help you with Building Approvals, DTCP processes, and now, **Construction Cost Estimations** for your project.\n\nHow can I help you today?"
     }
   ])
   const [input, setInput] = useState('')

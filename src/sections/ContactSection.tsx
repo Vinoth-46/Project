@@ -124,10 +124,10 @@ export default function ContactSection() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
         >
-          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
+          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-jakarta">
             Get In Touch
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-brand-text mb-6">
             Let&apos;s Build <span className="text-brand-accent font-extrabold">Together</span>
           </h2>
           <p className="text-brand-text/80 text-base md:text-lg font-inter">
@@ -147,7 +147,7 @@ export default function ContactSection() {
             {/* Background Accent */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-brand-accent/5 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-            <h3 className="text-2xl md:text-3xl font-sgrotesk font-bold text-brand-text mb-8 relative z-10">
+            <h3 className="text-2xl md:text-3xl font-outfit font-bold text-brand-text mb-8 relative z-10">
               Reach Out <span className="text-brand-accent font-bold">Directly</span>
             </h3>
 
@@ -214,7 +214,7 @@ export default function ContactSection() {
                 <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
                   <CheckCircle size={32} className="text-green-600" />
                 </div>
-                <h3 className="text-2xl font-sgrotesk font-bold text-brand-text mb-2">
+                <h3 className="text-2xl font-outfit font-bold text-brand-text mb-2">
                   Thank You!
                 </h3>
                 <p className="text-brand-text/70 font-inter">
@@ -338,7 +338,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-brand-accent text-brand-primary hover:bg-[#F59E0B] py-3 rounded-lg flex items-center justify-center gap-2 font-bold shadow-sm disabled:opacity-70 disabled:cursor-not-allowed transition-colors font-inter"
+                  className="w-full bg-brand-accent text-brand-primary hover:bg-[#F59E0B] py-3 rounded-lg flex items-center justify-center gap-2 font-bold shadow-sm disabled:opacity-70 disabled:cursor-not-allowed transition-colors font-jakarta uppercase tracking-wider"
                 >
                   {isSubmitting ? (
                     <>

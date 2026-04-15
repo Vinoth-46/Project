@@ -50,11 +50,11 @@ module.exports = {
         },
         // Custom Premium Dark Mode colors
         brand: {
-          primary: "#0F172A",
-          secondary: "#111827",
+          primary: "#020617",   // Richer Black
+          secondary: "#0F172A", // Deep Slate
           footer: "#020617",
-          card: "#334155",
-          text: "#E5E7EB",
+          card: "#1E293B",      // Lighter slate for cards
+          text: "#F8FAFC",      // Very soft white
           accent: "#FACC15",
           accentHover: "#F59E0B",
           softWhite: "#F8FAFC",
@@ -88,8 +88,8 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        glow: "none",
-        "glow-lg": "none",
+        glow: "0 0 20px rgba(250, 204, 21, 0.15)",
+        "glow-lg": "0 0 40px rgba(250, 204, 21, 0.25)",
       },
       keyframes: {
         "accordion-down": {
@@ -129,12 +129,13 @@ module.exports = {
         "gold-gradient": "none",
         "gold-gradient-r": "none",
       },
-      fontFamily: {
-        outfit: ["Space Grotesk", "sans-serif"], // mapped to Space Grotesk based on prior code
-        sgrotesk: ["Space Grotesk", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
-        rajdhani: ["Rajdhani", "sans-serif"],
-      },
+        fontFamily: {
+          outfit: ["Outfit", "sans-serif"],
+          jakarta: ["Plus Jakarta Sans", "sans-serif"],
+          inter: ["Inter", "sans-serif"],
+          manrope: ["Manrope", "sans-serif"],
+          instrument: ["'Instrument Serif'", "serif"],
+        },
     },
   },
   plugins: [require("tailwindcss-animate")],

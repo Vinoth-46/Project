@@ -49,10 +49,10 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col border-l-2 border-brand-accent pl-3">
-                <span className="text-xl md:text-2xl font-sgrotesk font-bold text-brand-text">
+                <span className="text-xl md:text-2xl font-outfit font-bold text-brand-text leading-tight">
                   KITCHAA&apos;S
                 </span>
-                <span className="text-xs font-inter font-bold text-brand-text/70 tracking-[0.2em] uppercase">
+                <span className="text-xs font-jakarta font-bold text-brand-text/70 tracking-[0.2em] uppercase mt-1">
                   Enterprise
                 </span>
               </div>
@@ -70,7 +70,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h4 className="text-brand-text font-bold mb-4 font-sgrotesk text-lg">Quick Links</h4>
+            <h4 className="text-brand-text font-bold mb-4 font-outfit text-lg tracking-wide uppercase">Quick Links</h4>
             <nav className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center items-center md:gap-x-5 md:gap-y-2">
               {navLinks.map((link) => (
                 <a
@@ -96,12 +96,12 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="text-brand-text font-bold mb-4 font-sgrotesk text-lg">Contact</h4>
+            <h4 className="text-brand-text font-bold mb-4 font-outfit text-lg tracking-wide uppercase">Contact</h4>
             <div className="text-brand-text/70 text-sm space-y-2 font-medium">
-              <p className="font-bold text-brand-text">Er. V. NIRMAL, B.E. (Civil)</p>
-              <p className="text-xs text-brand-accent font-extrabold uppercase tracking-widest">Proprietor</p>
-              <p>Namakkal, Tamil Nadu</p>
-              <p className="font-rajdhani text-base tracking-wide">+91 83440 51846</p>
+              <p className="font-bold text-brand-text font-jakarta">Er. V. NIRMAL, B.E. (Civil)</p>
+              <p className="text-xs text-brand-accent font-extrabold uppercase tracking-widest font-jakarta">Proprietor</p>
+              <p className="font-inter">Namakkal, Tamil Nadu</p>
+              <p className="font-manrope text-base tracking-wide font-bold">+91 83440 51846</p>
               <p>kitchaasenterprise@gmail.com</p>
             </div>
           </motion.div>
@@ -113,7 +113,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:pr-24 pb-12 md:pb-0">
           <motion.p
-            className="text-brand-text/50 text-sm text-center md:text-left font-medium"
+            className="text-brand-text/50 text-sm text-center md:text-left font-medium font-jakarta uppercase tracking-wider"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -125,7 +125,7 @@ export default function Footer() {
           {/* Back to Top */}
           <motion.button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-brand-text/70 hover:text-brand-accent font-semibold text-sm transition-colors group mt-4 md:mt-0"
+            className="flex items-center gap-2 text-brand-text/70 hover:text-brand-accent font-semibold text-sm transition-colors group mt-4 md:mt-0 font-jakarta uppercase tracking-widest"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

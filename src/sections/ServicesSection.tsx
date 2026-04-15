@@ -60,7 +60,7 @@ function ServiceCard({ service, index, onLearnMore }: { service: Service; index:
           </div>
 
           {/* Title */}
-          <h3 className="text-xl md:text-2xl font-sgrotesk font-bold text-brand-text mb-3 transition-colors">
+          <h3 className="text-xl md:text-2xl font-outfit font-bold text-brand-text mb-3 transition-colors">
             {service.title}
           </h3>
 
@@ -188,7 +188,7 @@ export default function ServicesSection() {
             <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
               Our Services
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-brand-text mb-6">
               Expert Solutions for
               <span className="text-brand-accent font-extrabold"> Every Stage</span>
             </h2>
@@ -257,7 +257,7 @@ export default function ServicesSection() {
                    <div className="w-10 h-10 rounded-lg bg-brand-card flex items-center justify-center text-brand-accent border border-brand-accent/30">
                      {activeService.icon}
                    </div>
-                   <h3 className="text-lg md:text-xl font-sgrotesk font-bold text-brand-text pr-4">
+                   <h3 className="text-lg md:text-xl font-outfit font-bold text-brand-text pr-4">
                      {activeService.title}
                    </h3>
                 </div>

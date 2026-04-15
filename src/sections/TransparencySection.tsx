@@ -48,12 +48,7 @@ export default function TransparencySection() {
           
           <div className="relative rounded-2xl bg-brand-secondary p-8 md:p-12 overflow-hidden border border-brand-card">
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage: 'linear-gradient(rgba(51,65,85,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(51,65,85,0.4) 1px, transparent 1px)',
-                backgroundSize: '20px 20px',
-              }}
-            />
+            <div className="absolute inset-0 blueprint-grid-dense opacity-10" />
 
             {/* Shield Icon */}
             <motion.div
@@ -70,10 +65,10 @@ export default function TransparencySection() {
 
             {/* Header */}
             <div className="text-center mb-8 relative z-10">
-              <span className="inline-block border border-brand-accent/30 text-brand-accent text-xs font-semibold tracking-[0.25em] uppercase px-4 py-1.5 rounded-full bg-brand-accent/5 mb-3 shadow-sm font-inter">
+              <span className="inline-block border border-brand-accent/30 text-brand-accent text-xs font-semibold tracking-[0.25em] uppercase px-4 py-1.5 rounded-full bg-brand-accent/5 mb-3 shadow-sm font-jakarta">
                 Our Promise to You
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-sgrotesk font-bold text-brand-text mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-outfit font-bold text-brand-text mb-4">
                 Complete <span className="text-brand-accent font-extrabold">Transparency</span> — Zero Hidden Costs
               </h2>
               <p className="text-brand-text/80 text-base max-w-2xl mx-auto font-inter">
@@ -91,10 +86,10 @@ export default function TransparencySection() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <div className="text-center space-y-3">
-                <p className="text-lg md:text-xl font-inter font-bold text-brand-text/90 leading-relaxed">
+                <p className="text-lg md:text-xl font-jakarta font-bold text-brand-text/90 leading-relaxed uppercase tracking-tight">
                   &ldquo;WE DO NOT TAKE ANY COMMISSION FROM MATERIALS&rdquo;
                 </p>
-                <p className="text-xl md:text-2xl font-rajdhani font-bold text-brand-accent leading-relaxed tracking-wider">
+                <p className="text-xl md:text-2xl font-manrope font-extrabold text-brand-accent leading-relaxed tracking-widest uppercase">
                   NO HIDDEN CHARGES
                 </p>
                 <p className="text-base md:text-lg font-inter font-semibold text-brand-text/90 leading-relaxed">

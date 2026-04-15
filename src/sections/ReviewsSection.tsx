@@ -78,7 +78,7 @@ function StarRating({ rating, onRate, interactive = false }: { rating: number; o
 function ReviewCard({ review, index }: { review: Review; index: number }) {
   return (
     <motion.div
-      className="bg-white p-6 border border-slate-200 rounded-xl shadow-sm flex flex-col gap-4"
+      className="bg-slate-900/40 backdrop-blur-md p-6 border border-white/5 rounded-xl shadow-lg flex flex-col gap-4"
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -86,18 +86,18 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-brand-primary font-bold text-base">{review.name}</p>
-          <div className="flex items-center gap-1.5 mt-0.5 text-slate-500 text-xs font-inter">
+          <p className="text-brand-text font-bold text-base">{review.name}</p>
+          <div className="flex items-center gap-1.5 mt-0.5 text-brand-text/40 text-xs font-inter">
             <MapPin size={11} /> {review.location}
           </div>
         </div>
         {review.isUserSubmitted && (
-          <span className="text-xs px-2 py-0.5 rounded-full border border-brand-card text-brand-primary bg-brand-accent shadow-sm font-inter">Your Review</span>
+          <span className="text-xs px-2 py-0.5 rounded-full border border-brand-accent/30 text-brand-primary bg-brand-accent shadow-sm font-inter">Your Review</span>
         )}
       </div>
       <StarRating rating={review.rating} />
-      <p className="text-slate-700 text-sm leading-relaxed flex-1 font-inter">"{review.text}"</p>
-      <div className="flex items-center gap-1.5 text-xs text-slate-400 border-t border-slate-100 pt-3 font-inter">
+      <p className="text-brand-text/70 text-sm leading-relaxed flex-1 font-inter">"{review.text}"</p>
+      <div className="flex items-center gap-1.5 text-xs text-brand-text/30 border-t border-white/5 pt-3 font-inter">
         <Calendar size={11} /> {review.date}
       </div>
     </motion.div>
@@ -146,46 +146,46 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
   };
 
   const inputStyle = {
-    width: '100%', background: '#F8FAFC', border: '1px solid #E2E8F0',
-    borderRadius: 8, padding: '0.6rem 0.9rem', fontSize: 14, color: '#0F172A',
-    outline: 'none', fontFamily: 'inherit', boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+    width: '100%', background: 'rgba(2, 6, 23, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)',
+    borderRadius: 8, padding: '0.6rem 0.9rem', fontSize: 14, color: '#F8FAFC',
+    outline: 'none', fontFamily: 'inherit', boxShadow: '0 1px 2px rgba(0,0,0,0.2)'
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm text-slate-600 mb-1.5 font-medium font-inter">Your Name <span className="text-brand-accent">*</span></label>
+          <label className="block text-sm text-brand-text/60 mb-1.5 font-medium font-inter">Your Name <span className="text-brand-accent">*</span></label>
           <input value={name} onChange={e => setName(e.target.value)} placeholder="E.g. Suresh M."
             style={{ ...inputStyle, borderColor: errors.name ? '#ef4444' : undefined }} />
           {errors.name && <p className="text-red-600 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label className="block text-sm text-slate-600 mb-1.5 font-medium font-inter">Location / City</label>
+          <label className="block text-sm text-brand-text/60 mb-1.5 font-medium font-inter">Location / City</label>
           <input value={location} onChange={e => setLocation(e.target.value)} placeholder="E.g. Namakkal" style={inputStyle} />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm text-slate-600 mb-2 font-medium font-inter">Rating <span className="text-brand-accent">*</span></label>
+        <label className="block text-sm text-brand-text/60 mb-2 font-medium font-inter">Rating <span className="text-brand-accent">*</span></label>
         <StarRating rating={rating} onRate={setRating} interactive />
-        {errors.rating && <p className="text-red-600 text-xs mt-1">{errors.rating}</p>}
+        {errors.rating && <p className="text-red-400 text-xs mt-1">{errors.rating}</p>}
       </div>
 
       <div>
-        <label className="block text-sm text-slate-600 mb-1.5 font-medium font-inter">
+        <label className="block text-sm text-brand-text/60 mb-1.5 font-medium font-inter">
           Your Review <span className="text-brand-accent">*</span>
-          <span className="ml-2 text-slate-400 text-xs">({text.length}/300)</span>
+          <span className="ml-2 text-brand-text/30 text-xs">({text.length}/300)</span>
         </label>
         <textarea value={text} onChange={e => setText(e.target.value.slice(0, 300))}
           rows={4} placeholder="Share your experience with Kitchaa's Enterprise..."
           style={{ ...inputStyle, resize: 'none', borderColor: errors.text ? '#ef4444' : undefined }} />
-        {errors.text && <p className="text-red-600 text-xs mt-1">{errors.text}</p>}
+        {errors.text && <p className="text-red-400 text-xs mt-1">{errors.text}</p>}
       </div>
 
       <div className="flex items-center justify-between gap-4 pt-1">
-        <p className="text-xs text-slate-500 italic font-inter">Reviews are visible to all visitors on this device.</p>
-        <button type="submit" className="bg-brand-accent text-brand-primary hover:bg-[#F59E0B] rounded-lg text-sm px-6 py-2.5 flex-shrink-0 transition-colors shadow-sm font-bold font-inter">
+        <p className="text-xs text-brand-text/40 italic font-inter">Reviews are visible to all visitors on this device.</p>
+        <button type="submit" className="bg-brand-accent text-brand-primary hover:bg-[#F59E0B] rounded-lg text-sm px-6 py-2.5 flex-shrink-0 transition-colors shadow-sm font-bold font-jakarta uppercase tracking-wider">
           Submit Review
         </button>
       </div>
@@ -233,10 +233,10 @@ export default function ReviewsSection() {
         <motion.div className="text-center max-w-3xl mx-auto mb-14"
           initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8 }}>
-          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
+          <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-jakarta">
             Client Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-brand-text mb-4">
             What Our Clients <span className="text-brand-accent font-extrabold">Say</span>
           </h2>
           <p className="text-brand-text/80 text-base md:text-lg font-inter">
@@ -256,7 +256,7 @@ export default function ReviewsSection() {
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
           <button onClick={() => setShowForm(v => !v)}
-            className="w-full bg-white border border-slate-200 shadow-sm rounded-xl p-4 flex items-center justify-between text-brand-primary font-bold text-sm hover:bg-slate-50 hover:border-brand-accent/50 transition-colors font-inter">
+            className="w-full bg-slate-900/40 backdrop-blur-md border border-white/5 shadow-lg rounded-xl p-4 flex items-center justify-between text-brand-text font-bold text-sm hover:border-brand-accent/30 transition-colors font-jakarta uppercase tracking-wide">
             <span>{showForm ? 'Close Form' : 'Share Your Experience'}</span>
             {showForm ? <ChevronUp size={18} className="text-brand-accent" /> : <ChevronDown size={18} className="text-brand-accent" />}
           </button>

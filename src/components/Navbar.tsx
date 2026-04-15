@@ -90,8 +90,8 @@ export default function Navbar() {
         <motion.nav
           animate={{
             background: isScrolled
-              ? 'rgba(15, 23, 42, 0.92)'
-              : 'rgba(15, 23, 42, 0.55)',
+              ? 'rgba(2, 6, 23, 0.92)'
+              : 'rgba(2, 6, 23, 0.55)',
             boxShadow: isScrolled
               ? '0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(250,204,21,0.15), inset 0 1px 0 rgba(255,255,255,0.06)'
               : '0 4px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.07), inset 0 1px 0 rgba(255,255,255,0.06)',
@@ -101,10 +101,10 @@ export default function Navbar() {
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             borderRadius: 99,
-            padding: '6px 8px',
+            padding: '10px 14px',
             display: 'flex',
             alignItems: 'center',
-            gap: 2,
+            gap: 4,
             width: 'max-content',
           }}
         >
@@ -120,18 +120,18 @@ export default function Navbar() {
             <img
               src="/loading logo.png"
               alt="Kitchaa's Enterprise"
-              className="h-10 w-auto object-contain flex-shrink-0"
+              className="h-12 w-auto object-contain flex-shrink-0"
               style={{ 
-                maxWidth: 48, 
+                maxWidth: 56, 
                 mixBlendMode: 'screen', 
                 filter: 'brightness(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(250,204,21,0.2))' 
               }}
             />
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-sgrotesk font-black text-brand-text tracking-widest">
+              <span className="text-base font-outfit font-black text-brand-text tracking-widest uppercase">
                 KITCHAA'S
               </span>
-              <span className="text-[10px] text-brand-accent font-black tracking-[0.25em] uppercase font-inter">
+              <span className="text-[11px] text-brand-accent font-jakarta font-extrabold tracking-[0.25em] uppercase">
                 Enterprise
               </span>
             </div>
@@ -145,9 +145,9 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                className={`relative px-4 py-2 text-xs font-bold tracking-wide uppercase rounded-full select-none transition-all duration-200 ${
+                className={`relative px-5 py-2.5 text-[12px] font-bold tracking-wider uppercase rounded-full select-none transition-all duration-200 font-jakarta ${
                   isActive
-                    ? 'bg-brand-accent text-[#0F172A]'
+                    ? 'bg-brand-accent text-brand-primary'
                     : 'text-white/70 hover:text-brand-accent'
                 }`}
               >
@@ -162,12 +162,12 @@ export default function Navbar() {
               const text = "I want to get the quote for my plan";
               window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
             }}
-            className="ml-2 flex items-center gap-1.5 bg-brand-accent text-[#0F172A] text-xs font-black uppercase tracking-wider rounded-full px-4 py-2"
+            className="ml-2 flex items-center gap-1.5 bg-brand-accent text-brand-primary text-[12px] font-extrabold uppercase tracking-wider rounded-full px-5 py-2.5 font-jakarta"
             whileHover={{ scale: 1.06, backgroundColor: '#F59E0B' }}
             whileTap={{ scale: 0.94 }}
             transition={{ duration: 0.15 }}
           >
-            <Phone size={12} />
+            <Phone size={14} />
             Get Quote
           </motion.button>
         </motion.nav>
@@ -180,13 +180,13 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         style={{
-          background: isScrolled ? 'rgba(15, 23, 42, 0.97)' : 'rgba(15, 23, 42, 0.6)',
+          background: isScrolled ? 'rgba(2, 6, 23, 0.97)' : 'rgba(2, 6, 23, 0.6)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(51,65,85,0.6)',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
         }}
       >
-        <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center justify-between px-6 py-4">
           <a
             href="#home"
             onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
@@ -195,16 +195,16 @@ export default function Navbar() {
             <img
               src="/loading logo.png"
               alt="Kitchaa's Enterprise"
-              className="h-9 w-auto object-contain"
+              className="h-11 w-auto object-contain"
               style={{ 
-                maxWidth: 40, 
+                maxWidth: 48, 
                 mixBlendMode: 'screen', 
                 filter: 'brightness(1.2) contrast(1.1)' 
               }}
             />
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-sgrotesk font-bold text-brand-text">KITCHAA'S</span>
-              <span className="text-[9px] text-brand-text/50 tracking-widest uppercase font-inter">Enterprise</span>
+              <span className="text-base font-outfit font-bold text-brand-text">KITCHAA'S</span>
+              <span className="text-[10px] text-brand-text/50 tracking-widest uppercase font-jakarta">Enterprise</span>
             </div>
           </a>
 
@@ -249,7 +249,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05, duration: 0.3 }}
                       onClick={() => scrollToSection(link.href)}
-                      className={`flex items-center gap-3 px-4 py-4 rounded-xl text-base font-bold tracking-wide text-left transition-colors ${
+                      className={`flex items-center gap-3 px-4 py-4 rounded-xl text-sm font-bold tracking-wide text-left transition-colors font-jakarta ${
                         isActive
                           ? 'bg-brand-accent text-brand-primary'
                           : 'text-brand-text/70 hover:bg-white/5 hover:text-brand-text'
@@ -267,7 +267,7 @@ export default function Navbar() {
                     const text = "I want to get the quote for my plan";
                     window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
                   }}
-                  className="mt-2 flex items-center justify-center gap-2 bg-brand-accent text-[#0F172A] font-black text-sm uppercase tracking-wider px-6 py-3 rounded-xl"
+                  className="mt-2 flex items-center justify-center gap-2 bg-brand-accent text-brand-primary font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl font-jakarta"
                 >
                   <Phone size={14} />
                   Get an Expert Quote

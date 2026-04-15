@@ -12,15 +12,15 @@ export default function HeroSection() {
   });
 
   // Parallax effects
-  const textY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
 
   return (
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden bg-brand-primary"
+      className="relative min-h-screen w-full md:overflow-hidden bg-brand-primary"
     >
       {/* Background Video */}
       <div className="absolute inset-0 overflow-hidden">
@@ -43,51 +43,87 @@ export default function HeroSection() {
 
       {/* Content Overlay */}
       <motion.div
-        className="relative z-10 flex min-h-screen items-center pb-20 lg:pb-0"
+        className="relative z-10 flex min-h-screen items-center pt-36 pb-32 lg:pt-12 lg:pb-0"
         style={{ y: textY, opacity: textOpacity }}
       >
         <div className="section-container w-full">
           <div className="max-w-2xl text-center mx-auto">
             {/* Eyebrow Label */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mt-8 lg:mt-0"
             >
-              <span className="inline-block px-4 py-2 text-xs font-semibold tracking-[0.2em] uppercase text-brand-accent border border-brand-accent/30 rounded-full mb-6 bg-brand-accent/5 font-inter">
-                Licensed Civil Engineer • Namakkal, Tamil Nadu
-              </span>
+              <div className="inline-flex items-center gap-3 px-3 py-1.5 md:px-5 md:py-2 bg-brand-primary/40 backdrop-blur-md border border-brand-accent/30 rounded-full mb-8 shadow-[0_0_15px_rgba(250,204,21,0.15)] group hover:border-brand-accent/60 transition-colors duration-500">
+                <div className="flex items-center gap-2 border-r border-white/10 pr-3 mr-1">
+                  <div className="relative">
+                    <div className="w-2 h-2 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(250,204,21,0.8)]"></div>
+                    <div className="absolute -inset-1 bg-brand-accent rounded-full animate-ping opacity-30"></div>
+                  </div>
+                  <span className="text-[10px] font-black tracking-widest text-brand-accent uppercase hidden sm:inline">Active</span>
+                </div>
+                
+                <span className="text-[10px] md:text-xs font-medium tracking-[0.25em] text-white/90 uppercase font-outfit">
+                  Licensed Civil Engineer <span className="text-white/20 px-1">•</span> Namakkal, TN
+                </span>
+              </div>
             </motion.div>
 
             {/* Main Headline — Authority + Loss Aversion */}
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sgrotesk font-bold leading-[1.1] mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <span className="text-brand-text">Don&apos;t Risk Your</span>
+              <span className="text-white drop-shadow-sm font-outfit uppercase tracking-tighter decoration-brand-accent/30 decoration-2 underline-offset-8">Don&apos;t Risk Your</span>
               <br />
-              <span className="text-brand-accent">Dream Home.</span>
+              <span className="text-brand-accent font-instrument italic font-normal drop-shadow-[0_0_15px_rgba(250,204,21,0.3)] animate-shimmer bg-[linear-gradient(110deg,#FACC15,45%,#fff,55%,#FACC15)] bg-[length:200%_100%] bg-clip-text text-transparent pb-1">Dream Home.</span>
             </motion.h1>
 
             {/* Loss Aversion Hook */}
             <motion.div
-              className="flex items-start gap-3 mb-6 p-4 rounded-lg border border-red-500/30 bg-red-500/10 max-w-lg mx-auto shadow-sm"
+              className="flex items-start gap-4 mb-8 p-5 rounded-2xl border border-red-500/60 bg-red-950/40 max-w-lg mx-auto shadow-[0_0_25px_rgba(239,68,68,0.3)] backdrop-blur-md relative overflow-hidden group"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                boxShadow: [
+                  "0 0 15px rgba(239,68,68,0.2)",
+                  "0 0 35px rgba(239,68,68,0.4)",
+                  "0 0 15px rgba(239,68,68,0.2)"
+                ]
+              }}
+              transition={{ 
+                opacity: { duration: 0.6, delay: 0.55 },
+                y: { duration: 0.6, delay: 0.55 },
+                boxShadow: { 
+                  duration: 2.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }
+              }}
             >
-              <ShieldAlert size={20} className="text-red-500 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-brand-text/80 leading-relaxed font-inter">
-                <span className="text-red-400 font-semibold">Most homeowners lose ₹5–10 Lakhs</span>{' '}
-                due to poor planning, unauthorized contractors, and missing approvals. Get expert guidance before it&apos;s too late.
-              </p>
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="mt-1"
+              >
+                <ShieldAlert size={28} className="text-red-500 flex-shrink-0" />
+              </motion.div>
+              <div className="text-left">
+                <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em] block mb-1">Financial Risk Warning</span>
+                <p className="text-sm md:text-base text-white/90 leading-relaxed font-inter">
+                  <span className="text-white font-bold">Most homeowners lose ₹5–10 Lakhs</span>{' '}
+                  due to poor planning and unauthorized contractors. Get expert guidance before it&apos;s too late.
+                </p>
+              </div>
             </motion.div>
 
             {/* Engineer Info */}
             <motion.p
-              className="text-lg md:text-xl text-brand-text/70 mb-1 font-medium font-inter"
+              className="text-lg md:text-xl text-white mb-1 font-bold font-inter"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -96,7 +132,7 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.p
-              className="text-md md:text-lg text-brand-text mb-2 font-semibold tracking-wide font-inter"
+              className="text-md md:text-lg text-brand-accent mb-2 font-bold tracking-wide font-inter uppercase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.65 }}
@@ -106,13 +142,13 @@ export default function HeroSection() {
 
             {/* Scarcity Signal */}
             <motion.p
-              className="text-sm md:text-base text-brand-text/60 mb-8 flex items-center justify-center gap-2 font-inter"
+              className="text-sm md:text-base text-white/90 mb-8 flex items-center justify-center gap-2 font-bold font-inter"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
-              We take limited projects to ensure quality
+              Limited project slots available per month
             </motion.p>
 
             {/* CTA Buttons */}
@@ -127,7 +163,7 @@ export default function HeroSection() {
                   const text = "I want to get the quote for my plan";
                   window.open(`https://wa.me/918344051846?text=${encodeURIComponent(text)}`, '_blank');
                 }}
-                className="w-full sm:w-auto btn-gold-filled flex items-center justify-center gap-2 group font-bold"
+                className="w-full sm:w-auto btn-gold-filled flex items-center justify-center gap-2 group font-bold font-jakarta transition-all"
               >
                 Get Expert Consultation — Free
                 <ArrowRight
@@ -140,7 +176,7 @@ export default function HeroSection() {
                   const el = document.getElementById('pricing');
                   if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'instant' });
                 }}
-                className="w-full sm:w-auto btn-secondary flex items-center justify-center gap-2"
+                className="w-full sm:w-auto btn-secondary flex items-center justify-center gap-2 font-jakarta transition-all"
               >
                 View Our Packages
               </button>
@@ -151,7 +187,7 @@ export default function HeroSection() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
