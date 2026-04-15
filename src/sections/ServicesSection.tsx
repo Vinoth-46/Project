@@ -51,7 +51,7 @@ function ServiceCard({ service, index, onLearnMore }: { service: Service; index:
         transition: 'transform 0.1s ease-out',
       }}
     >
-      <div className="glass-card p-6 md:p-8 h-full flex flex-col group cursor-pointer relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+      <div className="glass-card p-6 md:p-8 h-full flex flex-col group cursor-pointer relative overflow-hidden transition-all duration-300 hover:shadow-lg" onClick={onLearnMore}>
         {/* Content */}
         <div className="relative z-10 flex flex-col flex-grow">
           {/* Icon */}
