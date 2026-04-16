@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Service Coverage Data with specific colors for the "Outlines"
 const SERVICE_ZONES = [
@@ -9,6 +9,7 @@ const SERVICE_ZONES = [
   { city: 'Salem', lat: 11.6643, lng: 78.1460, color: '#3B82F6', radius: 18000, label: 'Secondary Node' },
   { city: 'Karur', lat: 10.9601, lng: 78.0766, color: '#22C55E', radius: 15000, label: 'Secondary Node' },
   { city: 'Trichy', lat: 10.7905, lng: 78.7047, color: '#F97316', radius: 18000, label: 'Secondary Node' },
+  { city: 'Erode', lat: 11.3410, lng: 77.7172, color: '#C084FC', radius: 18000, label: 'Secondary Node' },
 ];
 
 // Connection Lines from Primary Hub (Namakkal) to Nodes
@@ -16,11 +17,13 @@ const CONNECTIONS = [
   { fromId: 0, toId: 1 }, // Namakkal to Salem
   { fromId: 0, toId: 2 }, // Namakkal to Karur
   { fromId: 0, toId: 3 }, // Namakkal to Trichy
+  { fromId: 0, toId: 4 }, // Namakkal to Erode
 ];
 
 function LeafletMap() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
+  const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -50,12 +53,69 @@ function LeafletMap() {
       // Cyber-Tactical Dark Tiles (CartoDB Dark Matter with CSS Filter)
       const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 19,
-      }).addTo(map);
+      });
+      tiles.addTo(map);
 
       // Force a tactical blue/slate tint via CSS filter on the tile layer's container
-      if (tiles.getContainer()) {
-        tiles.getContainer()!.style.filter = 'hue-rotate(15deg) brightness(1.6) contrast(1.2) saturate(0.9)';
+      if (tiles && (tiles as any).getContainer && (tiles as any).getContainer()) {
+        (tiles as any).getContainer()!.style.filter = 'hue-rotate(15deg) brightness(1.6) contrast(1.2) saturate(0.9)';
       }
+
+      // ── Tamil Nadu State Boundary ─────────────────────────────────────────
+      fetch('https://nominatim.openstreetmap.org/search.php?q=Tamil+Nadu,India&polygon_geojson=1&format=geojson', { headers: { 'Accept-Language': 'en' } })
+        .then((r) => r.json())
+        .then((data) => {
+          if (!isMounted || !data?.features?.length) return;
+
+          const tnFeature = data.features.reduce((best: any, f: any) =>
+            JSON.stringify(f.geometry).length > JSON.stringify(best?.geometry || '').length ? f : best
+          , null);
+
+          if (!tnFeature) return;
+
+          // Highlight the TN boundary with a glowing outline and fill
+          L.geoJSON(tnFeature, {
+            style: {
+              color:       '#FACC15',
+              weight:      2.5,
+              opacity:     0.6,
+              fillColor:   '#FACC15',
+              fillOpacity: 0.15,
+              dashArray:   '5, 10'
+            },
+          } as any).addTo(map);
+        })
+        .catch(() => {});
+
+      // ── District Boundaries from Nominatim ───────────────────────────────
+      SERVICE_ZONES.forEach((zone) => {
+        const queryCity = zone.city === 'Trichy' ? 'Tiruchirappalli' : zone.city;
+        fetch(`https://nominatim.openstreetmap.org/search.php?q=${queryCity}+District,Tamil+Nadu,India&polygon_geojson=1&format=geojson`, { headers: { 'Accept-Language': 'en' } })
+          .then((r) => r.json())
+          .then((data) => {
+            if (!isMounted || !data?.features?.length) return;
+
+            const districtFeature = data.features.reduce((best: any, f: any) =>
+              JSON.stringify(f.geometry).length > JSON.stringify(best?.geometry || '').length ? f : best
+            , null);
+
+            if (!districtFeature) return;
+
+            // Highlight the district boundary with its specific zone color
+            L.geoJSON(districtFeature, {
+              style: {
+                color:       zone.color,
+                weight:      2.5,
+                opacity:     0.6,
+                fillColor:   zone.color,
+                fillOpacity: 0.35,
+                dashArray:   '5, 10'
+              },
+            } as any).addTo(map);
+          })
+          .catch(() => {});
+      });
+
 
       // Add Connection Network Lines
       CONNECTIONS.forEach((conn) => {
@@ -115,6 +175,7 @@ function LeafletMap() {
       });
 
       map.on('click', () => map.scrollWheelZoom.enable());
+      if (isMounted) setMapReady(true);
     }).catch(console.error);
 
     return () => {
@@ -127,9 +188,36 @@ function LeafletMap() {
   }, []);
 
   return (
-    <>
-      <div ref={mapRef} className="w-full h-full" />
-    </>
+    <div className="relative w-full h-full">
+      <div 
+        ref={mapRef} 
+        className="w-full h-full" 
+        aria-label="Interactive map showing service coverage in Tamil Nadu" 
+        role="application"
+      />
+      
+      {/* Tactical Loading Overlay */}
+      <AnimatePresence>
+        {!mapReady && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-[1000] bg-slate-950 flex flex-col items-center justify-center gap-4 px-6 text-center"
+          >
+            <div className="relative">
+              <div className="w-12 h-12 border-2 border-brand-accent/30 rounded-full animate-ping opacity-20" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-2 h-2 bg-brand-accent rounded-full shadow-[0_0_10px_#FACC15]" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-black text-brand-accent animate-pulse">Initializing HUD</span>
+              <span className="text-[9px] text-white/40 uppercase tracking-widest font-jakarta">Mapping District Boundaries...</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 

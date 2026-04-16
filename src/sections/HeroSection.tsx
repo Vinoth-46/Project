@@ -22,28 +22,75 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative min-h-screen w-full md:overflow-hidden bg-brand-primary"
     >
-      {/* Background Video */}
+      {/* Background Video — YouTube */}
       <div className="absolute inset-0 overflow-hidden">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          poster="/loading logo.png"
-          className="w-full h-full object-cover pointer-events-none opacity-90"
-        >
-          <source src="/bg-video.mp4" type="video/mp4" />
-        </video>
-        {/* Adjusted mobile overlay to be lighter (40%) and desktop to be (60%) */}
+        <iframe
+          src="https://www.youtube.com/embed/8_AzAKwMBOk?autoplay=1&mute=1&loop=1&playlist=8_AzAKwMBOk&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080"
+          title="Kitchaa's Enterprise Background Video"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-90"
+          style={{
+            width: 'calc(100% + 200px)',
+            height: 'calc(100% + 200px)',
+            minWidth: '177.78vh',
+            minHeight: '56.25vw',
+          }}
+        />
+        {/* Overlay: lighter on mobile (40%), darker on desktop (60%) */}
         <div className="absolute inset-0 bg-brand-primary/40 lg:bg-brand-primary/60 pointer-events-none" />
       </div>
+
+      {/* ── GST Badge — Minimal Top Left Corner ── */}
+      <motion.div
+        className="absolute top-[80px] md:top-[120px] left-4 md:left-8 z-20 flex flex-col items-center gap-2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+      >
+        <div className="relative group">
+          <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+          <img
+            src="/gst image.png"
+            alt="GST Registered Professional"
+            width={80}
+            height={80}
+            className="relative w-14 h-14 md:w-20 md:h-20 object-contain mix-blend-screen brightness-[1.3] drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+        <span className="text-[10px] md:text-[11px] font-black tracking-widest text-[#FACC15] uppercase font-outfit drop-shadow-[0_2px_4px_rgba(0,0,0,1)] text-center">
+          GST: 33FKGPP3797C1ZX
+        </span>
+      </motion.div>
+
+      {/* ── MSME Badge — Minimal Top Right Corner ── */}
+      <motion.div
+        className="absolute top-[80px] md:top-[120px] right-4 md:right-8 z-20 flex flex-col items-center gap-2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+      >
+        <div className="relative group">
+          <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+          <img
+            src="/msme image.png"
+            alt="MSME Registered Enterprise"
+            width={80}
+            height={80}
+            className="relative w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105 rounded-md"
+          />
+        </div>
+        <span className="text-[9px] md:text-[11px] font-black tracking-widest text-[#FACC15] uppercase font-outfit drop-shadow-[0_2px_4px_rgba(0,0,0,1)] text-center">
+          MSME Register
+        </span>
+      </motion.div>
 
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-radial from-brand-accent/10 via-transparent to-transparent opacity-50" />
 
       {/* Content Overlay */}
       <motion.div
-        className="relative z-10 flex min-h-screen items-center pt-36 pb-32 lg:pt-12 lg:pb-0"
+        className="relative z-10 flex min-h-screen items-center pt-48 pb-40 lg:pt-32 lg:pb-24"
         style={{ y: textY, opacity: textOpacity }}
       >
         <div className="section-container w-full">
@@ -187,19 +234,24 @@ export default function HeroSection() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-60"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
       >
-        <motion.div
-          className="flex flex-col items-center gap-2 text-brand-text/50 font-inter"
+        <motion.button
+          aria-label="Scroll down to see more"
+          className="flex flex-col items-center gap-2 text-white/80 font-inter cursor-pointer outline-none focus:text-brand-accent bg-transparent border-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] hover:text-brand-accent transition-colors duration-300"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          onClick={() => {
+            const el = document.getElementById('about');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
         >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={20} />
-        </motion.div>
+          <span className="text-xs tracking-widest uppercase font-semibold">Scroll</span>
+          <ChevronDown size={22} />
+        </motion.button>
       </motion.div>
 
       {/* Decorative Elements */}

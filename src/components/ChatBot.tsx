@@ -139,6 +139,7 @@ export default function ChatBot() {
           <div className="flex flex-col-reverse items-end gap-3">
             <motion.button
               onClick={() => setDialOpen(prev => !prev)}
+              aria-label={dialOpen ? "Close contact options" : "Open contact options"}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
               className="flex"
@@ -161,6 +162,7 @@ export default function ChatBot() {
                 <motion.a
                   key={action.label}
                   href={action.href}
+                  aria-label={`Contact us via ${action.label}`}
                   target={action.href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 12, scale: 0.85 }}
@@ -234,9 +236,10 @@ export default function ChatBot() {
               </div>
               <button 
                 onClick={() => setChatOpen(false)} 
+                aria-label="Close chat assistant"
                 style={{ background: '#334155', border: 'none', cursor: 'pointer', color: '#E5E7EB', padding: 6, borderRadius: '50%', display: 'flex' }}
               >
-                <X size={16} />
+                <X size={16} aria-hidden="true" />
               </button>
             </div>
 
@@ -321,6 +324,7 @@ export default function ChatBot() {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && sendMessage()}
                 placeholder="How can Kitchaa's Enterprise help you today?"
+                aria-label="Chat message input"
                 style={{
                   flex: 1, background: '#111827',
                   border: '1px solid #334155',
@@ -331,6 +335,7 @@ export default function ChatBot() {
               <button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
+                aria-label="Send message"
                 style={{
                   width: 44, height: 44, borderRadius: 12, border: 'none', cursor: 'pointer',
                   background: input.trim() ? '#FACC15' : '#334155',
@@ -338,7 +343,7 @@ export default function ChatBot() {
                   transition: 'all 0.2s', flexShrink: 0
                 }}
               >
-                <Send size={18} color={input.trim() ? '#0F172A' : '#9CA3AF'} />
+                <Send size={18} color={input.trim() ? '#0F172A' : '#9CA3AF'} aria-hidden="true" />
               </button>
             </div>
           </motion.div>

@@ -47,7 +47,7 @@ export default function InteractiveBuilding() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="relative py-12 md:py-32 bg-brand-primary overflow-hidden border-t border-white/5">
+    <section id="how-we-build" className="relative py-12 md:py-32 bg-brand-primary overflow-hidden border-t border-white/5">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-accent/5 rounded-full blur-[150px]" />
@@ -129,37 +129,40 @@ export default function InteractiveBuilding() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4 }}
-                className="relative bg-slate-900/40 backdrop-blur-md rounded-2xl border border-white/5 shadow-2xl overflow-hidden group"
+                className="relative bg-slate-900/60 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl overflow-hidden group min-h-[450px] md:min-h-[550px] flex flex-col justify-end"
               >
-                {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-transparent to-transparent z-10 opacity-60" />
-                
-                {/* Construction Image */}
-                <div className="aspect-[16/9] w-full overflow-hidden">
+                {/* Construction Image as Full Background */}
+                <div className="absolute inset-0 z-0">
                   <motion.img 
                     src={constructionSteps[activeStep].image} 
                     alt={constructionSteps[activeStep].title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    width={800}
+                    height={800}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                 </div>
 
-                {/* Content Overlay */}
-                <div className="relative z-20 p-5 md:p-8 mt-0 md:-mt-32">
-                  <div className="inline-block px-3 py-1.5 bg-brand-accent text-brand-primary text-[10px] font-black uppercase tracking-[0.15em] rounded-lg mb-3 shadow-xl">
+                {/* Heavy Bottom Gradient Overlay to ensure text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent z-10 opacity-95" />
+
+                {/* Content Overlay - Forced to the bottom */}
+                <div className="relative z-20 p-6 md:p-8 flex flex-col items-start text-left w-full mt-auto">
+                  <div className="inline-block px-3 py-1.5 bg-brand-accent text-[#050505] text-[10px] font-black uppercase tracking-[0.15em] rounded-lg mb-3 shadow-[0_4px_20px_rgba(250,204,21,0.3)]">
                     {constructionSteps[activeStep].subtitle}
                   </div>
-                  <h3 className="text-xl md:text-3xl font-outfit font-bold text-brand-text mb-3 leading-tight">
+                  <h3 className="text-2xl md:text-4xl font-outfit font-bold text-white mb-3 leading-tight w-full drop-shadow-md">
                     {constructionSteps[activeStep].title}
                   </h3>
-                  <p className="text-brand-text/70 text-sm md:text-base leading-relaxed mb-6 max-w-2xl font-inter">
+                  <p className="text-white/80 text-sm md:text-base leading-relaxed mb-6 max-w-2xl font-inter w-full">
                     {constructionSteps[activeStep].description}
                   </p>
 
-                  <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-wrap gap-3 w-full">
                     {constructionSteps[activeStep].features.map((f, fi) => (
-                      <div key={fi} className="flex items-center gap-2 text-[11px] font-bold text-brand-accent bg-brand-accent/5 border border-brand-accent/20 px-3 py-1.5 rounded-full font-jakarta uppercase tracking-wider">
-                        <CheckCircle2 size={14} />
-                        {f}
+                      <div key={fi} className="flex items-center gap-2 text-[10px] md:text-[11px] font-bold text-brand-accent bg-[#050505]/50 backdrop-blur-sm border border-brand-accent/30 px-3 py-1.5 rounded-full font-jakarta uppercase tracking-wider shadow-lg">
+                        <CheckCircle2 size={14} className="shrink-0" />
+                        <span>{f}</span>
                       </div>
                     ))}
                   </div>

@@ -3,15 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 
-const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Services', href: '#services' },
-  { name: 'Pricing', href: '#pricing' },
-  { name: 'Reviews', href: '#reviews' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Contact', href: '#contact' },
-];
+
 
 export default function Footer() {
   const scrollToSection = (href: string) => {
@@ -27,52 +19,68 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-brand-footer border-t border-brand-card">
-      <div className="section-container py-12 md:py-16">
-        <div className="grid md:grid-cols-3 gap-10 md:gap-8 items-start">
+      <div className="section-container py-8 md:py-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4 items-start">
           {/* Logo & Tagline */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="flex flex-col gap-4"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex items-center justify-center shrink-0">
-                <img 
-                  src="/loading logo.png" 
-                  alt="Kitchaa's Enterprise Logo"
-                  className="h-16 md:h-20 w-auto object-contain"
-                  style={{ 
-                    mixBlendMode: 'screen', 
-                    filter: 'brightness(1.2) contrast(1.1)' 
-                  }} 
-                />
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center justify-center shrink-0">
+                  <img
+                    src="/loading logo.png"
+                    alt="Kitchaa's Enterprise Logo"
+                    width={180}
+                    height={100}
+                    className="h-14 md:h-16 w-auto object-contain"
+                    style={{
+                      mixBlendMode: 'screen',
+                      filter: 'brightness(1.2) contrast(1.1)'
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col border-l-2 border-brand-accent pl-3">
+                  <span className="text-lg md:text-xl font-outfit font-bold text-brand-text leading-tight">
+                    KITCHAA&apos;S
+                  </span>
+                  <span className="text-[10px] font-jakarta font-bold text-brand-text/70 tracking-[0.2em] uppercase mt-0.5">
+                    Enterprise
+                  </span>
+                </div>
               </div>
-              <div className="flex flex-col border-l-2 border-brand-accent pl-3">
-                <span className="text-xl md:text-2xl font-outfit font-bold text-brand-text leading-tight">
-                  KITCHAA&apos;S
-                </span>
-                <span className="text-xs font-jakarta font-bold text-brand-text/70 tracking-[0.2em] uppercase mt-1">
-                  Enterprise
-                </span>
-              </div>
+              <p className="text-brand-text/70 text-xs leading-relaxed max-w-xs font-medium font-inter italic border-l-2 border-brand-card pl-3">
+                "Sacred Values. Solid Foundations."
+              </p>
             </div>
-            <p className="text-brand-text/70 text-sm leading-relaxed max-w-xs font-medium font-inter">
-              Sacred Values. Solid Foundations.
-            </p>
           </motion.div>
 
-          {/* Quick Links */}
+          {/* Quick Links — Separate Vertical Column */}
           <motion.div
-            className="md:text-center pb-2"
+            className="lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
           >
-            <h4 className="text-brand-text font-bold mb-4 font-outfit text-lg tracking-wide uppercase">Quick Links</h4>
-            <nav className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center items-center md:gap-x-5 md:gap-y-2">
-              {navLinks.map((link) => (
+            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Quick Links</h4>
+            <nav className="flex flex-col gap-2">
+              {[
+                { name: 'Home', href: '#home' },
+                { name: 'About Us', href: '#about' },
+                { name: 'Services', href: '#services' },
+                { name: 'How We Build', href: '#how-we-build' },
+                { name: 'Transparency', href: '#transparency' },
+                { name: 'Pricing', href: '#pricing' },
+                { name: 'Testimonials', href: '#reviews' },
+                { name: 'Service Area', href: '#service-area' },
+                { name: 'FAQ', href: '#faq' },
+                { name: 'Contact Us', href: '#contact' },
+              ].map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
@@ -80,29 +88,71 @@ export default function Footer() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="text-brand-text/70 hover:text-brand-accent font-medium text-sm whitespace-nowrap transition-colors"
+                  className="flex items-center gap-2 text-brand-text/70 hover:text-brand-accent font-medium text-xs transition-colors group"
                 >
+                  <span className="w-1 h-1 rounded-full bg-brand-accent/40 group-hover:bg-brand-accent transition-colors shrink-0" />
                   {link.name}
                 </a>
               ))}
             </nav>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <motion.div
-            className="md:text-right"
+            className="lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Contact</h4>
+            <div className="flex flex-col gap-2.5 text-brand-text/80 text-xs font-medium font-inter">
+              <p className="flex items-start gap-2">📱 +91 83440 51846</p>
+              <p className="flex items-start gap-2">📧 kitchaasenterprise@gmail.com</p>
+              <p className="flex items-start gap-2">📍 Namakkal, Tamil Nadu</p>
+              <p className="flex items-start gap-2 text-brand-accent/90">🕐 Mon-Sun: 9 AM – 8 PM</p>
+            </div>
+          </motion.div>
+
+          {/* Credentials */}
+          <motion.div
+            className="lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Credentials</h4>
+            <div className="text-brand-text/80 text-xs space-y-2 font-medium font-inter">
+              <p><span className="text-brand-text/60 uppercase tracking-wider block mb-0.5" style={{ fontSize: '10px' }}>GST Registration</span> <span className="font-mono text-brand-accent">33FKGPP3797C1ZX</span></p>
+              <p><span className="text-brand-text/60 uppercase tracking-wider block mb-0.5" style={{ fontSize: '10px' }}>MSME Udyam</span> <span className="font-mono text-[#34d399]">Registered</span></p>
+              <p><span className="text-brand-text/60 uppercase tracking-wider block mb-0.5" style={{ fontSize: '10px' }}>BPCL Vendor Code</span> <span className="font-mono text-[#fbbc04]">318833</span></p>
+            </div>
+          </motion.div>
+
+          {/* Service Areas */}
+          <motion.div
+            className="lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="text-brand-text font-bold mb-4 font-outfit text-lg tracking-wide uppercase">Contact</h4>
-            <div className="text-brand-text/70 text-sm space-y-2 font-medium">
-              <p className="font-bold text-brand-text font-jakarta">Er. V. NIRMAL, B.E. (Civil)</p>
-              <p className="text-xs text-brand-accent font-extrabold uppercase tracking-widest font-jakarta">Proprietor</p>
-              <p className="font-inter">Namakkal, Tamil Nadu</p>
-              <p className="font-manrope text-base tracking-wide font-bold">+91 83440 51846</p>
-              <p>kitchaasenterprise@gmail.com</p>
+            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Service Areas</h4>
+            <div className="text-brand-text/70 text-xs space-y-2.5 font-medium font-inter">
+              <div>
+                <span className="text-brand-accent font-bold uppercase tracking-wider flex items-center gap-1.5 mb-0.5" style={{ fontSize: '10px' }}>
+                  <span className="w-1 h-1 rounded-full bg-brand-accent"></span> Primary
+                </span>
+                <p className="pl-2.5 text-brand-text">Namakkal, Salem, Karur, Erode</p>
+              </div>
+
+              <div>
+                <span className="text-brand-text font-bold uppercase tracking-wider flex items-center gap-1.5 mb-0.5" style={{ fontSize: '10px' }}>
+                  <span className="w-1 h-1 rounded-full bg-brand-text/50"></span> Secondary
+                </span>
+                <p className="pl-2.5 text-brand-text/80">All Tamil Nadu (Consultancy)</p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -125,6 +175,7 @@ export default function Footer() {
           {/* Back to Top */}
           <motion.button
             onClick={scrollToTop}
+            aria-label="Back to top of the page"
             className="flex items-center gap-2 text-brand-text/70 hover:text-brand-accent font-semibold text-sm transition-colors group mt-4 md:mt-0 font-jakarta uppercase tracking-widest"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -134,7 +185,7 @@ export default function Footer() {
           >
             Back to top
             <span className="w-8 h-8 rounded-full border border-brand-card text-brand-text flex items-center justify-center group-hover:bg-brand-accent group-hover:text-brand-primary group-hover:border-transparent transition-all shadow-sm">
-              <ArrowUp size={14} />
+              <ArrowUp size={14} aria-hidden="true" />
             </span>
           </motion.button>
         </div>

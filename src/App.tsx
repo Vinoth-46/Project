@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -33,7 +33,7 @@ function App() {
         <Navbar />
 
       {/* Main Content — Conversion Funnel Order */}
-      <main className="overflow-x-hidden">
+      <main className="relative overflow-x-hidden">
         {/* 1. Hero (Hook + Urgency + Loss Aversion) */}
         <HeroSection />
 

@@ -43,6 +43,7 @@
         "npm:@radix-ui/react-tooltip@^1.2.8",
         "npm:@react-three/drei@^10.7.7",
         "npm:@react-three/fiber@^9.5.0",
+        "npm:@types/gsap@^1.20.2",
         "npm:@types/leaflet@^1.9.11",
         "npm:@types/node@^24.10.1",
         "npm:@types/react-dom@^19.2.3",
