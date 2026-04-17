@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital,wght@1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 40 14% 93%;
+    --card: 0 0% 7%;
+    --card-foreground: 40 14% 93%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 40 14% 93%;
+    --primary: 38 91% 55%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 40 14% 93%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 40 5% 60%;
+    --accent: 22 90% 48%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 38 50% 25%;
+    --input: 0 0% 15%;
+    --ring: 38 91% 55%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 40 14% 93%;
+    --sidebar-primary: 38 91% 55%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 11%;
+    --sidebar-accent-foreground: 40 14% 93%;
+    --sidebar-border: 38 50% 25%;
+    --sidebar-ring: 38 91% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-brand-primary text-brand-text font-inter antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-outfit font-bold tracking-[-0.02em];
+  }
+
+  p, li {
+    @apply font-inter leading-relaxed;
+  }
+}
+
+@layer components {
+  /* Minimalist Card */
+  .glass-card {
+    @apply relative overflow-hidden;
+    background: rgba(15, 23, 42, 0.5); /* brand-secondary with opacity */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-card:hover {
+    border-color: rgba(250, 204, 21, 0.3); /* brand-accent glow */
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.1);
+  }
+  
+  .glass-nav {
+    @apply fixed top-0 left-0 right-0;
+    z-index: 500;
+    background: rgba(2, 6, 23, 0.8); /* brand-primary */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, #FACC15, #F59E0B);
+    color: transparent;
+  }
+  
+  /* Outline Button */
+  .btn-gold {
+    @apply relative px-6 py-3 font-medium text-sm tracking-wide uppercase overflow-hidden;
+    background: transparent;
+    border: 1px solid #FACC15;
+    border-radius: 4px;
+    color: #FACC15;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-gold:hover {
+    background: #FACC15;
+    color: #0F172A;
+    border-color: transparent;
+  }
+
+  /* Secondary Button as per Rule #3 */
+  .btn-secondary {
+    @apply relative px-6 py-3 font-bold text-sm tracking-wide uppercase overflow-hidden;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    color: #F8FAFC;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-secondary:hover {
+    border-color: #FACC15;
+    background: rgba(250, 204, 21, 0.05);
+    color: #FACC15;
+    box-shadow: 0 0 15px rgba(250, 204, 21, 0.1);
+  }
+  
+  /* Solid Button */
+  .btn-gold-filled {
+    @apply relative px-6 py-3 font-medium text-sm tracking-wide uppercase overflow-hidden;
+    background: #FACC15;
+    border-radius: 4px;
+    color: #0F172A;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-gold-filled:hover {
+    background: #F59E0B;
+  }
+  
+  /* Section Container */
+  .section-container {
+    @apply w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16;
+  }
+  
+  /* Scroll Progress Bar */
+  .scroll-progress {
+    @apply fixed top-0 left-0 h-[2px] z-[110];
+    background: #FACC15;
+  }
+  
+  /* 3D Tilt Card Base */
+  .tilt-card {
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+  
+  /* Masonry Grid */
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: masonry;
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .masonry-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .masonry-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #020617; /* brand-primary */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b; /* brand-card */
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FACC15;
+  }
+
+  /* Blueprint Grid Pattern */
+  .blueprint-grid {
+    background-image: linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .blueprint-grid-dense {
+    background-image: linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Fee Table Glass Variants */
+  .glass-fee-table {
+    @apply bg-brand-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden shadow-2xl;
+  }
+
+  .glass-fee-header {
+    @apply bg-brand-primary/50 border-b border-white/5 p-5 md:p-6;
+  }
+
+  .glass-fee-row {
+    @apply flex justify-between items-center px-6 py-3.5 gap-3 border-b border-white/5 last:border-0 transition-colors duration-200;
+  }
+
+  .glass-fee-row:nth-child(even) {
+    @apply bg-brand-primary/30;
+  }
+
+  .glass-fee-row:hover {
+    @apply bg-brand-accent/5;
+  }
+
+  .glass-fee-footer {
+    @apply bg-brand-primary/50 border-t border-white/5 p-5 md:p-6;
+  }
+
+  /* Map Network & Markers */
+  .map-network-line {
+    animation: networkDash 30s linear infinite;
+  }
+
+  @keyframes networkDash {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  .map-marker-container {
+    @apply relative w-[30px] h-[30px] flex items-center justify-center;
+  }
+
+  .map-marker-pulse {
+    @apply absolute w-full h-full border-2 rounded-full opacity-0;
+    border-color: var(--marker-color);
+    animation: markerPulse 2.4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    box-shadow: 0 0 15px var(--marker-color);
+  }
+
+  .map-marker-core {
+    @apply w-[10px] h-[10px] rounded-full border-2 border-white z-[2] shadow-2xl;
+    background: var(--marker-color);
+    box-shadow: 0 0 20px var(--marker-color), 0 0 40px var(--marker-color);
+  }
+
+  @keyframes markerPulse {
+    0% { transform: scale(0.2); opacity: 1; }
+    100% { transform: scale(3.5); opacity: 0; }
+  }
+
+  /* HUD Popup Styles */
+  .modern-hud-popup .leaflet-popup-content-wrapper {
+    @apply bg-brand-primary/90 backdrop-blur-md border border-brand-accent/30 rounded-sm p-0 text-white shadow-2xl;
+  }
+
+  .modern-hud-popup .leaflet-popup-tip {
+    @apply bg-brand-primary/90 border-l border-b border-brand-accent/30;
+  }
+
+  .hud-popup-content {
+    @apply p-3 font-inter;
+  }
+
+  .hud-popup-label {
+    @apply text-[8px] uppercase tracking-[0.2em] text-white/50 mb-1;
+  }
+
+  .hud-popup-title {
+    @apply text-base font-extrabold mb-1.5 font-outfit;
+  }
+
+  .hud-popup-bar {
+    @apply h-[2px] mb-2;
+    background: linear-gradient(to right, #FACC15, transparent);
+  }
+
+  .hud-popup-status {
+    @apply text-[9px] text-white/70 italic;
+  }
+}
+
+@layer utilities {
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
