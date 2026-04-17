@@ -12,6 +12,18 @@ const SERVICE_ZONES = [
   { city: 'Erode', lat: 11.3410, lng: 77.7172, color: '#C084FC', radius: 18000, label: 'Secondary Node' },
 ];
 
+interface NominatimFeature {
+  geometry: {
+    type: string;
+    coordinates: unknown;
+  };
+  properties: Record<string, unknown>;
+}
+
+interface NominatimResponse {
+  features: NominatimFeature[];
+}
+
 // Connection Lines from Primary Hub (Namakkal) to Nodes
 const CONNECTIONS = [
   { fromId: 0, toId: 1 }, // Namakkal to Salem
@@ -22,7 +34,7 @@ const CONNECTIONS = [
 
 function LeafletMap() {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
+  const mapInstanceRef = useRef<import('leaflet').Map | null>(null);
   const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
@@ -57,8 +69,9 @@ function LeafletMap() {
       tiles.addTo(map);
 
       // Force a tactical blue/slate tint via CSS filter on the tile layer's container
-      if (tiles && (tiles as any).getContainer && (tiles as any).getContainer()) {
-        (tiles as any).getContainer()!.style.filter = 'hue-rotate(15deg) brightness(1.6) contrast(1.2) saturate(0.9)';
+      const tileContainer = tiles.getContainer();
+      if (tileContainer) {
+        tileContainer.style.filter = 'hue-rotate(15deg) brightness(1.6) contrast(1.2) saturate(0.9)';
       }
 
       // ── Tamil Nadu State Boundary ─────────────────────────────────────────
@@ -67,14 +80,14 @@ function LeafletMap() {
         .then((data) => {
           if (!isMounted || !data?.features?.length) return;
 
-          const tnFeature = data.features.reduce((best: any, f: any) =>
+          const tnFeature = (data as NominatimResponse).features.reduce((best: NominatimFeature | null, f: NominatimFeature) =>
             JSON.stringify(f.geometry).length > JSON.stringify(best?.geometry || '').length ? f : best
           , null);
 
           if (!tnFeature) return;
 
           // Highlight the TN boundary with a glowing outline and fill
-          L.geoJSON(tnFeature, {
+          L.geoJSON(tnFeature as any, {
             style: {
               color:       '#FACC15',
               weight:      2.5,
@@ -83,7 +96,7 @@ function LeafletMap() {
               fillOpacity: 0.15,
               dashArray:   '5, 10'
             },
-          } as any).addTo(map);
+          } as import('leaflet').GeoJSONOptions).addTo(map);
         })
         .catch(() => {});
 
@@ -95,14 +108,14 @@ function LeafletMap() {
           .then((data) => {
             if (!isMounted || !data?.features?.length) return;
 
-            const districtFeature = data.features.reduce((best: any, f: any) =>
+            const districtFeature = (data as NominatimResponse).features.reduce((best: NominatimFeature | null, f: NominatimFeature) =>
               JSON.stringify(f.geometry).length > JSON.stringify(best?.geometry || '').length ? f : best
             , null);
 
             if (!districtFeature) return;
 
             // Highlight the district boundary with its specific zone color
-            L.geoJSON(districtFeature, {
+            L.geoJSON(districtFeature as any, {
               style: {
                 color:       zone.color,
                 weight:      2.5,
@@ -111,7 +124,7 @@ function LeafletMap() {
                 fillOpacity: 0.35,
                 dashArray:   '5, 10'
               },
-            } as any).addTo(map);
+            } as import('leaflet').GeoJSONOptions).addTo(map);
           })
           .catch(() => {});
       });
@@ -176,7 +189,7 @@ function LeafletMap() {
 
       map.on('click', () => map.scrollWheelZoom.enable());
       if (isMounted) setMapReady(true);
-    }).catch(console.error);
+    }).catch(() => {});
 
     return () => {
       isMounted = false;

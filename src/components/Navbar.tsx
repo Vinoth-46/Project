@@ -118,7 +118,7 @@ export default function Navbar() {
             style={{ isolation: 'isolate' }}
           >
             <img
-              src="/loading logo.png"
+              src="/loading logo.webp"
               alt="Kitchaa's Enterprise"
               className="h-12 w-auto object-contain flex-shrink-0"
               style={{ 
@@ -193,7 +193,7 @@ export default function Navbar() {
             className="flex items-center gap-2"
           >
             <img
-              src="/loading logo.png"
+              src="/loading logo.webp"
               alt="Kitchaa's Enterprise"
               className="h-11 w-auto object-contain"
               style={{ 

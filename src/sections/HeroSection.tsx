@@ -26,7 +26,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 overflow-hidden">
         {/* Poster Image: Displays immediately for LCP boost */}
         <img 
-          src="/hero-new-tropical.jpg" 
+          src="/hero-new-tropical.webp" 
           alt="" 
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           loading="eager"
@@ -59,7 +59,7 @@ export default function HeroSection() {
         <div className="relative group">
           <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           <img
-            src="/gst image.png"
+            src="/gst image.webp"
             alt="GST Registered Professional"
             width={80}
             height={80}
@@ -81,7 +81,7 @@ export default function HeroSection() {
         <div className="relative group">
           <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           <img
-            src="/msme image.png"
+            src="/msme image.webp"
             alt="MSME Registered Enterprise"
             width={80}
             height={80}

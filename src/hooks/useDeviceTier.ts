@@ -9,13 +9,15 @@ export function useDeviceTier() {
 
   useEffect(() => {
     // Check for mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
     // Check for reduced motion
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(motionQuery.matches);
+    const hasReducedMotion = motionQuery.matches;
+    
+    // Check for mobile
+    const isNowMobile = window.innerWidth < 768;
+
+    setIsMobile(isNowMobile);
+    setPrefersReducedMotion(hasReducedMotion);
 
     // Performance detection
     const detectTier = () => {
@@ -35,7 +37,7 @@ export function useDeviceTier() {
         // Simple tier logic
         const isLowEnd = 
           (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
-          ((navigator as any).deviceMemory && (navigator as any).deviceMemory < 4) ||
+          ((navigator as { deviceMemory?: number }).deviceMemory && (navigator as { deviceMemory?: number }).deviceMemory! < 4) ||
           maxTextureSize < 4096 ||
           /Mali|Adreno|Intel|Graphics/i.test(renderer);
 
@@ -45,15 +47,15 @@ export function useDeviceTier() {
       }
     };
 
-    checkMobile();
     detectTier();
     
-    window.addEventListener('resize', checkMobile);
-    const motionListener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    const motionListener = (ev: MediaQueryListEvent) => setPrefersReducedMotion(ev.matches);
     motionQuery.addEventListener('change', motionListener);
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', handleResize);
       motionQuery.removeEventListener('change', motionListener);
     };
   }, []);

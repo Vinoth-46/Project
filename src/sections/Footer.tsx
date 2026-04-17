@@ -33,10 +33,11 @@ export default function Footer() {
               <div className="flex items-center gap-3 mb-3">
                 <div className="flex items-center justify-center shrink-0">
                   <img
-                    src="/loading logo.png"
+                    src="/loading logo.webp"
                     alt="Kitchaa's Enterprise Logo"
                     width={180}
                     height={100}
+                    loading="lazy"
                     className="h-14 md:h-16 w-auto object-contain"
                     style={{
                       mixBlendMode: 'screen',

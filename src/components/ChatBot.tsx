@@ -26,7 +26,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Vanakkam! 🙏 I'm the Civil Engineering Assistant for Kitchaa's Enterprise.\n\nI can help you with Building Approvals, DTCP processes, and now, **Construction Cost Estimations** for your project.\n\nHow can I help you today?"
+      content: "Vanakkam! 🙏 I'm your Civil Engineering Assistant.\n\nI can help with **Building Approvals**, **DTCP processes**, and **Construction Estimations**.\n\nHow can I help you today?"
     }
   ])
   const [input, setInput] = useState('')
@@ -64,7 +64,7 @@ export default function ChatBot() {
       setMessages((prev: Message[]) => [...prev, { role: 'assistant', content: reply }])
       setAvatarMood('idle')
     } catch (err: any) {
-      console.error('Chat error:', err)
+      // Chat error: handle silently or show UI error
       setMessages((prev: Message[]) => [...prev, { 
         role: 'assistant', 
         content: "I'm having trouble connecting right now. Please call us directly at +91 83440 51846 or message us on WhatsApp for immediate assistance." 
@@ -123,13 +123,13 @@ export default function ChatBot() {
                   boxShadow: '0 0 14px rgba(250,204,21,0.25)',
                 }}>
                   <img
-                    src="/chatbot icon/blueprintopen.png"
+                    src="/chatbot icon/blueprintopen.webp"
                     alt="Civil Engineering Assistant"
                     style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
                   />
                 </div>
                 <div>
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#F1F5F9' }}>Civil Engineering Assistant</p>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#F1F5F9', whiteSpace: 'nowrap' }}>Civil Engineering Assistant</p>
                   <p style={{ margin: 0, fontSize: 11, color: '#FACC15', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
                     Online &amp; Ready to Help
@@ -138,16 +138,26 @@ export default function ChatBot() {
               </div>
               <button
                 onClick={() => setChatOpen(false)}
-
                 aria-label="Close chat assistant"
-                style={{ background: '#334155', border: 'none', cursor: 'pointer', color: '#E5E7EB', padding: 6, borderRadius: '50%', display: 'flex' }}
+                style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  cursor: 'pointer',
+                  color: '#94a3b8',
+                  padding: 8,
+                  borderRadius: '50%',
+                  display: 'flex',
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'; e.currentTarget.style.color = '#ef4444'; }}
+                onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#94a3b8'; }}
               >
-                <X size={16} aria-hidden="true" />
+                <X size={18} aria-hidden="true" />
               </button>
             </div>
 
             {/* Messages */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1.2rem 1rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div className="chatbot-messages" style={{ flex: 1, overflowY: 'auto', padding: '1.2rem 1rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
               {messages.map((msg: Message, i: number) => (
                 <div key={i} style={{
                   display: 'flex', gap: 10,
@@ -164,7 +174,7 @@ export default function ChatBot() {
                   }}>
                     {msg.role === 'user'
                       ? <User size={14} color="#0F172A" />
-                      : <img src="/chatbot icon/blueprintopen.png" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
+                      : <img src="/chatbot icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
                   </div>
                   <div style={{
                     maxWidth: '82%', padding: '0.7rem 0.9rem',
@@ -187,7 +197,7 @@ export default function ChatBot() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2,
                     border: '1px solid rgba(250,204,21,0.4)', overflow: 'hidden',
                   }}>
-                    <img src="/chatbot icon/blueprintopen.png" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <img src="/chatbot icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <div style={{
                     padding: '0.7rem 0.9rem', borderRadius: '14px 14px 14px 2px',
@@ -210,7 +220,7 @@ export default function ChatBot() {
                     key={reply}
                     onClick={() => sendMessage(reply)}
                     style={{
-                      padding: '7px 14px', fontSize: 11, fontWeight: 700,
+                      padding: '5px 12px', fontSize: 10, fontWeight: 700,
                       background: 'rgba(250, 204, 21, 0.05)',
                       border: '1px solid rgba(250, 204, 21, 0.3)',
                       borderRadius: 20, color: '#FACC15', cursor: 'pointer',
@@ -234,7 +244,7 @@ export default function ChatBot() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                placeholder="How can Kitchaa's Enterprise help you today?"
+                placeholder="Type your message..."
                 aria-label="Chat message input"
                 style={{
                   flex: 1, background: '#111827',
@@ -257,11 +267,31 @@ export default function ChatBot() {
                 <Send size={18} color={input.trim() ? '#0F172A' : '#9CA3AF'} aria-hidden="true" />
               </button>
             </div>
+
+            {/* Disclaimer */}
+            <div style={{
+              padding: '0.5rem 1rem 0.8rem',
+              fontSize: '9px',
+              color: '#64748b',
+              textAlign: 'center',
+              lineHeight: '1.4',
+              borderTop: '1px solid rgba(51, 65, 85, 0.3)',
+              background: '#0F172A',
+            }}>
+              <span style={{ fontWeight: 700, color: '#94a3b8' }}>*Disclaimer:*</span> This chatbot uses AI and may contain errors or omissions. 
+              All information should be independently verified with our engineer before proceeding.
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+      <style>{`
+        .chatbot-messages::-webkit-scrollbar { width: 4px; }
+        .chatbot-messages::-webkit-scrollbar-track { background: transparent; }
+        .chatbot-messages::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .chatbot-messages::-webkit-scrollbar-thumb:hover { background: #475569; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      `}</style>
     </>
   )
 }

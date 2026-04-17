@@ -85,7 +85,7 @@ export default function RobotAvatar() {
               <source src="/chatbot icon/engineermotion.webm" type="video/webm" />
               {/* Fallback for browsers that don't support webm */}
               <img
-                src="/chatbot icon/blueprintclose.png"
+                src="/chatbot icon/blueprintclose.webp"
                 alt="Civil Engineering AI Assistant"
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />

@@ -95,8 +95,8 @@ export default function ContactSection() {
 
       // Reset success message after 5 seconds
       setTimeout(() => setIsSubmitted(false), 5000);
-    } catch (error) {
-      console.error('Submission error:', error);
+    } catch {
+      // Submission error: handled via state
       alert('Sorry, there was an error sending your message. Please try calling us directly.');
       setIsSubmitting(false);
     }

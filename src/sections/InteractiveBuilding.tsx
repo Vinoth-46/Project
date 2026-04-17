@@ -10,7 +10,7 @@ const constructionSteps = [
     title: 'Specialized Foundation',
     subtitle: 'R.C.C Footing & Rebar Engineering',
     description: 'We use high-grade steel reinforcement (Fe 550D) and specialized anti-termite treatment at the footing level to ensure a lifetime of structural stability.',
-    image: '/foundation_step_1776132259388.png',
+    image: '/foundation_step_1776132259388.webp',
     features: ['Grade M25 Concrete', 'Corrosion Resistant Steel', 'Soil Compaction Tested'],
     icon: ShieldCheck
   },
@@ -19,7 +19,7 @@ const constructionSteps = [
     title: 'Structural Skeleton',
     subtitle: 'Column Casting & Beam Alignment',
     description: 'Our columns are cast using precision-aligned formwork, ensuring vertical accuracy and load-bearing integrity as per seismic standards.',
-    image: '/columns_step_1776132279693.png',
+    image: '/columns_step_1776132279693.webp',
     features: ['Vibrated Casting', 'Perfect Alignment', 'Fe 550D Strength'],
     icon: Drill
   },
@@ -28,7 +28,7 @@ const constructionSteps = [
     title: 'Slab Engineering',
     subtitle: 'Roof Casting & Technical Conduits',
     description: 'Wait-free casting processes with integrated electrical piping and drainage conduits, pre-planned to avoid structural drilling later.',
-    image: '/slab_step_1776132302402.png',
+    image: '/slab_step_1776132302402.webp',
     features: ['Waterproof Curing', 'Electrical Integration', 'Seamless Finish'],
     icon: Hammer
   },
@@ -37,7 +37,7 @@ const constructionSteps = [
     title: 'Premium Finishing',
     subtitle: 'Architectural Handover',
     description: 'From mirror-finish plastering to precise tiling and electrical fixtures, every detail is audited to ensure a world-class luxury living experience.',
-    image: '/finishing_step_1776132323949.png',
+    image: '/finishing_step_1776132323949.webp',
     features: ['Mirror Plaster', 'Italian Marble Ready', 'Premium Fittings'],
     icon: CheckCircle2
   }

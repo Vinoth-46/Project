@@ -205,15 +205,15 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
 const STORAGE_KEY = 'kitchaas_reviews';
 
 export default function ReviewsSection() {
-  const [userReviews, setUserReviews] = useState<Review[]>([]);
-  const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
+  const [userReviews, setUserReviews] = useState<Review[]>(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) setUserReviews(JSON.parse(stored) as Review[]);
-    } catch { /* ignore */ }
-  }, []);
+      return stored ? (JSON.parse(stored) as Review[]) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [showForm, setShowForm] = useState(false);
 
   const handleNewReview = (review: Review) => {
     const updated = [...userReviews, review];
