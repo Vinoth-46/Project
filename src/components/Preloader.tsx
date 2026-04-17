@@ -22,6 +22,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
       });
     }, 40);
 
+
     return () => clearInterval(interval);
   }, [isLoading]);
 

@@ -3,74 +3,129 @@
 import { useDeviceTier } from '../../hooks/useDeviceTier';
 import { useAvatarStore } from '../../store/avatarStore';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot } from 'lucide-react';
+
 
 export default function RobotAvatar() {
   const { isMobile } = useDeviceTier();
   const { chatOpen, setChatOpen, avatarMood } = useAvatarStore();
 
+  // Responsive sizing: smaller on mobile, larger on desktop
+  const imgSize = isMobile ? 80 : 110;
+
   return (
-    <div 
-      className={`fixed z-[9000] cursor-pointer transition-all duration-700 ease-in-out flex items-center justify-center
-        ${isMobile 
-          ? 'bottom-[85px] right-[20px] w-14 h-14' 
-          : 'bottom-24 right-5 w-16 h-16'}
-        ${chatOpen ? 'opacity-0 pointer-events-none scale-50' : 'opacity-100 scale-100'}
-      `}
-      onClick={() => setChatOpen(!chatOpen)}
-    >
-      <AnimatePresence mode="wait">
-        {!chatOpen && (
+    <AnimatePresence>
+      {!chatOpen && (
+        <motion.div
+          key="avatar"
+          initial={{ opacity: 0, y: 30, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 30, scale: 0.8 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          onClick={() => setChatOpen(true)}
+          style={{
+            position: 'fixed',
+            bottom: isMobile ? '1.5rem' : '1.75rem',
+            right: isMobile ? '0.75rem' : '1.25rem',
+            zIndex: 9000,
+            cursor: 'pointer',
+            userSelect: 'none',
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}
+          aria-label="Open chat assistant"
+          role="button"
+        >
+          {/* Floating bob + hover scale */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.3, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.3, y: 50 }}
-            className="relative w-full h-full flex items-center justify-center"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.93 }}
+            style={{ position: 'relative', width: imgSize, height: imgSize }}
           >
-            {/* Glowing background blob */}
-            <motion.div 
-              className="absolute inset-0 bg-brand-accent/20 rounded-full blur-xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            {/* Soft ground shadow */}
+            <motion.div
+              animate={{ scaleX: [1, 1.12, 1], opacity: [0.4, 0.22, 0.4] }}
+              transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+              style={{
+                position: 'absolute',
+                bottom: -6,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: imgSize * 0.55,
+                height: 10,
+                borderRadius: '50%',
+                background: 'rgba(0,0,0,0.55)',
+                filter: 'blur(5px)',
+                zIndex: 0,
+              }}
             />
-            
-            {/* Main Bot Button */}
-            <motion.div 
-              className="relative w-full h-full bg-[#1e293b] border-2 border-brand-accent rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(250,204,21,0.3)] overflow-hidden"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+
+            {/* Engineer character image */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'center bottom',
+                display: 'block',
+                position: 'relative',
+                zIndex: 1,
+                filter: avatarMood === 'thinking'
+                  ? 'drop-shadow(0 4px 16px rgba(250,204,21,0.7))'
+                  : 'drop-shadow(0 4px 14px rgba(250,204,21,0.45)) drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
+                transition: 'filter 0.4s ease',
+              }}
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/10 to-transparent" />
-              <Bot size={isMobile ? 24 : 32} className="text-brand-accent drop-shadow-md z-10" />
-              
-              {/* Animated rings for 'thinking' mood */}
-              {avatarMood === 'thinking' && (
-                <motion.div 
-                   className="absolute inset-0 border border-brand-accent rounded-full"
-                   animate={{ scale: [1, 1.5], opacity: [1, 0] }}
-                   transition={{ duration: 1, repeat: Infinity }}
-                />
-              )}
-            </motion.div>
+              <source src="/chatbot icon/engineermotion.webm" type="video/webm" />
+              {/* Fallback for browsers that don't support webm */}
+              <img
+                src="/chatbot icon/blueprintclose.png"
+                alt="Civil Engineering AI Assistant"
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
+            </video>
 
-            {/* Notification Dot */}
-            <motion.div 
-              className="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-[#0F172A]"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+            {/* Red notification dot — top right of character */}
+            <motion.div
+              animate={{ scale: [1, 1.25, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              style={{
+                position: 'absolute',
+                top: isMobile ? 6 : 8,
+                right: isMobile ? 6 : 8,
+                width: isMobile ? 10 : 13,
+                height: isMobile ? 10 : 13,
+                borderRadius: '50%',
+                background: '#ef4444',
+                border: '2px solid rgba(15,23,42,0.85)',
+                zIndex: 2,
+                boxShadow: '0 0 6px rgba(239,68,68,0.8)',
+              }}
             />
 
-            {/* Tooltip on hover (desktop) */}
-            {!isMobile && (
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#0F172A]/90 border border-brand-accent/30 text-brand-accent px-3 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity duration-300 font-bold tracking-wider pointer-events-none shadow-xl backdrop-blur-sm">
-                Chat with AI
-              </div>
+            {/* Thinking pulse ring */}
+            {avatarMood === 'thinking' && (
+              <motion.div
+                animate={{ scale: [1, 1.6], opacity: [0.7, 0] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '50%',
+                  border: '2px solid #FACC15',
+                  zIndex: 0,
+                }}
+              />
             )}
           </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

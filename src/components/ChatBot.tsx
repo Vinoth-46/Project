@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { X, Send, Bot, User, Loader, Phone } from 'lucide-react'
+import { X, Send, User, Loader, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAvatarStore } from '../store/avatarStore'
 import RobotAvatar from './3d/RobotAvatar'
@@ -200,9 +200,13 @@ export default function ChatBot() {
             exit={{ opacity: 0, y: 24, scale: 0.95 }}
             transition={{ duration: 0.22, ease: 'easeOut' }}
             style={{
-              position: 'fixed', bottom: isMobile ? '1rem' : 'min(5.5rem, 80px)', right: isMobile ? '1rem' : '1.75rem', zIndex: 8999,
+              position: 'fixed',
+              bottom: isMobile ? '1rem' : '1.5rem',
+              right: isMobile ? '1rem' : '1.75rem',
+              zIndex: 8999,
               width: isMobile ? 'calc(100vw - 2rem)' : '380px',
-              height: isMobile ? 'calc(100dvh - 2rem)' : 'min(560px, calc(100dvh - 8rem))',
+              height: isMobile ? 'calc(100dvh - 2rem)' : 'min(560px, calc(100dvh - 5rem))',
+
               borderRadius: 16,
               background: '#111827',
               border: '1px solid #334155',
@@ -211,31 +215,40 @@ export default function ChatBot() {
               overflow: 'hidden',
             }}
           >
-            {/* Header with Integrated Avatar (Option C) */}
+            {/* Header */}
             <div style={{
-              padding: '0.9rem 1.2rem',
+              padding: '0.7rem 1rem',
               borderBottom: '1px solid #334155',
-              background: '#0F172A',
+              background: 'linear-gradient(135deg, #0F172A 0%, #1e293b 100%)',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexShrink: 0
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                {/* Option C: Scaled Avatar in Header */}
+                {/* Engineer avatar in header */}
                 <div style={{
-                  width: 38, height: 38, borderRadius: '50%',
-                  background: '#FACC15',
+                  width: 52, height: 52, borderRadius: '50%',
+                  background: '#1a3052',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                  overflow: 'hidden', border: '2px solid #FACC15'
+                  overflow: 'hidden',
+                  border: '2px solid rgba(250,204,21,0.6)',
+                  boxShadow: '0 0 14px rgba(250,204,21,0.25)',
                 }}>
-                   {/* Fallback to icon for header but could be a tiny Canvas too */}
-                   <Bot size={22} color="#0F172A" />
+                  <img
+                    src="/chatbot icon/blueprintopen.png"
+                    alt="Civil Engineering Assistant"
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
+                  />
                 </div>
                 <div>
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#E5E7EB' }}>Civil Engineering Assistant</p>
-                  <p style={{ margin: 0, fontSize: 11, color: '#FACC15', fontWeight: 500 }}>Online & Ready to Help</p>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#F1F5F9' }}>Civil Engineering Assistant</p>
+                  <p style={{ margin: 0, fontSize: 11, color: '#FACC15', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
+                    Online &amp; Ready to Help
+                  </p>
                 </div>
               </div>
-              <button 
-                onClick={() => setChatOpen(false)} 
+              <button
+                onClick={() => setChatOpen(false)}
+
                 aria-label="Close chat assistant"
                 style={{ background: '#334155', border: 'none', cursor: 'pointer', color: '#E5E7EB', padding: 6, borderRadius: '50%', display: 'flex' }}
               >
@@ -253,11 +266,15 @@ export default function ChatBot() {
                 }}>
                   <div style={{
                     width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-                    background: msg.role === 'user' ? '#FACC15' : '#334155', 
+                    background: msg.role === 'user' ? '#FACC15' : '#1a3052',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    marginTop: 2
+                    marginTop: 2,
+                    border: msg.role === 'assistant' ? '1px solid rgba(250,204,21,0.4)' : 'none',
+                    overflow: 'hidden',
                   }}>
-                    {msg.role === 'user' ? <User size={14} color="#0F172A" /> : <Bot size={14} color="#E5E7EB" />}
+                    {msg.role === 'user'
+                      ? <User size={14} color="#0F172A" />
+                      : <img src="/chatbot icon/blueprintopen.png" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
                   </div>
                   <div style={{
                     maxWidth: '82%', padding: '0.7rem 0.9rem',
@@ -275,8 +292,12 @@ export default function ChatBot() {
               ))}
               {loading && (
                 <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2 }}>
-                    <Bot size={14} color="#E5E7EB" />
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%', background: '#1a3052',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2,
+                    border: '1px solid rgba(250,204,21,0.4)', overflow: 'hidden',
+                  }}>
+                    <img src="/chatbot icon/blueprintopen.png" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <div style={{
                     padding: '0.7rem 0.9rem', borderRadius: '14px 14px 14px 2px',

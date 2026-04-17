@@ -31,6 +31,7 @@ function App() {
         clearTimeout(timer);
       };
     }
+
   }, []);
 
   return (
