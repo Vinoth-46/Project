@@ -22,14 +22,21 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative min-h-screen w-full md:overflow-hidden bg-brand-primary"
     >
-      {/* Background Video — YouTube */}
+      {/* Background Video — YouTube with Poster for LCP */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Poster Image: Displays immediately for LCP boost */}
+        <img 
+          src="/hero-new-tropical.jpg" 
+          alt="" 
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          loading="eager"
+        />
+
         <iframe
           src="https://www.youtube.com/embed/8_AzAKwMBOk?autoplay=1&mute=1&loop=1&playlist=8_AzAKwMBOk&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080"
           title="Kitchaa's Enterprise Background Video"
           allow="autoplay; encrypted-media"
-          allowFullScreen
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-90"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-70"
           style={{
             width: 'calc(100% + 200px)',
             height: 'calc(100% + 200px)',

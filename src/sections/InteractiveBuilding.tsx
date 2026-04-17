@@ -139,7 +139,8 @@ export default function InteractiveBuilding() {
                     width={800}
                     height={800}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.8]"
                   />
                 </div>
 

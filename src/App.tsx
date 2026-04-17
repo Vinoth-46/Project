@@ -18,11 +18,19 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Reveal site as soon as window is loaded OR after a max 600ms safety timer
+    const handleLoad = () => setIsLoading(false);
+    
+    if (document.readyState === 'complete') {
       setIsLoading(false);
-    }, 1200);
-
-    return () => clearTimeout(timer);
+    } else {
+      window.addEventListener('load', handleLoad);
+      const timer = setTimeout(() => setIsLoading(false), 600);
+      return () => {
+        window.removeEventListener('load', handleLoad);
+        clearTimeout(timer);
+      };
+    }
   }, []);
 
   return (

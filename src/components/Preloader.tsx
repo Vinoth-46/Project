@@ -13,14 +13,14 @@ export default function Preloader({ isLoading }: PreloaderProps) {
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + Math.floor(Math.random() * 15) + 10;
+        const next = prev + Math.floor(Math.random() * 25) + 20;
         if (next >= 100) {
           clearInterval(interval);
           return 100;
         }
         return next;
       });
-    }, 60);
+    }, 40);
 
     return () => clearInterval(interval);
   }, [isLoading]);
