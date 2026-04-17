@@ -160,7 +160,7 @@ CONVERSATIONAL RULES
 - If user asks "which plan is best?", ask about their budget and involvement preference before recommending.
 - If user asks to compare plans, create a clear table or bullet comparison.
 - Always mention that consultancy fee is SEPARATE from construction cost.
-- Nandri 🙏 can be used as a closing when appropriate.};
+- Nandri 🙏 can be used as a closing when appropriate.`;
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== 'POST') {
