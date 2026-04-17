@@ -36,7 +36,7 @@ export default function HeroSection() {
           src="https://www.youtube.com/embed/8_AzAKwMBOk?autoplay=1&mute=1&loop=1&playlist=8_AzAKwMBOk&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080"
           title="Kitchaa's Enterprise Background Video"
           allow="autoplay; encrypted-media"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-70"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-100"
 
           style={{
             width: 'calc(100% + 200px)',
