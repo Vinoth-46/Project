@@ -32,19 +32,15 @@ export default function HeroSection() {
           loading="eager"
         />
 
-        <iframe
-          src="https://www.youtube.com/embed/8_AzAKwMBOk?autoplay=1&mute=1&loop=1&playlist=8_AzAKwMBOk&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080"
-          title="Kitchaa's Enterprise Background Video"
-          allow="autoplay; encrypted-media"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-100"
-
-          style={{
-            width: 'calc(100% + 200px)',
-            height: 'calc(100% + 200px)',
-            minWidth: '177.78vh',
-            minHeight: '56.25vw',
-          }}
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        >
+          <source src="/bg-video.mp4" type="video/mp4" />
+        </video>
         {/* Overlay: lighter on mobile (40%), darker on desktop (60%) */}
         <div className="absolute inset-0 bg-brand-primary/40 lg:bg-brand-primary/60 pointer-events-none" />
       </div>
@@ -59,7 +55,7 @@ export default function HeroSection() {
         <div className="relative group">
           <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           <img
-            src="/gst image.webp"
+            src="/gst-image.webp"
             alt="GST Registered Professional"
             width={80}
             height={80}
@@ -81,7 +77,7 @@ export default function HeroSection() {
         <div className="relative group">
           <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           <img
-            src="/msme image.webp"
+            src="/msme-image.webp"
             alt="MSME Registered Enterprise"
             width={80}
             height={80}

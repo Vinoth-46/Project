@@ -113,7 +113,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
 
               {/* The actual logo */}
               <motion.img
-                src="/loading logo.webp"
+                src="/loading-logo.webp"
                 alt="Kitchaa's Enterprise"
                 className="w-28 h-28 md:w-36 md:h-36 rounded-2xl object-contain"
                 style={{

@@ -123,7 +123,7 @@ export default function ChatBot() {
                   boxShadow: '0 0 14px rgba(250,204,21,0.25)',
                 }}>
                   <img
-                    src="/chatbot icon/blueprintopen.webp"
+                    src="/chatbot-icon/blueprintopen.webp"
                     alt="Civil Engineering Assistant"
                     style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
                   />
@@ -174,7 +174,7 @@ export default function ChatBot() {
                   }}>
                     {msg.role === 'user'
                       ? <User size={14} color="#0F172A" />
-                      : <img src="/chatbot icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
+                      : <img src="/chatbot-icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
                   </div>
                   <div style={{
                     maxWidth: '82%', padding: '0.7rem 0.9rem',
@@ -197,7 +197,7 @@ export default function ChatBot() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2,
                     border: '1px solid rgba(250,204,21,0.4)', overflow: 'hidden',
                   }}>
-                    <img src="/chatbot icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <img src="/chatbot-icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <div style={{
                     padding: '0.7rem 0.9rem', borderRadius: '14px 14px 14px 2px',

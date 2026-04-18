@@ -33,7 +33,7 @@ export default function Footer() {
               <div className="flex items-center gap-3 mb-3">
                 <div className="flex items-center justify-center shrink-0">
                   <img
-                    src="/loading logo.webp"
+                    src="/loading-logo.webp"
                     alt="Kitchaa's Enterprise Logo"
                     width={180}
                     height={100}

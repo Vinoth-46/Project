@@ -143,8 +143,8 @@ export default function ConsultationPackage() {
 
     const handleDownloadPackage = () => {
         const a = document.createElement('a');
-        a.href = '/Consultation Package.pdf';
-        a.download = 'Consultation Package.pdf';
+        a.href = '/consultation-package.pdf';
+        a.download = 'consultation-package.pdf';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
