@@ -10,7 +10,7 @@ export default function RobotAvatar() {
   const { chatOpen, setChatOpen, avatarMood } = useAvatarStore();
 
   // Responsive sizing: smaller on mobile, larger on desktop
-  const imgSize = isMobile ? 80 : 110;
+  const imgSize = isMobile ? 150 : 165;
 
   return (
     <AnimatePresence>

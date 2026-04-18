@@ -270,16 +270,17 @@ export default function ChatBot() {
 
             {/* Disclaimer */}
             <div style={{
-              padding: '0.5rem 1rem 0.8rem',
-              fontSize: '9px',
-              color: '#64748b',
+              padding: '0.6rem 1rem 0.8rem',
+              fontSize: '10px',
+              color: '#ffffff',
               textAlign: 'center',
               lineHeight: '1.4',
-              borderTop: '1px solid rgba(51, 65, 85, 0.3)',
-              background: '#0F172A',
+              borderTop: '1px solid #ef4444',
+              background: '#991b1b',
+              fontWeight: '800',
             }}>
-              <span style={{ fontWeight: 700, color: '#94a3b8' }}>*Disclaimer:*</span> This chatbot uses AI and may contain errors or omissions. 
-              All information should be independently verified with our engineer before proceeding.
+              ⚠️ <span style={{ textDecoration: 'underline' }}>DISCLAIMER:</span> AI responses may contain errors. 
+              Verify all info with our engineer before proceeding. ❗
             </div>
           </motion.div>
         )}

@@ -123,7 +123,7 @@ module.exports = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         pulse: "pulse 2s ease-in-out infinite",
         float: "float 3s ease-in-out infinite",
-        shimmer: "shimmer 2s linear infinite",
+        shimmer: "shimmer 4s linear infinite",
       },
       backgroundImage: {
         "gold-gradient": "none",
