@@ -263,6 +263,7 @@ export default function ServicesSection() {
                 </div>
                 <button 
                   onClick={() => setActiveService(null)}
+                  aria-label="Close modal"
                   className="w-8 h-8 rounded-full bg-brand-card hover:bg-red-500/20 border border-brand-card flex items-center justify-center text-brand-text hover:text-red-400 hover:border-red-500/30 transition-colors flex-shrink-0"
                 >
                   <X size={18} />

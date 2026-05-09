@@ -233,11 +233,12 @@ export default function ContactSection() {
                 <div className="grid md:grid-cols-2 gap-5">
                   {/* Name */}
                   <div>
-                    <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                    <label htmlFor="name" className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                       Name <span className="text-brand-accent">*</span>
                     </label>
                     <input
                       type="text"
+                      id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
@@ -253,11 +254,12 @@ export default function ContactSection() {
 
                   {/* Phone */}
                   <div>
-                    <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                    <label htmlFor="phone" className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                       Phone <span className="text-brand-accent">*</span>
                     </label>
                     <input
                       type="tel"
+                      id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
@@ -274,11 +276,12 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                  <label htmlFor="email" className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                     Email
                   </label>
                   <input
                     type="email"
+                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
@@ -294,10 +297,11 @@ export default function ContactSection() {
 
                 {/* Service */}
                 <div>
-                  <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                  <label htmlFor="service" className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                     Service <span className="text-brand-accent">*</span>
                   </label>
                   <select
+                    id="service"
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
@@ -321,10 +325,11 @@ export default function ContactSection() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
+                  <label htmlFor="message" className="block text-sm font-bold text-brand-text/80 mb-2 font-inter">
                     Message
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}

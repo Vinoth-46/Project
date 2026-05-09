@@ -120,9 +120,10 @@ export default function Navbar() {
             <img
               src="/loading-logo.webp"
               alt="Kitchaa's Enterprise"
+              width="56"
+              height="48"
               className="h-12 w-auto object-contain flex-shrink-0"
               style={{ 
-                maxWidth: 56, 
                 mixBlendMode: 'screen', 
                 filter: 'brightness(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(250,204,21,0.2))' 
               }}
@@ -195,9 +196,10 @@ export default function Navbar() {
             <img
               src="/loading-logo.webp"
               alt="Kitchaa's Enterprise"
+              width="48"
+              height="44"
               className="h-11 w-auto object-contain"
               style={{ 
-                maxWidth: 48, 
                 mixBlendMode: 'screen', 
                 filter: 'brightness(1.2) contrast(1.1)' 
               }}

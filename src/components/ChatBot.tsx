@@ -125,6 +125,8 @@ export default function ChatBot() {
                   <img
                     src="/chatbot-icon/blueprintopen.webp"
                     alt="Civil Engineering Assistant"
+                    width="52"
+                    height="52"
                     style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
                   />
                 </div>
@@ -174,7 +176,7 @@ export default function ChatBot() {
                   }}>
                     {msg.role === 'user'
                       ? <User size={14} color="#0F172A" />
-                      : <img src="/chatbot-icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
+                      : <img src="/chatbot-icon/blueprintopen.webp" alt="Assistant" width="28" height="28" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
                   </div>
                   <div style={{
                     maxWidth: '82%', padding: '0.7rem 0.9rem',
@@ -197,7 +199,7 @@ export default function ChatBot() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2,
                     border: '1px solid rgba(250,204,21,0.4)', overflow: 'hidden',
                   }}>
-                    <img src="/chatbot-icon/blueprintopen.webp" alt="Assistant" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <img src="/chatbot-icon/blueprintopen.webp" alt="Assistant" width="28" height="28" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <div style={{
                     padding: '0.7rem 0.9rem', borderRadius: '14px 14px 14px 2px',
@@ -205,7 +207,7 @@ export default function ChatBot() {
                     display: 'flex', alignItems: 'center', gap: 8
                   }}>
                     <Loader size={12} color="#FACC15" className="animate-spin" />
-                    <span style={{ fontSize: 13, color: '#9CA3AF' }}>Analyzing project details...</span>
+                    <span style={{ fontSize: 13, color: '#D1D5DB' }}>Analyzing project details...</span>
                   </div>
                 </div>
               )}

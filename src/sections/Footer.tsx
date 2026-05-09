@@ -68,7 +68,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.08 }}
           >
-            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Quick Links</h4>
+            <h3 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Quick Links</h3>
             <nav className="flex flex-col gap-2">
               {[
                 { name: 'Home', href: '#home' },
@@ -106,7 +106,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Contact</h4>
+            <h3 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Contact</h3>
             <div className="flex flex-col gap-2.5 text-brand-text/80 text-xs font-medium font-inter">
               <p className="flex items-start gap-2">📱 +91 83440 51846</p>
               <p className="flex items-start gap-2">📧 kitchaasenterprise@gmail.com</p>
@@ -123,7 +123,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Credentials</h4>
+            <h3 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Credentials</h3>
             <div className="text-brand-text/80 text-xs space-y-2 font-medium font-inter">
               <p><span className="text-brand-text/60 uppercase tracking-wider block mb-0.5" style={{ fontSize: '10px' }}>GST Registration</span> <span className="font-mono text-brand-accent">33FKGPP3797C1ZX</span></p>
               <p><span className="text-brand-text/60 uppercase tracking-wider block mb-0.5" style={{ fontSize: '10px' }}>MSME Udyam</span> <span className="font-mono text-[#34d399]">Registered</span></p>
@@ -139,7 +139,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Service Areas</h4>
+            <h3 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Service Areas</h3>
             <div className="text-brand-text/70 text-xs space-y-2.5 font-medium font-inter">
               <div>
                 <span className="text-brand-accent font-bold uppercase tracking-wider flex items-center gap-1.5 mb-0.5" style={{ fontSize: '10px' }}>
@@ -164,7 +164,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:pr-24 pb-12 md:pb-0">
           <motion.p
-            className="text-brand-text/50 text-sm text-center md:text-left font-medium font-jakarta uppercase tracking-wider"
+            className="text-brand-text/70 text-sm text-center md:text-left font-medium font-jakarta uppercase tracking-wider"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

@@ -28,6 +28,8 @@ export default function HeroSection() {
         <img 
           src="/hero-new-tropical.webp" 
           alt="" 
+          width="1920"
+          height="1080"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           loading="eager"
         />
@@ -40,6 +42,7 @@ export default function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         >
           <source src="/bg-video.mp4" type="video/mp4" />
+          <track kind="captions" src="/empty.vtt" srcLang="en" label="No captions" default />
         </video>
         {/* Overlay: lighter on mobile (40%), darker on desktop (60%) */}
         <div className="absolute inset-0 bg-brand-primary/40 lg:bg-brand-primary/60 pointer-events-none" />
@@ -57,8 +60,8 @@ export default function HeroSection() {
           <img
             src="/gst-image.webp"
             alt="GST Registered Professional"
-            width={80}
-            height={80}
+            width="80"
+            height="80"
             className="relative w-14 h-14 md:w-20 md:h-20 object-contain mix-blend-screen brightness-[1.3] drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -79,8 +82,8 @@ export default function HeroSection() {
           <img
             src="/msme-image.webp"
             alt="MSME Registered Enterprise"
-            width={80}
-            height={80}
+            width="80"
+            height="80"
             className="relative w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105 rounded-md"
           />
         </div>
