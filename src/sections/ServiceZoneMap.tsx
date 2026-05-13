@@ -161,7 +161,7 @@ function LeafletMap() {
         const icon = L.divIcon({
           className: 'custom-modern-marker',
           html: `
-            <div class="map-marker-container" style="--marker-color: ${zone.color}">
+            <div class="map-marker-container" style="--marker-color: ${zone.color}" role="img" aria-label="${zone.city} - ${zone.label}">
               <div class="map-marker-pulse"></div>
               <div class="map-marker-pulse" style="animation-delay: 0.8s"></div>
               <div class="map-marker-pulse" style="animation-delay: 1.6s"></div>
@@ -172,7 +172,7 @@ function LeafletMap() {
           iconAnchor: [15, 15],
         });
 
-        L.marker([zone.lat, zone.lng], { icon })
+        L.marker([zone.lat, zone.lng], { icon, title: `${zone.city} - ${zone.label}` })
           .addTo(map)
           .bindPopup(`
             <div class="hud-popup-content">

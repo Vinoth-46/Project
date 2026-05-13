@@ -87,17 +87,14 @@ export default function Navbar() {
         animate={{ x: '-50%', y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
       >
-        <motion.nav
-          animate={{
+        <nav
+          style={{
             background: isScrolled
               ? 'rgba(2, 6, 23, 0.92)'
               : 'rgba(2, 6, 23, 0.55)',
             boxShadow: isScrolled
               ? '0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(250,204,21,0.15), inset 0 1px 0 rgba(255,255,255,0.06)'
               : '0 4px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.07), inset 0 1px 0 rgba(255,255,255,0.06)',
-          }}
-          transition={{ duration: 0.4 }}
-          style={{
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             borderRadius: 99,
@@ -106,6 +103,7 @@ export default function Navbar() {
             alignItems: 'center',
             gap: 4,
             width: 'max-content',
+            transition: 'background 0.4s ease, box-shadow 0.4s ease',
           }}
         >
           {/* Logo */}
@@ -116,6 +114,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{ isolation: 'isolate' }}
+            aria-label="Kitchaa's Enterprise - Home"
           >
             <img
               src="/loading-logo.webp"
@@ -171,7 +170,7 @@ export default function Navbar() {
             <Phone size={14} />
             Get Quote
           </motion.button>
-        </motion.nav>
+        </nav>
       </motion.div>
 
       {/* ── Mobile: Edge-to-Edge Slim Bar ── */}
@@ -192,6 +191,7 @@ export default function Navbar() {
             href="#home"
             onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
             className="flex items-center gap-2"
+            aria-label="Kitchaa's Enterprise - Home"
           >
             <img
               src="/loading-logo.webp"

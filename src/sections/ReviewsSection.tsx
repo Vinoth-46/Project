@@ -54,19 +54,20 @@ function StarRating({ rating, onRate, interactive = false }: { rating: number; o
 
         if (interactive) {
           return (
-            <button
+            <div
               key={star}
-              type="button"
               role="radio"
               aria-checked={rating >= star}
               aria-label={`${star} Star`}
+              tabIndex={0}
               onClick={() => onRate?.(star)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRate?.(star); } }}
               onMouseEnter={() => setHovered(star)}
               onMouseLeave={() => setHovered(0)}
-              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-sm appearance-none"
+              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-sm cursor-pointer inline-flex"
             >
               {starIcon}
-            </button>
+            </div>
           );
         }
         return <div key={star}>{starIcon}</div>;
@@ -87,7 +88,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-brand-text font-bold text-base">{review.name}</p>
-          <div className="flex items-center gap-1.5 mt-0.5 text-brand-text/40 text-xs font-inter">
+          <div className="flex items-center gap-1.5 mt-0.5 text-brand-text/60 text-xs font-inter">
             <MapPin size={11} /> {review.location}
           </div>
         </div>
@@ -97,7 +98,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
       </div>
       <StarRating rating={review.rating} />
       <p className="text-brand-text/70 text-sm leading-relaxed flex-1 font-inter">"{review.text}"</p>
-      <div className="flex items-center gap-1.5 text-xs text-brand-text/30 border-t border-white/5 pt-3 font-inter">
+      <div className="flex items-center gap-1.5 text-xs text-brand-text/50 border-t border-white/5 pt-3 font-inter">
         <Calendar size={11} /> {review.date}
       </div>
     </motion.div>
@@ -175,7 +176,7 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
       <div>
         <label className="block text-sm text-brand-text/60 mb-1.5 font-medium font-inter">
           Your Review <span className="text-brand-accent">*</span>
-          <span className="ml-2 text-brand-text/30 text-xs">({text.length}/300)</span>
+          <span className="ml-2 text-brand-text/50 text-xs">({text.length}/300)</span>
         </label>
         <textarea value={text} onChange={e => setText(e.target.value.slice(0, 300))}
           rows={4} placeholder="Share your experience with Kitchaa's Enterprise..."
@@ -184,7 +185,7 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Review) => void }) {
       </div>
 
       <div className="flex items-center justify-between gap-4 pt-1">
-        <p className="text-xs text-brand-text/40 italic font-inter">Reviews are visible to all visitors on this device.</p>
+        <p className="text-xs text-brand-text/60 italic font-inter">Reviews are visible to all visitors on this device.</p>
         <button type="submit" className="bg-brand-accent text-brand-primary hover:bg-[#F59E0B] rounded-lg text-sm px-6 py-2.5 flex-shrink-0 transition-colors shadow-sm font-bold font-jakarta uppercase tracking-wider">
           Submit Review
         </button>

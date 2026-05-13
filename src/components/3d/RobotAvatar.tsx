@@ -22,6 +22,7 @@ export default function RobotAvatar() {
           exit={{ opacity: 0, y: 30, scale: 0.8 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
           onClick={() => setChatOpen(true)}
+          onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setChatOpen(true); } }}
           style={{
             position: 'fixed',
             bottom: isMobile ? '1.5rem' : '1.75rem',
@@ -35,6 +36,7 @@ export default function RobotAvatar() {
           }}
           aria-label="Open chat assistant"
           role="button"
+          tabIndex={0}
         >
           {/* Floating bob + hover scale */}
           <motion.div

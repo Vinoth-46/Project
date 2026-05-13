@@ -117,16 +117,8 @@ export default function Preloader({ isLoading }: PreloaderProps) {
                 alt="Kitchaa's Enterprise"
                 className="w-28 h-28 md:w-36 md:h-36 rounded-2xl object-contain"
                 style={{
-                  filter: 'drop-shadow(0 0 30px rgba(250,204,21,0.2))',
+                  filter: 'drop-shadow(0 0 30px rgba(250,204,21,0.25))',
                 }}
-                animate={{
-                  filter: [
-                    'drop-shadow(0 0 20px rgba(250,204,21,0.15))',
-                    'drop-shadow(0 0 40px rgba(250,204,21,0.3))',
-                    'drop-shadow(0 0 20px rgba(250,204,21,0.15))',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               />
             </motion.div>
 
@@ -154,7 +146,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
 
             {/* Tagline */}
             <motion.p
-              className="text-white/30 text-[10px] md:text-xs tracking-[0.4em] uppercase font-inter mt-3 mb-10"
+              className="text-white/50 text-[10px] md:text-xs tracking-[0.4em] uppercase font-inter mt-3 mb-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
@@ -169,7 +161,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              <div className="flex justify-between text-[10px] text-white/40 font-bold mb-2 font-outfit tracking-[0.2em]">
+              <div className="flex justify-between text-[10px] text-white/60 font-bold mb-2 font-outfit tracking-[0.2em]">
                 <motion.span
                   animate={{ opacity: [0.4, 1, 0.4] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
@@ -180,12 +172,13 @@ export default function Preloader({ isLoading }: PreloaderProps) {
               </div>
               <div className="h-[1.5px] w-full bg-white/10 relative overflow-hidden rounded-full">
                 <motion.div
-                  className="absolute top-0 left-0 bottom-0 rounded-full"
+                  className="absolute top-0 left-0 bottom-0 w-full rounded-full"
                   style={{
                     background: 'linear-gradient(90deg, #FACC15, #F59E0B)',
                     boxShadow: '0 0 12px rgba(250,204,21,0.4)',
+                    transformOrigin: 'left',
                   }}
-                  animate={{ width: `${progress}%` }}
+                  animate={{ scaleX: progress / 100 }}
                   transition={{ ease: 'circOut', duration: 0.2 }}
                 />
               </div>

@@ -123,7 +123,7 @@ export default function AboutSection() {
               <div>
                 <p className="text-brand-text font-bold text-base font-inter">Er. V. NIRMAL, B.E. (Civil)</p>
                 <p className="text-brand-text/70 text-sm font-semibold font-inter">Registered Civil Engineer • Proprietor</p>
-                <p className="text-brand-text/40 text-xs mt-0.5 font-inter">5+ Years of Professional Practice in Tamil Nadu</p>
+                <p className="text-brand-text/60 text-xs mt-0.5 font-inter">5+ Years of Professional Practice in Tamil Nadu</p>
               </div>
             </motion.div>
           </motion.div>

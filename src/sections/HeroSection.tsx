@@ -142,21 +142,11 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ 
                 opacity: 1, 
-                y: 0,
-                boxShadow: [
-                  "0 0 15px rgba(239,68,68,0.2)",
-                  "0 0 35px rgba(239,68,68,0.4)",
-                  "0 0 15px rgba(239,68,68,0.2)"
-                ]
+                y: 0
               }}
               transition={{ 
                 opacity: { duration: 0.6, delay: 0.55 },
-                y: { duration: 0.6, delay: 0.55 },
-                boxShadow: { 
-                  duration: 2.5, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }
+                y: { duration: 0.6, delay: 0.55 }
               }}
             >
               <motion.div

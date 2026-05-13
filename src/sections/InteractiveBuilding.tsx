@@ -88,7 +88,7 @@ export default function InteractiveBuilding() {
                   className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 group text-left ${
                     isActive 
                       ? 'bg-brand-accent border-transparent text-brand-primary shadow-lg shadow-brand-accent/20' 
-                      : 'bg-slate-900/40 border-white/5 text-brand-text/50 hover:border-brand-accent/30 hover:text-brand-text'
+                      : 'bg-slate-900/40 border-white/5 text-brand-text/70 hover:border-brand-accent/30 hover:text-brand-text'
                   }`}
                 >
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
@@ -113,7 +113,7 @@ export default function InteractiveBuilding() {
                 'FE 550D Steel',
                 'DTCP Plans',
               ].map((feature, index) => (
-                <span key={index} className="px-3 py-1.5 text-[9px] text-center border border-white/5 rounded-lg bg-slate-900/20 text-brand-text/40 font-jakarta font-bold uppercase tracking-wider">
+                <span key={index} className="px-3 py-1.5 text-[9px] text-center border border-white/5 rounded-lg bg-slate-900/20 text-brand-text/60 font-jakarta font-bold uppercase tracking-wider">
                   {feature}
                 </span>
               ))}

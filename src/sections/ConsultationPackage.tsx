@@ -118,7 +118,7 @@ function FeeSchedule() {
 
             {/* Footer */}
             <div className="glass-fee-footer">
-                <p className="text-[11px] text-brand-text/40 italic mb-1.5 font-inter">
+                <p className="text-[11px] text-brand-text/60 italic mb-1.5 font-inter">
                     All fees subject to site complexity.
                 </p>
                 <p className="text-[11px] text-brand-text/70 font-bold mb-4 font-jakarta uppercase tracking-wide">
@@ -201,7 +201,7 @@ export default function ConsultationPackage() {
                             <div className="mb-4">
                                 <p className="text-brand-accent text-sm font-semibold tracking-[0.12em] uppercase mb-1 font-jakarta">{pkg.name}</p>
                                 <p className="text-4xl font-outfit font-bold text-brand-text mb-1">{pkg.price}</p>
-                                <p className="text-brand-text/40 text-sm font-inter tracking-wide">{pkg.sub}</p>
+                                <p className="text-brand-text/60 text-sm font-inter tracking-wide">{pkg.sub}</p>
                             </div>
                             <ul className="flex flex-col gap-3 mb-6 flex-1">
                                 {pkg.features.map((f, fi) => (
@@ -213,7 +213,7 @@ export default function ConsultationPackage() {
                             </ul>
                             <div className="mb-6 p-3 rounded bg-brand-primary/50 border border-white/5 text-center">
                                 <p className="text-sm font-semibold text-brand-text mb-1">{pkg.highlight}</p>
-                                <p className="text-xs text-brand-text/40">{pkg.highlightSub}</p>
+                                <p className="text-xs text-brand-text/60">{pkg.highlightSub}</p>
                             </div>
                             <button onClick={() => handleBook(pkg)}
                                 className={`w-full flex items-center justify-center gap-2 py-3 px-5 rounded-lg font-bold text-sm transition-all font-jakarta uppercase tracking-wide ${pkg.popular
