@@ -68,20 +68,20 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Encode form data for Netlify
-      const body = new URLSearchParams();
-      body.append('form-name', 'contact');
+      // Web3Forms submission
+      const submitData = new FormData();
+      submitData.append("access_key", "61a90fca-cb04-4ca4-940b-f7ce9383c2db");
       Object.entries(formData).forEach(([key, value]) => {
-        body.append(key, value);
+        submitData.append(key, value);
       });
 
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: submitData
       });
 
-      if (!response.ok) throw new Error('Form submission failed');
+      const data = await response.json();
+      if (!data.success) throw new Error(data.message || 'Form submission failed');
 
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -226,10 +226,7 @@ export default function ContactSection() {
                 ref={formRef} 
                 onSubmit={handleSubmit} 
                 className="space-y-5"
-                data-netlify="true"
-                name="contact"
               >
-                <input type="hidden" name="form-name" value="contact" />
                 <div className="grid md:grid-cols-2 gap-5">
                   {/* Name */}
                   <div>
