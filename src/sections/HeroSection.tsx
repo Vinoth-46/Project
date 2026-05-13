@@ -113,7 +113,7 @@ export default function HeroSection() {
                 <div className="flex items-center gap-2 border-r border-white/10 pr-3 mr-1">
                   <div className="relative">
                     <div className="w-2 h-2 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(250,204,21,0.8)]"></div>
-                    <div className="absolute -inset-1 bg-brand-accent rounded-full animate-ping opacity-30"></div>
+                    <div className="absolute -inset-1 bg-brand-accent rounded-full animate-ping opacity-30" style={{ willChange: 'transform, opacity' }}></div>
                   </div>
                   <span className="text-[10px] font-black tracking-widest text-brand-accent uppercase hidden sm:inline">Active</span>
                 </div>

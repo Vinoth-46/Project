@@ -40,7 +40,7 @@ const seedReviews: Review[] = [
 function StarRating({ rating, onRate, interactive = false }: { rating: number; onRate?: (r: number) => void; interactive?: boolean }) {
   const [hovered, setHovered] = useState(0);
   return (
-    <div className="flex gap-1" role={interactive ? "radiogroup" : undefined} aria-label="Rating">
+    <div className="flex gap-1" role={interactive ? "radiogroup" : "img"} aria-label={`Rating: ${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((star) => {
         const isFilled = (interactive ? (hovered || rating) : rating) >= star;
         const starIcon = (
