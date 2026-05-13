@@ -109,7 +109,7 @@ export default function FAQSection() {
           <span className="inline-block border border-brand-accent/30 text-brand-accent text-sm font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full bg-brand-accent/5 shadow-sm font-inter">
             Common Questions
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-sgrotesk font-bold text-brand-text mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-brand-text mb-4">
             Frequently Asked <span className="text-brand-accent font-extrabold">Questions</span>
           </h2>
           <p className="text-brand-text/80 text-base md:text-lg font-inter">

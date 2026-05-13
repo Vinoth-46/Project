@@ -133,7 +133,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
             {/* Company Name — staggered reveal */}
             <div className="overflow-hidden mb-1">
               <motion.h1
-                className="text-2xl md:text-4xl font-sgrotesk font-black tracking-[0.3em] uppercase text-white"
+                className="text-2xl md:text-4xl font-outfit font-black tracking-[0.3em] uppercase text-white"
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
@@ -143,7 +143,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
             </div>
             <div className="overflow-hidden mb-1">
               <motion.div
-                className="text-brand-accent text-base md:text-xl tracking-[0.5em] font-black font-rajdhani"
+                className="text-brand-accent text-base md:text-xl tracking-[0.5em] font-black font-outfit"
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.45, ease: [0.23, 1, 0.32, 1] }}
@@ -169,7 +169,7 @@ export default function Preloader({ isLoading }: PreloaderProps) {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              <div className="flex justify-between text-[10px] text-white/40 font-bold mb-2 font-rajdhani tracking-[0.2em]">
+              <div className="flex justify-between text-[10px] text-white/40 font-bold mb-2 font-outfit tracking-[0.2em]">
                 <motion.span
                   animate={{ opacity: [0.4, 1, 0.4] }}
                   transition={{ duration: 1.5, repeat: Infinity }}

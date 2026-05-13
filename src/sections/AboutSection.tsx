@@ -44,7 +44,7 @@ function AnimatedStat({ value, suffix, label, icon, delay }: StatProps) {
           {icon}
         </div>
       </div>
-      <div className="text-4xl md:text-5xl font-rajdhani font-bold text-brand-accent mb-2">
+      <div className="text-4xl md:text-5xl font-outfit font-bold text-brand-accent mb-2">
         {count}
         {suffix}
       </div>

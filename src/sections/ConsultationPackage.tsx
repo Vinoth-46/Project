@@ -111,7 +111,7 @@ function FeeSchedule() {
                 {feeRows.map((row, i) => (
                     <div key={i} className="glass-fee-row">
                         <span className="text-xs md:text-sm text-brand-text/70 flex-1 font-inter">{row.service}</span>
-                        <span className="text-sm md:text-base text-brand-accent font-manrope font-bold whitespace-nowrap">{row.fee}</span>
+                        <span className="text-sm md:text-base text-brand-accent font-outfit font-bold whitespace-nowrap">{row.fee}</span>
                     </div>
                 ))}
             </div>
@@ -200,7 +200,7 @@ export default function ConsultationPackage() {
                             )}
                             <div className="mb-4">
                                 <p className="text-brand-accent text-sm font-semibold tracking-[0.12em] uppercase mb-1 font-jakarta">{pkg.name}</p>
-                                <p className="text-4xl font-manrope font-bold text-brand-text mb-1">{pkg.price}</p>
+                                <p className="text-4xl font-outfit font-bold text-brand-text mb-1">{pkg.price}</p>
                                 <p className="text-brand-text/40 text-sm font-inter tracking-wide">{pkg.sub}</p>
                             </div>
                             <ul className="flex flex-col gap-3 mb-6 flex-1">
@@ -259,7 +259,7 @@ export default function ConsultationPackage() {
                             <div className="grid grid-cols-3 gap-4 mt-8">
                                 {[['50+', 'Projects'], ['5+', 'Years'], ['100%', 'Approved']].map(([num, label]) => (
                                     <div key={label} className="text-center">
-                                        <p className="text-2xl font-manrope font-extrabold text-brand-accent tracking-tight">{num}</p>
+                                        <p className="text-2xl font-outfit font-extrabold text-brand-accent tracking-tight">{num}</p>
                                         <p className="text-xs text-brand-text/70 mt-1 font-jakarta font-bold uppercase tracking-wider">{label}</p>
                                     </div>
                                 ))}
@@ -328,7 +328,7 @@ export default function ConsultationPackage() {
                                     <div className="grid md:grid-cols-2 gap-6 text-sm text-brand-text/70 font-inter leading-relaxed h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                                         {legalTerms.map((term, i) => (
                                             <div key={i} className="mb-2">
-                                                <h4 className="text-brand-text font-bold mb-1">{term.title}</h4>
+                                                <h5 className="text-brand-text font-bold mb-1">{term.title}</h5>
                                                 <p>{term.content}</p>
                                             </div>
                                         ))}

@@ -83,6 +83,7 @@ export default function RobotAvatar() {
               }}
             >
               <source src="/chatbot-icon/engineermotion.webm" type="video/webm" />
+              <track kind="captions" src="/empty.vtt" srcLang="en" label="No captions" default />
               {/* Fallback for browsers that don't support webm */}
               <img
                 src="/chatbot-icon/blueprintclose.webp"

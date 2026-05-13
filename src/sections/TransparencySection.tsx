@@ -89,7 +89,7 @@ export default function TransparencySection() {
                 <p className="text-lg md:text-xl font-jakarta font-bold text-brand-text/90 leading-relaxed uppercase tracking-tight">
                   &ldquo;WE DO NOT TAKE ANY COMMISSION FROM MATERIALS&rdquo;
                 </p>
-                <p className="text-xl md:text-2xl font-manrope font-extrabold text-brand-accent leading-relaxed tracking-widest uppercase">
+                <p className="text-xl md:text-2xl font-outfit font-extrabold text-brand-accent leading-relaxed tracking-widest uppercase">
                   NO HIDDEN CHARGES
                 </p>
                 <p className="text-base md:text-lg font-inter font-semibold text-brand-text/90 leading-relaxed">
@@ -117,7 +117,7 @@ export default function TransparencySection() {
                     {point.icon}
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-brand-text mb-1">{point.title}</h4>
+                    <h3 className="text-sm font-bold text-brand-text mb-1">{point.title}</h3>
                     <p className="text-xs text-brand-text/70 leading-relaxed font-inter">{point.description}</p>
                   </div>
                 </motion.div>

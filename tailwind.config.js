@@ -133,7 +133,6 @@ module.exports = {
           outfit: ["Outfit", "sans-serif"],
           jakarta: ["Plus Jakarta Sans", "sans-serif"],
           inter: ["Inter", "sans-serif"],
-          manrope: ["Manrope", "sans-serif"],
           instrument: ["'Instrument Serif'", "serif"],
         },
     },
