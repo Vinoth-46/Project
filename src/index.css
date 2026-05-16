@@ -69,13 +69,12 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
   }
   
   .glass-card:hover {
     border-color: rgba(250, 204, 21, 0.3); /* brand-accent glow */
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(250, 204, 21, 0.1);
   }
   
   .glass-nav {
@@ -101,7 +100,7 @@
     border: 1px solid #FACC15;
     border-radius: 4px;
     color: #FACC15;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   
   .btn-gold:hover {
@@ -117,7 +116,7 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 4px;
     color: #F8FAFC;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     backdrop-filter: blur(4px);
   }
 
@@ -125,7 +124,6 @@
     border-color: #FACC15;
     background: rgba(250, 204, 21, 0.05);
     color: #FACC15;
-    box-shadow: 0 0 15px rgba(250, 204, 21, 0.1);
   }
   
   /* Solid Button */
@@ -134,7 +132,7 @@
     background: #FACC15;
     border-radius: 4px;
     color: #0F172A;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
   }
   
   .btn-gold-filled:hover {

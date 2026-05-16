@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
 import ServicesSection from './sections/ServicesSection';
-import InteractiveBuilding from './sections/InteractiveBuilding';
-import TransparencySection from './sections/TransparencySection';
-import ConsultationPackage from './sections/ConsultationPackage';
-import ServiceZoneMap from './sections/ServiceZoneMap';
-import ReviewsSection from './sections/ReviewsSection';
-import FAQSection from './sections/FAQSection';
-import ContactSection from './sections/ContactSection';
-import Footer from './sections/Footer';
-import ChatBot from './components/ChatBot';
+
+// Lazy loaded below-the-fold components
+const InteractiveBuilding = lazy(() => import('./sections/InteractiveBuilding'));
+const TransparencySection = lazy(() => import('./sections/TransparencySection'));
+const ConsultationPackage = lazy(() => import('./sections/ConsultationPackage'));
+const ServiceZoneMap = lazy(() => import('./sections/ServiceZoneMap'));
+const ReviewsSection = lazy(() => import('./sections/ReviewsSection'));
+const FAQSection = lazy(() => import('./sections/FAQSection'));
+const ContactSection = lazy(() => import('./sections/ContactSection'));
+const Footer = lazy(() => import('./sections/Footer'));
+const ChatBot = lazy(() => import('./components/ChatBot'));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,32 +55,36 @@ function App() {
         <ServicesSection />
 
         {/* 4. Engineering Expertise (Interactive Proof) */}
-        <InteractiveBuilding />
+        <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
+          <InteractiveBuilding />
 
-        {/* 5. Transparency (Trust Dominance) */}
-        <TransparencySection />
+          {/* 5. Transparency (Trust Dominance) */}
+          <TransparencySection />
 
-        {/* 7. Packages & Pricing */}
-        <ConsultationPackage />
+          {/* 7. Packages & Pricing */}
+          <ConsultationPackage />
 
-        {/* 8. Social Proof (Reviews) */}
-        <ReviewsSection />
+          {/* 8. Social Proof (Reviews) */}
+          <ReviewsSection />
 
-        {/* 9. Service Area Map */}
-        <ServiceZoneMap />
+          {/* 9. Service Area Map */}
+          <ServiceZoneMap />
 
-        {/* 10. FAQ (Objection Handling) */}
-        <FAQSection />
+          {/* 10. FAQ (Objection Handling) */}
+          <FAQSection />
 
-        {/* 11. Contact (Final CTA) */}
-        <ContactSection />
+          {/* 11. Contact (Final CTA) */}
+          <ContactSection />
+        </Suspense>
       </main>
 
-      {/* Footer */}
-      <Footer />
+      <Suspense fallback={<div />}>
+        {/* Footer */}
+        <Footer />
 
-      {/* Unified Speed Dial — Chat, WhatsApp & Call */}
-      <ChatBot />
+        {/* Unified Speed Dial — Chat, WhatsApp & Call */}
+        <ChatBot />
+      </Suspense>
     </div>
     </>
   );
