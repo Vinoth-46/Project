@@ -1,5 +1,4 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
-import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
 
@@ -17,21 +16,9 @@ const Footer = lazy(() => import('./sections/Footer'));
 const ChatBot = lazy(() => import('./components/ChatBot'));
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [loadHeavy, setLoadHeavy] = useState(false);
 
   useEffect(() => {
-    // Reveal site as soon as window is loaded OR after a max 600ms safety timer
-    const handleLoad = () => setIsLoading(false);
-    
-    if (document.readyState === 'complete') {
-      setIsLoading(false);
-    } else {
-      window.addEventListener('load', handleLoad);
-      // Fallback timer just in case load event never fires
-      setTimeout(() => setIsLoading(false), 600);
-    }
-
     // Delay the heavy components to clear the main thread for LCP
     const heavyTimer = setTimeout(() => {
       setLoadHeavy(true);
@@ -41,11 +28,9 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Preloader isLoading={isLoading} />
-      <div className={`relative min-h-screen bg-brand-primary text-brand-text transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
-        {/* Navigation */}
-        <Navbar />
+    <div className="relative min-h-screen bg-brand-primary text-brand-text">
+      {/* Navigation */}
+      <Navbar />
 
       {/* Main Content — Conversion Funnel Order */}
       <main className="relative overflow-x-hidden">
@@ -94,7 +79,6 @@ function App() {
         </Suspense>
       )}
     </div>
-    </>
   );
 }
 
