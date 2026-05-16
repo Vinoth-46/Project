@@ -18,6 +18,7 @@ const ChatBot = lazy(() => import('./components/ChatBot'));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [loadHeavy, setLoadHeavy] = useState(false);
 
   useEffect(() => {
     // Reveal site as soon as window is loaded OR after a max 600ms safety timer
@@ -27,13 +28,16 @@ function App() {
       setIsLoading(false);
     } else {
       window.addEventListener('load', handleLoad);
-      const timer = setTimeout(() => setIsLoading(false), 600);
-      return () => {
-        window.removeEventListener('load', handleLoad);
-        clearTimeout(timer);
-      };
+      // Fallback timer just in case load event never fires
+      setTimeout(() => setIsLoading(false), 600);
     }
 
+    // Delay the heavy components to clear the main thread for LCP
+    const heavyTimer = setTimeout(() => {
+      setLoadHeavy(true);
+    }, 1500);
+
+    return () => clearTimeout(heavyTimer);
   }, []);
 
   return (
@@ -55,36 +59,40 @@ function App() {
         <ServicesSection />
 
         {/* 4. Engineering Expertise (Interactive Proof) */}
-        <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
-          <InteractiveBuilding />
+        {loadHeavy && (
+          <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
+            <InteractiveBuilding />
 
-          {/* 5. Transparency (Trust Dominance) */}
-          <TransparencySection />
+            {/* 5. Transparency (Trust Dominance) */}
+            <TransparencySection />
 
-          {/* 7. Packages & Pricing */}
-          <ConsultationPackage />
+            {/* 7. Packages & Pricing */}
+            <ConsultationPackage />
 
-          {/* 8. Social Proof (Reviews) */}
-          <ReviewsSection />
+            {/* 8. Social Proof (Reviews) */}
+            <ReviewsSection />
 
-          {/* 9. Service Area Map */}
-          <ServiceZoneMap />
+            {/* 9. Service Area Map */}
+            <ServiceZoneMap />
 
-          {/* 10. FAQ (Objection Handling) */}
-          <FAQSection />
+            {/* 10. FAQ (Objection Handling) */}
+            <FAQSection />
 
-          {/* 11. Contact (Final CTA) */}
-          <ContactSection />
-        </Suspense>
+            {/* 11. Contact (Final CTA) */}
+            <ContactSection />
+          </Suspense>
+        )}
       </main>
 
-      <Suspense fallback={<div />}>
-        {/* Footer */}
-        <Footer />
+      {loadHeavy && (
+        <Suspense fallback={<div />}>
+          {/* Footer */}
+          <Footer />
 
-        {/* Unified Speed Dial — Chat, WhatsApp & Call */}
-        <ChatBot />
-      </Suspense>
+          {/* Unified Speed Dial — Chat, WhatsApp & Call */}
+          <ChatBot />
+        </Suspense>
+      )}
     </div>
     </>
   );
