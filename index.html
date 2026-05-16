@@ -146,11 +146,17 @@
   <body>
     <div id="root">
       <style>
-        .initial-loader { position: fixed; inset: 0; background: #0a0f1a; display: flex; align-items: center; justify-content: center; z-index: 99999; }
-        .initial-loader-spinner { width: 50px; height: 50px; border: 3px solid rgba(250, 204, 21, 0.2); border-top-color: #FACC15; border-radius: 50%; animation: spin 1s linear infinite; }
+        .initial-loader { position: fixed; inset: 0; background: #0a0f1a; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 99999; font-family: sans-serif; }
+        .initial-loader-spinner { width: 50px; height: 50px; border: 3px solid rgba(250, 204, 21, 0.2); border-top-color: #FACC15; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        .initial-loader-text { color: #ffffff; font-size: 24px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin: 0; }
+        .initial-loader-subtext { color: #FACC15; font-size: 14px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 8px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
       </style>
-      <div class="initial-loader"><div class="initial-loader-spinner"></div></div>
+      <div class="initial-loader">
+        <div class="initial-loader-spinner"></div>
+        <h1 class="initial-loader-text">KITCHAA'S</h1>
+        <p class="initial-loader-subtext">ENTERPRISE</p>
+      </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
