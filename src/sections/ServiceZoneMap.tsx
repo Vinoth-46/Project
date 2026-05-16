@@ -218,13 +218,13 @@ function LeafletMap() {
             className="absolute inset-0 z-[1000] bg-slate-950 flex flex-col items-center justify-center gap-4 px-6 text-center"
           >
             <div className="relative">
-              <div className="w-12 h-12 border-2 border-brand-accent/30 rounded-full animate-ping opacity-20" style={{ willChange: 'transform, opacity' }} />
+              <div className="w-12 h-12 border-2 border-brand-accent/30 rounded-full opacity-20" style={{ willChange: 'transform, opacity' }} />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-2 h-2 bg-brand-accent rounded-full shadow-[0_0_10px_#FACC15]" />
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-black text-brand-accent animate-pulse" style={{ willChange: 'opacity' }}>Initializing HUD</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] font-black text-brand-accent" style={{ willChange: 'opacity' }}>Initializing HUD</span>
               <span className="text-[9px] text-white/40 uppercase tracking-widest font-jakarta">Mapping District Boundaries...</span>
             </div>
           </motion.div>

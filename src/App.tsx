@@ -2,10 +2,10 @@ import { useState, useEffect, Suspense, lazy } from 'react';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
-import AboutSection from './sections/AboutSection';
-import ServicesSection from './sections/ServicesSection';
 
 // Lazy loaded below-the-fold components
+const AboutSection = lazy(() => import('./sections/AboutSection'));
+const ServicesSection = lazy(() => import('./sections/ServicesSection'));
 const InteractiveBuilding = lazy(() => import('./sections/InteractiveBuilding'));
 const TransparencySection = lazy(() => import('./sections/TransparencySection'));
 const ConsultationPackage = lazy(() => import('./sections/ConsultationPackage'));
@@ -53,14 +53,14 @@ function App() {
         <HeroSection />
 
         {/* 2. Trust (Credentials + Authority) */}
-        <AboutSection />
-
-        {/* 3. Services (Problem → Solution → Outcome) */}
-        <ServicesSection />
-
-        {/* 4. Engineering Expertise (Interactive Proof) */}
         {loadHeavy && (
           <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
+            <AboutSection />
+
+            {/* 3. Services (Problem → Solution → Outcome) */}
+            <ServicesSection />
+
+            {/* 4. Engineering Expertise (Interactive Proof) */}
             <InteractiveBuilding />
 
             {/* 5. Transparency (Trust Dominance) */}

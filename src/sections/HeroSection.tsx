@@ -113,7 +113,7 @@ export default function HeroSection() {
                 <div className="flex items-center gap-2 border-r border-white/10 pr-3 mr-1">
                   <div className="relative">
                     <div className="w-2 h-2 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(250,204,21,0.8)]"></div>
-                    <div className="absolute -inset-1 bg-brand-accent rounded-full animate-ping opacity-30" style={{ willChange: 'transform, opacity' }}></div>
+                    <div className="absolute -inset-1 bg-brand-accent rounded-full opacity-30" style={{ willChange: 'transform, opacity' }}></div>
                   </div>
                   <span className="text-[10px] font-black tracking-widest text-brand-accent uppercase hidden sm:inline">Active</span>
                 </div>
@@ -133,7 +133,7 @@ export default function HeroSection() {
             >
               <span className="text-white drop-shadow-sm font-outfit uppercase tracking-tighter decoration-brand-accent/30 decoration-2 underline-offset-8">Don&apos;t Risk Your</span>
               <br />
-              <span className="text-brand-accent font-instrument italic font-normal drop-shadow-[0_0_15px_rgba(250,204,21,0.3)] animate-shimmer bg-[linear-gradient(110deg,#FACC15,45%,#fff,55%,#FACC15)] bg-[length:200%_100%] bg-clip-text text-transparent pb-1">Dream Home.</span>
+              <span className="text-brand-accent font-instrument italic font-normal drop-shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-[linear-gradient(110deg,#FACC15,45%,#fff,55%,#FACC15)] bg-[length:200%_100%] bg-clip-text text-transparent pb-1">Dream Home.</span>
             </motion.h1>
 
             {/* Loss Aversion Hook */}
