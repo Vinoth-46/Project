@@ -178,13 +178,13 @@ export default function ContactSection() {
               </a>
 
               {/* Email */}
-              <a href="mailto:kitchaasenterprise@gmail.com" className="flex items-start gap-5 group text-left">
+              <a href="mailto:info@kitchaas-enterprise.com" className="flex items-start gap-5 group text-left">
                 <div className="w-14 h-14 rounded-2xl bg-brand-card border border-brand-card flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-primary transition-all duration-300 flex-shrink-0 shadow-sm">
                   <Mail size={24} />
                 </div>
                 <div className="pt-1">
                   <p className="text-lg font-bold text-brand-text mb-1 font-inter">Email Address</p>
-                  <p className="text-brand-text/70 group-hover:text-brand-accent font-semibold transition-colors font-inter whitespace-nowrap">kitchaasenterprise@gmail.com</p>
+                  <p className="text-brand-text/70 group-hover:text-brand-accent font-semibold transition-colors font-inter whitespace-nowrap">info@kitchaas-enterprise.com</p>
                 </div>
               </a>
             </div>

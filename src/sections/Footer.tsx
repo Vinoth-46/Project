@@ -109,7 +109,7 @@ export default function Footer() {
             <h3 className="text-brand-text font-bold mb-3 font-outfit text-base tracking-wide uppercase">Contact</h3>
             <div className="flex flex-col gap-2.5 text-brand-text/80 text-xs font-medium font-inter">
               <p className="flex items-start gap-2">📱 +91 83440 51846</p>
-              <p className="flex items-start gap-2">📧 kitchaasenterprise@gmail.com</p>
+              <p className="flex items-start gap-2">📧 info@kitchaas-enterprise.com</p>
               <p className="flex items-start gap-2">📍 Namakkal, Tamil Nadu</p>
               <p className="flex items-start gap-2 text-brand-accent/90">🕐 Mon-Sun: 9 AM – 8 PM</p>
             </div>
