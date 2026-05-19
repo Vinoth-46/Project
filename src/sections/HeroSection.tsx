@@ -29,6 +29,7 @@ export default function HeroSection() {
     <section
       id="home"
       ref={containerRef}
+      style={{ position: 'relative' }}
       className="relative min-h-screen w-full md:overflow-hidden bg-brand-primary"
     >
       {/* Background — Poster + Video (desktop only) */}

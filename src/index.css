@@ -43,6 +43,7 @@
   
   html {
     scroll-behavior: auto;
+    position: relative;
   }
   
   body {
@@ -234,12 +235,12 @@
 
   /* Map Network & Markers */
   .map-network-line {
-    animation: networkDash 30s linear infinite;
+    animation: networkOpacityPulse 4s ease-in-out infinite alternate;
   }
 
-  @keyframes networkDash {
-    from { stroke-dashoffset: 200; }
-    to { stroke-dashoffset: 0; }
+  @keyframes networkOpacityPulse {
+    from { opacity: 0.35; }
+    to { opacity: 0.85; }
   }
 
   .map-marker-container {
