@@ -12,17 +12,6 @@ const SERVICE_ZONES = [
   { city: 'Erode', lat: 11.3410, lng: 77.7172, color: '#C084FC', radius: 18000, label: 'Secondary Node' },
 ];
 
-interface NominatimFeature {
-  geometry: {
-    type: string;
-    coordinates: unknown;
-  };
-  properties: Record<string, unknown>;
-}
-
-interface NominatimResponse {
-  features: NominatimFeature[];
-}
 
 // Connection Lines from Primary Hub (Namakkal) to Nodes
 const CONNECTIONS = [
@@ -74,60 +63,46 @@ function LeafletMap() {
         tileContainer.style.filter = 'hue-rotate(15deg) brightness(1.6) contrast(1.2) saturate(0.9)';
       }
 
-      // ── Tamil Nadu State Boundary ─────────────────────────────────────────
-      fetch('https://nominatim.openstreetmap.org/search.php?q=Tamil+Nadu,India&polygon_geojson=1&format=geojson', { headers: { 'Accept-Language': 'en' } })
+      // ── Local boundaries.json ─────────────────────────────────────────
+      fetch('/boundaries.json')
         .then((r) => r.json())
-        .then((data) => {
-          if (!isMounted || !data?.features?.length) return;
+        .then((boundaries) => {
+          if (!isMounted) return;
 
-          const tnFeature = (data as NominatimResponse).features.reduce((best: NominatimFeature | null, f: NominatimFeature) =>
-            JSON.stringify(f.geometry).length > JSON.stringify(best?.geometry || '').length ? f : best
-          , null);
-
-          if (!tnFeature) return;
-
-          // Highlight the TN boundary with a glowing outline and fill
-          L.geoJSON(tnFeature as any, {
-            style: {
-              color:       '#FACC15',
-              weight:      2.5,
-              opacity:     0.6,
-              fillColor:   '#FACC15',
-              fillOpacity: 0.15,
-              dashArray:   '5, 10'
-            },
-          } as import('leaflet').GeoJSONOptions).addTo(map);
-        })
-        .catch(() => {});
-
-      // ── District Boundaries from Nominatim ───────────────────────────────
-      SERVICE_ZONES.forEach((zone) => {
-        const queryCity = zone.city === 'Trichy' ? 'Tiruchirappalli' : zone.city;
-        fetch(`https://nominatim.openstreetmap.org/search.php?q=${queryCity}+District,Tamil+Nadu,India&polygon_geojson=1&format=geojson`, { headers: { 'Accept-Language': 'en' } })
-          .then((r) => r.json())
-          .then((data) => {
-            if (!isMounted || !data?.features?.length) return;
-
-            const districtFeature = (data as NominatimResponse).features.reduce((best: NominatimFeature | null, f: NominatimFeature) =>
-              JSON.stringify(f.geometry).length > JSON.stringify(best?.geometry || '').length ? f : best
-            , null);
-
-            if (!districtFeature) return;
-
-            // Highlight the district boundary with its specific zone color
-            L.geoJSON(districtFeature as any, {
+          // 1. Draw Tamil Nadu State Boundary
+          const tnGeometry = boundaries['Tamil Nadu'];
+          if (tnGeometry) {
+            L.geoJSON({ type: 'Feature', geometry: tnGeometry, properties: {} } as any, {
               style: {
-                color:       zone.color,
+                color:       '#FACC15',
                 weight:      2.5,
                 opacity:     0.6,
-                fillColor:   zone.color,
-                fillOpacity: 0.35,
+                fillColor:   '#FACC15',
+                fillOpacity: 0.15,
                 dashArray:   '5, 10'
               },
             } as import('leaflet').GeoJSONOptions).addTo(map);
-          })
-          .catch(() => {});
-      });
+          }
+
+          // 2. Draw District Boundaries
+          SERVICE_ZONES.forEach((zone) => {
+            const boundaryKey = zone.city === 'Trichy' ? 'Tiruchirappalli' : zone.city;
+            const geom = boundaries[boundaryKey];
+            if (geom) {
+              L.geoJSON({ type: 'Feature', geometry: geom, properties: {} } as any, {
+                style: {
+                  color:       zone.color,
+                  weight:      2.5,
+                  opacity:     0.6,
+                  fillColor:   zone.color,
+                  fillOpacity: 0.35,
+                  dashArray:   '5, 10'
+                },
+              } as import('leaflet').GeoJSONOptions).addTo(map);
+            }
+          });
+        })
+        .catch((e) => console.error('Failed to load local boundaries:', e));
 
 
       // Add Connection Network Lines
