@@ -325,6 +325,16 @@
     }
   }
   
+  /* Hero ShieldAlert composited pulse (GPU-only: transform) */
+  .hero-shield-pulse {
+    animation: heroShieldPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes heroShieldPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
   /* Reduced Motion */
   @media (prefers-reduced-motion: reduce) {
     *,

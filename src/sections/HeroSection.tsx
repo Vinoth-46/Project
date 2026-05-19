@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronDown, ShieldAlert } from 'lucide-react';
 
@@ -15,6 +15,15 @@ export default function HeroSection() {
   const textY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
+  // Only load video on desktop (mobile can't handle 55MB on Slow 4G)
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   return (
     <section
@@ -22,7 +31,7 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative min-h-screen w-full md:overflow-hidden bg-brand-primary"
     >
-      {/* Background Video — YouTube with Poster for LCP */}
+      {/* Background — Poster + Video (desktop only) */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Poster Image: Displays immediately for LCP boost */}
         <img 
@@ -30,20 +39,26 @@ export default function HeroSection() {
           alt="" 
           width="1920"
           height="1080"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           loading="eager"
         />
 
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        >
-          <source src="/bg-video.mp4" type="video/mp4" />
-          <track kind="captions" src="/empty.vtt" srcLang="en" label="No captions" default />
-        </video>
+        {/* Video only on desktop — skip 55MB download on mobile */}
+        {isDesktop && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          >
+            <source src="/bg-video.mp4" type="video/mp4" />
+            <track kind="captions" src="/empty.vtt" srcLang="en" label="No captions" default />
+          </video>
+        )}
         {/* Overlay: lighter on mobile (40%), darker on desktop (60%) */}
         <div className="absolute inset-0 bg-brand-primary/40 lg:bg-brand-primary/60 pointer-events-none" />
       </div>
@@ -62,6 +77,7 @@ export default function HeroSection() {
             alt="GST Registered Professional"
             width="80"
             height="80"
+            loading="lazy"
             className="relative w-14 h-14 md:w-20 md:h-20 object-contain mix-blend-screen brightness-[1.3] drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -84,6 +100,7 @@ export default function HeroSection() {
             alt="MSME Registered Enterprise"
             width="80"
             height="80"
+            loading="lazy"
             className="relative w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105 rounded-md"
           />
         </div>
@@ -149,13 +166,10 @@ export default function HeroSection() {
                 y: { duration: 0.6, delay: 0.55 }
               }}
             >
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="mt-1"
-              >
+              {/* CSS-only pulse using composited transform instead of framer-motion scale */}
+              <div className="mt-1 hero-shield-pulse" style={{ willChange: 'transform' }}>
                 <ShieldAlert size={28} className="text-red-500 flex-shrink-0" />
-              </motion.div>
+              </div>
               <div className="text-left">
                 <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em] block mb-1">Financial Risk Warning</span>
                 <p className="text-sm md:text-base text-white/90 leading-relaxed font-inter">
