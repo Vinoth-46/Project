@@ -33,17 +33,21 @@ export default function HeroSection() {
     >
       {/* Background — Poster + Video (desktop only) */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Poster Image: Displays immediately for LCP boost */}
-        <img 
-          src="/hero-new-tropical.webp" 
-          alt="" 
-          width="1920"
-          height="1080"
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          loading="eager"
-        />
+        {/* Poster Image: Responsive — small on mobile, full on desktop */}
+        <picture>
+          <source media="(max-width: 1024px)" srcSet="/hero-mobile.webp" />
+          <source media="(min-width: 1025px)" srcSet="/hero-new-tropical.webp" />
+          <img 
+            src="/hero-mobile.webp" 
+            alt="" 
+            width="800"
+            height="450"
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            loading="eager"
+          />
+        </picture>
 
         {/* Video only on desktop — skip 55MB download on mobile */}
         {isDesktop && (
