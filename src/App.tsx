@@ -33,7 +33,7 @@ function App() {
       <Navbar />
 
       {/* Main Content — Conversion Funnel Order */}
-      <main className="relative overflow-x-hidden" style={{ position: 'relative' }}>
+      <main className="relative overflow-x-hidden">
         {/* 1. Hero (Hook + Urgency + Loss Aversion) */}
         <HeroSection />
 

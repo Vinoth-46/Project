@@ -1,19 +1,15 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronDown, ShieldAlert } from 'lucide-react';
 
 export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
+  const { scrollY } = useScroll();
 
-  // Parallax effects
-  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  // Parallax effects using absolute scroll pixels (0px to 300px/200px)
+  const textY = useTransform(scrollY, [0, 300], [0, -100]);
+  const textOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   // Only load video on desktop (mobile can't handle 55MB on Slow 4G)
   const [isDesktop, setIsDesktop] = useState(false);
@@ -28,8 +24,6 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      ref={containerRef}
-      style={{ position: 'relative' }}
       className="relative min-h-screen w-full md:overflow-hidden bg-brand-primary"
     >
       {/* Background — Poster + Video (desktop only) */}
