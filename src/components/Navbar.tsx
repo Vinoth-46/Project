@@ -118,7 +118,8 @@ export default function Navbar() {
           >
             <img
               src="/loading-logo.webp"
-              alt="Kitchaa's Enterprise"
+              alt="Kitchaa's Enterprise Logo"
+              title="Kitchaa's Enterprise Logo"
               width="56"
               height="48"
               className="h-12 w-auto object-contain flex-shrink-0"
@@ -195,7 +196,8 @@ export default function Navbar() {
           >
             <img
               src="/loading-logo.webp"
-              alt="Kitchaa's Enterprise"
+              alt="Kitchaa's Enterprise Logo"
+              title="Kitchaa's Enterprise Logo"
               width="48"
               height="44"
               className="h-11 w-auto object-contain"

@@ -35,6 +35,7 @@ export default function Footer() {
                   <img
                     src="/loading-logo.webp"
                     alt="Kitchaa's Enterprise Logo"
+                    title="Kitchaa's Enterprise Logo"
                     width={180}
                     height={100}
                     loading="lazy"

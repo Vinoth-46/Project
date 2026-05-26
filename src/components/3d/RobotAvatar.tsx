@@ -90,6 +90,7 @@ export default function RobotAvatar() {
               <img
                 src="/chatbot-icon/blueprintclose.webp"
                 alt="Civil Engineering AI Assistant"
+                title="Civil Engineering AI Assistant"
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </video>

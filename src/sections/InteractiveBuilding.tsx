@@ -136,6 +136,7 @@ export default function InteractiveBuilding() {
                   <motion.img 
                     src={constructionSteps[activeStep].image} 
                     alt={constructionSteps[activeStep].title}
+                    title={constructionSteps[activeStep].title}
                     width={800}
                     height={800}
                     loading="lazy"

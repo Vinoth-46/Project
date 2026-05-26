@@ -114,7 +114,8 @@ export default function Preloader({ isLoading }: PreloaderProps) {
               {/* The actual logo */}
               <motion.img
                 src="/loading-logo.webp"
-                alt="Kitchaa's Enterprise"
+                alt="Kitchaa's Enterprise Preloader Logo"
+                title="Kitchaa's Enterprise Preloader Logo"
                 className="w-28 h-28 md:w-36 md:h-36 rounded-2xl object-contain"
                 style={{
                   filter: 'drop-shadow(0 0 30px rgba(250,204,21,0.25))',

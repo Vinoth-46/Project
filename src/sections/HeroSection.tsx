@@ -34,7 +34,8 @@ export default function HeroSection() {
           <source media="(min-width: 1025px)" srcSet="/hero-new-tropical.webp" />
           <img 
             src="/hero-mobile.webp" 
-            alt="" 
+            alt="Best Civil Engineer in Namakkal - Kitchaa's Enterprise Hero Image" 
+            title="Best Civil Engineer in Namakkal - Kitchaa's Enterprise Hero Image" 
             width="800"
             height="450"
             fetchPriority="high"
@@ -74,6 +75,7 @@ export default function HeroSection() {
           <img
             src="/gst-image.webp"
             alt="GST Registered Professional"
+            title="GST Registered Professional Badge"
             width="80"
             height="80"
             loading="eager"
@@ -97,6 +99,7 @@ export default function HeroSection() {
           <img
             src="/msme-image.webp"
             alt="MSME Registered Enterprise"
+            title="MSME Registered Enterprise Badge"
             width="80"
             height="80"
             loading="eager"
