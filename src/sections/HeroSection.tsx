@@ -64,11 +64,8 @@ export default function HeroSection() {
       </div>
 
       {/* ── GST Badge — Minimal Top Left Corner ── */}
-      <motion.div
-        className="absolute top-[80px] md:top-[120px] left-4 md:left-8 z-20 flex flex-col items-center gap-2"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+      <div
+        className="absolute top-[80px] md:top-[120px] left-4 md:left-8 z-20 flex flex-col items-center gap-2 animate-fade-slide-in"
       >
         <div className="relative group">
           <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
@@ -86,14 +83,11 @@ export default function HeroSection() {
         <span className="text-[10px] md:text-[11px] font-black tracking-widest text-[#FACC15] uppercase font-outfit drop-shadow-[0_2px_4px_rgba(0,0,0,1)] text-center">
           GST: 33FKGPP3797C1ZX
         </span>
-      </motion.div>
+      </div>
 
       {/* ── MSME Badge — Minimal Top Right Corner ── */}
-      <motion.div
-        className="absolute top-[80px] md:top-[120px] right-4 md:right-8 z-20 flex flex-col items-center gap-2"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+      <div
+        className="absolute top-[80px] md:top-[120px] right-4 md:right-8 z-20 flex flex-col items-center gap-2 animate-fade-slide-in"
       >
         <div className="relative group">
           <div className="absolute inset-0 bg-brand-accent/30 blur-xl rounded-full scale-[1.5] opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
@@ -110,7 +104,7 @@ export default function HeroSection() {
         <span className="text-[9px] md:text-[11px] font-black tracking-widest text-[#FACC15] uppercase font-outfit drop-shadow-[0_2px_4px_rgba(0,0,0,1)] text-center">
           MSME Register
         </span>
-      </motion.div>
+      </div>
 
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-radial from-brand-accent/10 via-transparent to-transparent opacity-50" />

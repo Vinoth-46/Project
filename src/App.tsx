@@ -16,15 +16,23 @@ const Footer = lazy(() => import('./sections/Footer'));
 const ChatBot = lazy(() => import('./components/ChatBot'));
 
 function App() {
-  const [loadHeavy, setLoadHeavy] = useState(false);
+  const [loadLevel1, setLoadLevel1] = useState(false); // About, Services
+  const [loadLevel2, setLoadLevel2] = useState(false); // InteractiveBuilding, Transparency
+  const [loadLevel3, setLoadLevel3] = useState(false); // Consultation, Reviews
+  const [loadLevel4, setLoadLevel4] = useState(false); // Map, FAQ, Contact, Footer, ChatBot
 
   useEffect(() => {
-    // Delay the heavy components to clear the main thread for LCP
-    const heavyTimer = setTimeout(() => {
-      setLoadHeavy(true);
-    }, 1500);
+    const t1 = setTimeout(() => setLoadLevel1(true), 600);
+    const t2 = setTimeout(() => setLoadLevel2(true), 2000);
+    const t3 = setTimeout(() => setLoadLevel3(true), 3500);
+    const t4 = setTimeout(() => setLoadLevel4(true), 5000);
 
-    return () => clearTimeout(heavyTimer);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
   }, []);
 
   return (
@@ -38,38 +46,40 @@ function App() {
         <HeroSection />
 
         {/* 2. Trust (Credentials + Authority) */}
-        {loadHeavy && (
+        {loadLevel1 && (
           <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
             <AboutSection />
-
-            {/* 3. Services (Problem → Solution → Outcome) */}
             <ServicesSection />
+          </Suspense>
+        )}
 
-            {/* 4. Engineering Expertise (Interactive Proof) */}
+        {/* 4. Engineering Expertise (Interactive Proof) */}
+        {loadLevel2 && (
+          <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
             <InteractiveBuilding />
-
-            {/* 5. Transparency (Trust Dominance) */}
             <TransparencySection />
+          </Suspense>
+        )}
 
-            {/* 7. Packages & Pricing */}
+        {/* 7. Packages & Pricing */}
+        {loadLevel3 && (
+          <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
             <ConsultationPackage />
-
-            {/* 8. Social Proof (Reviews) */}
             <ReviewsSection />
+          </Suspense>
+        )}
 
-            {/* 9. Service Area Map */}
+        {/* 9. Service Area Map */}
+        {loadLevel4 && (
+          <Suspense fallback={<div className="h-64 flex items-center justify-center text-brand-text/50">Loading content...</div>}>
             <ServiceZoneMap />
-
-            {/* 10. FAQ (Objection Handling) */}
             <FAQSection />
-
-            {/* 11. Contact (Final CTA) */}
             <ContactSection />
           </Suspense>
         )}
       </main>
 
-      {loadHeavy && (
+      {loadLevel4 && (
         <Suspense fallback={<div />}>
           {/* Footer */}
           <Footer />

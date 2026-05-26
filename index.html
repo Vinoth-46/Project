@@ -134,6 +134,15 @@
         .initial-loader-text { color: #ffffff; font-size: 24px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin: 0; }
         .initial-loader-subtext { color: #FACC15; font-size: 14px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 8px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-slide-in {
+          animation: fadeSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards;
+          opacity: 0;
+          will-change: transform, opacity;
+        }
       </style>
       <div class="initial-loader">
         <div class="initial-loader-spinner"></div>
