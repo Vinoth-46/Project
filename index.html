@@ -16,6 +16,7 @@
     
     <link rel="preload" as="image" href="/hero-mobile.webp" media="(max-width: 1024px)" fetchpriority="high" />
     <link rel="preload" as="image" href="/hero-new-tropical.webp" media="(min-width: 1025px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/gst-image.webp" fetchpriority="high" />
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
@@ -157,7 +158,6 @@
       ['scroll','click','keydown','touchstart'].forEach(function(e){
         addEventListener(e,loadGA,{once:true,passive:true});
       });
-      setTimeout(loadGA,5000);
     </script>
   </body>
 </html>

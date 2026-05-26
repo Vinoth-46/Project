@@ -79,6 +79,7 @@ export default function HeroSection() {
             width="80"
             height="80"
             loading="eager"
+            fetchPriority="high"
             className="relative w-14 h-14 md:w-20 md:h-20 object-contain mix-blend-screen brightness-[1.3] drop-shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-transform duration-300 group-hover:scale-105"
           />
         </div>

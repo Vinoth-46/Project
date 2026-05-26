@@ -29,27 +29,41 @@ export default function Navbar() {
 
       setIsScrolled(scrollY > 60);
       setScrollProgress((scrollY / (documentHeight - windowHeight)) * 100);
-
-      // Don't update active section while programmatic scroll is happening
-      if (isNavigating) return;
-
-      // Find active section — iterate forward, pick the last one whose top is above threshold
-      let current = 'home';
-      for (const link of navLinks) {
-        const id = link.href.replace('#', '');
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150) {
-            current = id;
-          }
-        }
-      }
-      setActiveSection(current);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isNavigating) return;
+
+    const observerOptions = {
+      root: null, // viewport
+      rootMargin: '-30% 0px -40% 0px', // focused in the middle-top area of the screen
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          if (id) {
+            setActiveSection(id);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    navLinks.forEach((link) => {
+      const id = link.href.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, [isNavigating]);
 
   const scrollToSection = useCallback((href: string) => {
