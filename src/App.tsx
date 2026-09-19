@@ -1,7 +1,6 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
-import CursorGlow from './components/CursorGlow';
 
 // Lazy loaded below-the-fold components
 const AboutSection = lazy(() => import('./sections/AboutSection'));
@@ -38,9 +37,6 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-brand-primary text-brand-text">
-      {/* Interactive Cursor Glow */}
-      <CursorGlow />
-
       {/* Navigation */}
       <Navbar />
 

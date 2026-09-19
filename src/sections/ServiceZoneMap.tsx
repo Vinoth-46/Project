@@ -51,9 +51,15 @@ function LeafletMap() {
       });
       mapInstanceRef.current = map;
 
-      // Cyber-Tactical Dark Tiles (CartoDB Dark Matter with CSS Filter)
-      const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      // Cyber-Tactical Dark Tiles (CartoDB Dark Matter with API Key & CSS Filter)
+      const cartoKey = import.meta.env.VITE_CARTO_API_KEY;
+      const tileUrl = cartoKey
+        ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key=${cartoKey}`
+        : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+
+      const tiles = L.tileLayer(tileUrl, {
         maxZoom: 19,
+        subdomains: 'abcd',
         alt: 'Dark themed map tile showing service coverage',
         title: 'Dark themed map tile showing service coverage',
       } as any);
