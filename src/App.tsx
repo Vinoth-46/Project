@@ -1,6 +1,7 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
+import { initAnalyticsListeners } from './lib/analytics';
 
 // Lazy loaded below-the-fold components
 const AboutSection = lazy(() => import('./sections/AboutSection'));
@@ -33,6 +34,12 @@ function App() {
       clearTimeout(t3);
       clearTimeout(t4);
     };
+  }, []);
+
+  // Track scroll-to-bottom, WhatsApp/Call clicks, and phone number copying
+  useEffect(() => {
+    const cleanup = initAnalyticsListeners();
+    return cleanup;
   }, []);
 
   return (

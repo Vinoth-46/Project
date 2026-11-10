@@ -139,16 +139,11 @@ export default function HeroSection() {
             </motion.div>
 
             {/* Main Headline — Authority + Loss Aversion */}
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
               <span className="text-white drop-shadow-sm font-outfit uppercase tracking-tighter decoration-brand-accent/30 decoration-2 underline-offset-8">Don&apos;t Risk Your</span>
               <br />
               <span className="text-brand-accent font-instrument italic font-normal drop-shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-[linear-gradient(110deg,#FACC15,45%,#fff,55%,#FACC15)] bg-[length:200%_100%] bg-clip-text text-transparent pb-1">Dream Home.</span>
-            </motion.h1>
+            </h1>
 
             {/* Loss Aversion Hook */}
             <motion.div

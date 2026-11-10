@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useAvatarStore } from '../store/avatarStore'
 import RobotAvatar from './3d/RobotAvatar'
 import { useDeviceTier } from '../hooks/useDeviceTier'
+import { sendChatMessage } from '../lib/chatService'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -49,22 +50,10 @@ export default function ChatBot() {
     setAvatarMood('thinking')
 
     try {
-      const response = await fetch('/.netlify/functions/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: updatedMessages.map(m => ({ role: m.role, content: m.content }))
-        })
-      })
-
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-
-      const data = await response.json()
-      const reply = data.choices?.[0]?.message?.content || "I couldn't get a response. Please try again."
+      const reply = await sendChatMessage(updatedMessages)
       setMessages((prev: Message[]) => [...prev, { role: 'assistant', content: reply }])
       setAvatarMood('idle')
     } catch (err: any) {
-      // Chat error: handle silently or show UI error
       setMessages((prev: Message[]) => [...prev, { 
         role: 'assistant', 
         content: "I'm having trouble connecting right now. Please call us directly at +91 83440 51846 or message us on WhatsApp for immediate assistance." 
